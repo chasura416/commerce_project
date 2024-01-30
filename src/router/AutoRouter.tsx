@@ -13,7 +13,7 @@ const AutoRouter = () => {
               path={route.path}
               element={
                 route.withAuthorization ? (
-                  <Authorization isAuthenticated={isAuthenticated} redirectTo="/account/login">
+                  <Authorization isAuthenticated={isAuthenticated} redirectTo="/login">
                     {route.element}
                   </Authorization>
                 ) : (
