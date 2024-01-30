@@ -1,10 +1,12 @@
+import { Navigate } from "react-router-dom";
+
 interface AuthorizationProps {
   redirectTo: string;
   children: React.ReactNode;
 }
 const isAuthenticated: string | null = localStorage.getItem('token');
 
-const Authorization = ({
+export const Authorization = ({
   redirectTo,
   children,
 }: AuthorizationProps) => {
@@ -14,3 +16,4 @@ const Authorization = ({
     return <Navigate to={redirectTo} />;
   }
 };
+

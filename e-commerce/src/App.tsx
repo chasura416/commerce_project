@@ -1,4 +1,7 @@
-import './App.css';
+import "./App.css";
+
+import { useNavigate } from "react-router-dom";
+import RouterInfo from "./router/RouterInfo";
 
 import {
   AlertDialog,
@@ -10,27 +13,28 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+} from "@/components/ui/alert-dialog";
 
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 function App() {
+  const Navigate = useNavigate();
+  function handleClick() {
+    Navigate("/login");
+  }
+
   return (
     <div className="w-full h-screen flex flex-col justify-start items-center">
-      <div className='flex gap-3'>
-        <div>
+      <div className="flex gap-3">
+        <div className="hover:bg-red cursor-pointer" onClick={handleClick}>
           로그인
         </div>
-        <div>
-          장바구니
-        </div>
+        <div>장바구니</div>
       </div>
       <Alert>
         <AlertTitle>안녕하세요 수강생 여러분 반갑습니다.</AlertTitle>
-        <AlertDescription>
-          항해99 취업 리부트 프로그램에 오신걸 환영합니다.
-        </AlertDescription>
+        <AlertDescription>항해99 취업 리부트 프로그램에 오신걸 환영합니다.</AlertDescription>
       </Alert>
 
       <AlertDialog>
