@@ -1,16 +1,30 @@
-# commerce_project
+# React + TypeScript + Vite
 
-## 프로젝트 소개
-프론트엔드 1인으로 진행하는 e-commerce Project 입니다.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 프로젝트 스택
+Currently, two official plugins are available:
 
-## 🚀  Stacks
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnL6RSvqGaQKadF4Q5q2rnCpSrFH1atFw9eVYNarpROZUrqbbtuducsFRacmVkd28DKWw&usqp=CAU" alt="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnL6RSvqGaQKadF4Q5q2rnCpSrFH1atFw9eVYNarpROZUrqbbtuducsFRacmVkd28DKWw&usqp=CAU" width="40px" /> **React.js** <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566913457/noticon/eh4d0dnic4n1neth3fui.png" alt="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566913457/noticon/eh4d0dnic4n1neth3fui.png" width="40px" /> **TypeScript** <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1679535484/noticon/arqfoi6i7gubuqkpigud.png" alt="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1679535484/noticon/arqfoi6i7gubuqkpigud.png" width="40px" /> **Vite**
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+## Expanding the ESLint configuration
 
-## 🛠  Tools
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-<img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" width="40px" /> **Figma** <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" alt="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="40px" /> **Git**
+- Configure the top-level `parserOptions` property like this:
 
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
+```
 
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
