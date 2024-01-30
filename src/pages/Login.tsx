@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 
@@ -18,9 +18,15 @@ export const Login = () => {
     }
   };
 
-  const signUp = (event) => {
+  const signUp = (event: FormEvent) => {
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential)
+      })
+      .catch((error: unknown) => {
+        console.log(error)
+      })
   };
   const signIn = (event) => {
     event.preventDefault();
