@@ -18,6 +18,14 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 function App() {
   return (
     <div className="w-full h-screen flex flex-col justify-start items-center">
+      <div className='flex gap-3'>
+        <div>
+          로그인
+        </div>
+        <div>
+          장바구니
+        </div>
+      </div>
       <Alert>
         <AlertTitle>안녕하세요 수강생 여러분 반갑습니다.</AlertTitle>
         <AlertDescription>
