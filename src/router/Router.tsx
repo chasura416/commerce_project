@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 // import { Home, Login, Signup, MyPage, Cart } from "../pages";
 
-import { Home } from "@/pages/Home";
-import { Login } from "@/pages/Login";
-import { Signup } from "@/pages/Signup";
-import { MyPage } from "@/pages/MyPage";
-import { Cart } from "@/pages/Cart";
+import Home from "@/pages/Home";
+import Login from "@/pages/Login";
+import Signup from "@/pages/Signup";
+import MyPage from "@/pages/MyPage";
+import Cart from "@/pages/Cart";
+import NotFound from "@/pages/NotFound";
 
 
 const Router = () => {
@@ -16,6 +17,7 @@ const Router = () => {
       <Route path="/signup" element = {<Signup />} />
       <Route path="/mypage" element = {<MyPage />} />
       <Route path="/cart" element = {<Cart />} />
+      <Route path="/*" element = {<NotFound />} />
     </Routes>
   )
 }

@@ -7,7 +7,7 @@ import {
  } from "firebase/auth";
 import { auth } from "@/firebase";
 
-export const Login = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const user = auth.currentUser;
@@ -96,3 +96,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;
