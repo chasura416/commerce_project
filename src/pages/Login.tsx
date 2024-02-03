@@ -1,12 +1,24 @@
-import { FormEvent, useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { FormEvent, useEffect, useState } from "react";
+import { 
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+ } from "firebase/auth";
 import { auth } from "@/firebase";
 
-export const Login = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const user = auth.currentUser;
 
-  const onChange = (event) => {
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log("user", user);
+    })
+  }, [])
+
+  const onChange = (event: FormEvent) => {
     const {
       target: { name, value },
     } = event;
@@ -28,11 +40,27 @@ export const Login = () => {
         console.log(error)
       })
   };
-  const signIn = (event) => {
+  const signIn = async (event: FormEvent) => {
     event.preventDefault();
+    console.log("click signIn")
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      console.log(userCredential)
+    } catch (error) {
+      const errorCode = error.code
+      const errorMessage = error.message
+      console.log("error with signIn", errorCode, errorMessage)
+    }
   };
-  const logOut = (event) => {
+  const logOut = async (event: FormEvent) => {
     event.preventDefault();
+    console.log("click logOut")
+
+    await signOut(auth);
   };
 
   return (
@@ -68,3 +96,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;

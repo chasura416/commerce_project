@@ -1,7 +1,9 @@
 
 
-export const MyPage = () => {
+const MyPage = () => {
   return (
     <div>MyPage</div>
   )
 }
+
+export default MyPage

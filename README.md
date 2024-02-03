@@ -13,3 +13,17 @@
 ## 🛠  Tools
 
 <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" width="40px" /> **Figma** <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" alt="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="40px" /> **Git**
+
+
+## 프로젝트 실행방법
+
+### 프로젝트 의존성 설치  
+`yarn install`
+
+### 프로젝트 서버 실행  
+`yarn dev`
+
+### 프로젝트 빌드  
+`yarn build`
+=======
+
