@@ -6,6 +6,16 @@ import {
   signOut,
  } from "firebase/auth";
 import { auth } from "@/firebase";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -65,6 +75,20 @@ const Login = () => {
 
   return (
     <div className="App">
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Card Title</CardTitle>
+          <CardDescription>Card Description</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Card Content</p>
+        </CardContent>
+        <CardFooter>
+          <p>Card Footer</p>
+        </CardFooter>
+      </Card>
+
       <h2>로그인 페이지</h2>
       <form>
         <div>
