@@ -3,23 +3,22 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
-import Signup from "@/pages/Signup";
+import SignUp from "@/pages/SignUp";
 import MyPage from "@/pages/MyPage";
 import Cart from "@/pages/Cart";
 import NotFound from "@/pages/NotFound";
 
-
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element = {<Home />} />
-      <Route path="/login" element = {<Login />} />
-      <Route path="/signup" element = {<Signup />} />
-      <Route path="/mypage" element = {<MyPage />} />
-      <Route path="/cart" element = {<Cart />} />
-      <Route path="/*" element = {<NotFound />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/mypage" element={<MyPage />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
-  )
-}
+  );
+};
 
 export default Router;
