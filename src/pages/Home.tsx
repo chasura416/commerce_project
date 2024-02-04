@@ -22,6 +22,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const Home = () => {
   return (
     <div className="w-full flex flex-col">
@@ -35,7 +43,17 @@ const Home = () => {
       </div>
       <div className="flex">
         <div className="w-100 border-b">사이드 카테고리</div>
-        <div className="w-400 border-b">가운데 슬라이드</div>
+        <div className="w-700 border-b">
+          <Carousel>
+            <CarouselContent>
+              <CarouselItem>...</CarouselItem>
+              <CarouselItem>...</CarouselItem>
+              <CarouselItem>...</CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
       </div>
       <div>상품목록</div>
       <Card>
