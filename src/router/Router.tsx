@@ -6,6 +6,7 @@ import Login from "@/pages/Login";
 import SignUp from "@/pages/SignUp";
 import MyPage from "@/pages/MyPage";
 import Cart from "@/pages/Cart";
+import ProductUpload from "@/pages/ProductUpload";
 import NotFound from "@/pages/NotFound";
 
 const Router = () => {
@@ -16,6 +17,7 @@ const Router = () => {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/upload" element={<ProductUpload />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );

@@ -30,32 +30,31 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { useState } from "react";
-import { IoSearchSharp } from "react-icons/io5";
-import logo from "../assets/pslogo.png"
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebase";
+import Login from "./Login";
+import Todo from "./Todo";
+import FileUpload from "./FileUpload";
+import Header from "@/layout/Header";
 
 const Home = () => {
-  const [ search, setSearch ] = useState("");
-  const onChange = (e) => {
-    setSearch(e.target.value)
-  }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log("user", user);
+    });
+  },[]);
+
+
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col m-5">
+      <Header />
       <div className="flex justify-between m-5">
         <div>
           <img src="/src/assets/pslogo.png" alt="logo" width={64} height={1}/>
         </div>
-        {/* <div className="flex">
-            <input 
-              className="border"
-              type = "search" 
-              placeholder="search"
-              value={search} 
-              onChange={onChange}
-            />
-          <IoSearchSharp />
-        </div> */}
         <form className="mt-2">   
           <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div className="relative">
@@ -72,7 +71,7 @@ const Home = () => {
           <li>로그인</li>
           <li>마이페이지</li>
         </ul>
-      </div>
+      hea</div>
       <div className="flex justify-around">
         <div className="w-100 border-b">사이드 카테고리</div>
         <div className="w-100">
@@ -101,6 +100,17 @@ const Home = () => {
         </CardFooter>
       </Card>
 
+
+      <Login />
+      <br />
+      <hr />
+      <Todo />
+      <br />
+      <hr />
+      <FileUpload />
+
+      <br />
+      <hr />
       <h1>Home</h1>
       <p>가장 먼저 보여야함</p>
       <Alert>

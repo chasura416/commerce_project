@@ -1,59 +1,60 @@
-import { useState, useEffect } from "react";
-import { addDoc, collection, getDocs, query } from "firebase/firestore";
-import TodoItem from "./TodoItem";
-import { db } from "@/firebase";
-import Header from "@/layout/Header";
+import { useState, useEffect } from "react"
+import TodoItem from "./TodoItem"
+import { addDoc, collection, getDocs, query } from "firebase/firestore"
+import { db } from "@/firebase"
 
-const ProductUpload = () => {
-  const [todos, setTodos] = useState([
+const Todo = () => {
+  
+  const [ todos, setTodos ] = useState([
     { text: "할 일 1", isDone: false, id: 1 },
     { text: "할 일 2", isDone: true, id: 2 },
   ]);
-
-  const [text, setText] = useState("");
-
+  
+  const [ text, setText ] = useState("");
+  
   const onChange = (event) => {
     const {
-      target: { name, value },
+      target: {name, value},
     } = event;
     if (name === "text") {
       setText(value);
     }
-  };
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "todos"));
       const querySnapshot = await getDocs(q);
-
+  
       const initialTodos = [];
-
+  
       querySnapshot.forEach((doc) => {
-        initialTodos.push({ id: doc.id, ...doc.data() });
-      });
-
+        initialTodos.push({ id: doc.id, ...doc.data() })
+      })
+  
       setTodos(initialTodos);
-    };
-
+    }
+  
     fetchData();
   }, []);
 
   const addTodo = async (event) => {
     event.preventDefault();
     const newTodo = { text: text, isDone: false };
-
+    
     const collectionRef = collection(db, "todos");
     const { id } = await addDoc(collectionRef, newTodo);
 
     setTodos((prev) => {
-      return [...todos, { ...newTodo, id }];
-    });
+      return [...todos, {...newTodo, id } ];
+    })
     setText("");
-  };
+
+  }
+
 
   return (
     <div>
-      <Header />
       <h2>할 일 컴포넌트</h2>
       <form>
         <div>
@@ -66,8 +67,10 @@ const ProductUpload = () => {
             onChange={onChange}
             required
           ></input>
-          <button className="border" onClick={addTodo}>
-            추가
+          <button 
+            className="border"
+            onClick={addTodo}>
+              추가
           </button>
         </div>
       </form>
@@ -83,8 +86,8 @@ const ProductUpload = () => {
         .map((todo) => {
           return <TodoItem key={todo.id} todos={todos} todo={todo} setTodos={setTodos} />;
         })}
-    </div>
-  );
-};
+  </div>
+);
+}
 
-export default ProductUpload;
+export default Todo
