@@ -30,16 +30,30 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import { useState } from "react";
+import { IoSearchSharp } from "react-icons/io5";
+
+
 const Home = () => {
+  const [ search, setSearch ] = useState("");
+  const onChange = (e) => {
+    setSearch(e.target.value)
+  }
+
   return (
     <div className="w-full flex flex-col">
       <div className="flex justify-between">
         <div>로고</div>
-        <div>검색 창</div>
+        <div className="flex">
+            <input 
+              className="border"
+              type = "text" value={search} onChange={onChange}/>
+          <IoSearchSharp />
+        </div>
         <div className="flex gap-3">
           <div>로그인</div>
           <div>마이페이지</div>
-        </div>
+        i</div>
       </div>
       <div className="flex">
         <div className="w-100 border-b">사이드 카테고리</div>
