@@ -37,6 +37,7 @@ import Login from "./Login";
 import Todo from "./Todo";
 import FileUpload from "./FileUpload";
 import Header from "@/layout/Header";
+import SellerPage from "./SellerPage";
 
 const Home = () => {
 
@@ -45,9 +46,9 @@ const Home = () => {
       console.log("user", user);
     });
   },[]);
-
-
-
+  
+  
+  
   return (
     <div className="w-full flex flex-col m-5">
       <Header />
@@ -65,6 +66,7 @@ const Home = () => {
           </Carousel>
         </div>
       </div>
+
       <div>상품목록</div>
       <Card>
         <CardHeader>
@@ -79,7 +81,10 @@ const Home = () => {
         </CardFooter>
       </Card>
 
-      <Login />
+      <SellerPage />
+
+
+      {/* <Login />
       <br />
       <hr />
       <Todo />
@@ -114,7 +119,7 @@ const Home = () => {
             <AlertDialogAction>완료</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog>
+      </AlertDialog> */}
     </div>
   );
 };
