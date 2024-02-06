@@ -119,7 +119,9 @@ const Login = () => {
           </CardContent>
           <CardFooter className="justify-center">
             <div className="space-x-5">
-            <button onClick={signUp}>회원가입</button>
+            <Link to="/signup">
+              <button>회원가입</button>
+            </Link>
 
             <Link to = "/">
               <button onClick={signIn}>로그인</button>
