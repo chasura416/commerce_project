@@ -3,19 +3,15 @@ import { useState, useEffect } from "react";
 import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
-import TodoItem from "./TodoItem";
-import { db } from "@/firebase";
+import { db, storage, auth } from "@/firebase";
 import Header from "@/layout/Header";
-import { FileInput } from "lucide-react";
+// import { timeStamp } from "console";
 
 const ProductUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [todos, setTodos] = useState([
-    { text: "할 일 1", isDone: false, id: 1 },
-    { text: "할 일 2", isDone: true, id: 2 },
-  ]);
-
   const [text, setText] = useState("");
+
+  const [products, setProducts] = useState([]);
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -42,46 +38,7 @@ const ProductUpload = () => {
         console.log("failed");
       });
   };
-
-  const onChange = (event) => {
-    const {
-      target: { name, value },
-    } = event;
-    if (name === "text") {
-      setText(value);
-    }
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const q = query(collection(db, "todos"));
-      const querySnapshot = await getDocs(q);
-
-      const initialTodos = [];
-
-      querySnapshot.forEach((doc) => {
-        initialTodos.push({ id: doc.id, ...doc.data() });
-      });
-
-      setTodos(initialTodos);
-    };
-
-    fetchData();
-  }, []);
-
-  const addTodo = async (event) => {
-    event.preventDefault();
-    const newTodo = { text: text, isDone: false };
-
-    const collectionRef = collection(db, "todos");
-    const { id } = await addDoc(collectionRef, newTodo);
-
-    setTodos((prev) => {
-      return [...todos, { ...newTodo, id }];
-    });
-    setText("");
-  };
-
+  
   const selectImg = (e) => {
     const reader = new FileReader();
     const theFile = e.current.files[0];
@@ -93,13 +50,58 @@ const ProductUpload = () => {
       setSelectedFile(result);
     }
   }
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+    if (name === "text") {
+      setText(value);
+    }
+  };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const q = query(collection(db, "Products"));
+      const querySnapshot = await getDocs(q);
+
+      const initialProducts = [];
+
+      querySnapshot.forEach((doc) => {
+        initialProducts.push({ id: doc.id, ...doc.data() });
+      });
+
+      setProducts(initialProducts);
+    };
+
+    fetchData();
+  }, []);
+
+
+  const addProduct = async (event) => {
+    event.preventDefault();
+    const newProducts = { 
+      title: text,
+      date: timeStamp,
+      price: text, 
+      like: false 
+    };
+
+    const collectionRef = collection(db, "Products");
+    const { id } = await addDoc(collectionRef, newProducts);
+
+    setProducts((prev) => {
+      return [...products, { ...newProducts, id }];
+    });
+    setText("");
+  };
+
 
   return (
     <div>
       <Header />
       <h2>판매 글 작성</h2>
-      <form>
-        <div>
+      <form className="p-10">
+        <div className="flex flex-col border p-10 h-full">
           <img src={selectedFile} />
           <input className="border" type="file" onChange={handleFileSelect} />
           <label>제목 : </label>
@@ -111,25 +113,13 @@ const ProductUpload = () => {
             onChange={onChange}
             required
           ></input>
-          <button className="border" onClick={addTodo}>
-            추가
-          </button>
           <label>내용 : </label>
-          <textarea className="border" />
+          <textarea className="border min-h-52" />
+          <button className="border" onClick={addProduct}>
+            작성하기
+          </button>
         </div>
       </form>
-      <h3>Working</h3>
-      {todos
-        .filter((todo) => !todo.isDone)
-        .map((todo) => {
-          return <TodoItem key={todo.id} todos={todos} todo={todo} setTodos={setTodos} />;
-        })}
-      <h3>Done</h3>
-      {todos
-        .filter((todo) => todo.isDone)
-        .map((todo) => {
-          return <TodoItem key={todo.id} todos={todos} todo={todo} setTodos={setTodos} />;
-        })}
     </div>
   );
 };

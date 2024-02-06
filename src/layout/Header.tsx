@@ -68,6 +68,9 @@ const Header = () => {
             <li>로그인</li> 
           </Link>
         }
+        <Link to="/cart">
+          <li>장바구니</li>
+        </Link>
         <Link to="/mypage">
           <li>마이페이지</li>
         </Link>

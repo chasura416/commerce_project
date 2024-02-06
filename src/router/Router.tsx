@@ -8,6 +8,8 @@ import MyPage from "@/pages/MyPage";
 import Cart from "@/pages/Cart";
 import ProductUpload from "@/pages/ProductUpload";
 import NotFound from "@/pages/NotFound";
+import SellerPage from "@/pages/SellerPage";
+import { ProductDetail } from "@/pages";
 
 const Router = () => {
   return (
@@ -18,6 +20,8 @@ const Router = () => {
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/upload" element={<ProductUpload />} />
+      <Route path="/productdetail" element={<ProductDetail />} />
+      <Route path="/sellerpage" element={<SellerPage />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );
