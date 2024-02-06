@@ -1,6 +1,9 @@
 
 
-export const ProductDetail = () => {
-  return <div>ProductDetail</div>;
-};
+const ProductDetail = () => {
+  return (
+    <div>ProductDetail</div>
+  )
+}
 
+export default ProductDetail

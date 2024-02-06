@@ -3,9 +3,10 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
-import SignUp from "@/pages/SignUp";
+import SignUpPage from "@/pages/SignUpPage";
 import MyPage from "@/pages/MyPage";
 import Cart from "@/pages/Cart";
+import ProductUpload from "@/pages/ProductUpload";
 import NotFound from "@/pages/NotFound";
 
 const Router = () => {
@@ -13,9 +14,10 @@ const Router = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signup" element={<SignUpPage />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/upload" element={<ProductUpload />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );
