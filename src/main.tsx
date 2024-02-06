@@ -9,11 +9,14 @@ console.log("app", app)
 
 
 import { BrowserRouter } from 'react-router-dom'
+// import AuthProvider from './apis/AuthContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    {/* <AuthProvider> */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    {/* </AuthProvider> */}
   </React.StrictMode>,
 )

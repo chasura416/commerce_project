@@ -6,30 +6,50 @@ import {
 } from "firebase/auth";
 import { ReactNode, useState, createContext, useEffect } from "react"
 import { auth } from "@/firebase";
-
-export const AuthContext = createContext(null);
+import { User } from "firebase/auth";
 
 interface Props {
   children: ReactNode;
 }
 
-const AuthProvider = ({children}: ReactNode) => {
-  const [ user, setUser ] = useState(null)
-  const [loading, setLoading] = useState(true);
+interface AuthContextProps {
+  user: User;
+  loading: boolean;
+}
 
-  const createUser = (email: string, password) => {
+export const AuthContext = createContext({
+  createUser: (_email: string, _password: string) => {},
+  user: localStorage.getItem("user"),
+  loginUser: (_email: string, _password: string) => {},
+  logOut: () => {},
+  loading: true,
+});
+
+import { useNavigate } from "react-router-dom";
+
+const AuthProvider = ({children}: Props) => {
+  const [ user, setUser ] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const createUser = (email: string, password: string) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const loginUser = (email: string, password) => {
+  const loginUser = (email: string, password: string) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    localStorage.setItem("user", "login")
+    signInWithEmailAndPassword(auth, email, password);
   };
 
   const logOut = () => {
     setLoading(true);
-    return signOut(auth);
+    setUser(null);
+    signOut(auth);
+    navigate("/login"); // Redirect to the login page after logout
+    localStorage.removeItem("user")
+    
   };
 
   useEffect(() => {
@@ -44,7 +64,7 @@ const AuthProvider = ({children}: ReactNode) => {
   }, []);
 
   const authValue = {
-    createUser,
+    createUser, 
     user,
     loginUser,
     logOut,

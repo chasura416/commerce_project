@@ -1,8 +1,11 @@
-
+import Header from "@/layout/Header"
 
 const MyPage = () => {
   return (
-    <div>MyPage</div>
+    <div>
+     <Header />
+     My Page
+    </div>
   )
 }
 

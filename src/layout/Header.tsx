@@ -1,24 +1,24 @@
 import { useContext } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "@/apis/AuthContext";
 
 const Header = () => {
-  const navigate = useNavigate();
   const { user, logOut, loading } = useContext(AuthContext);
-
+  console.log(user)
   const handleSignOut = () => {
     logOut()
-      .then(() => {
-        console.log("User logged out successfully");
-        navigate("/login"); // Redirect to the login page after logout
-      })
-      .catch((error) => console.error(error));
+    // .then(() => {
+    //   console.log("User logged out successfully");
+    //   })
+    //   .catch((error: unknown) => console.error(error));
   };
 
   return (
     <div className="flex justify-between m-5">
       <div>
-        <img src="/src/assets/pslogo.png" alt="logo" width={64} height={1} />
+        <Link to= "/">
+          <img src="/src/assets/pslogo.png" alt="logo" width={64} height={1} />
+        </Link>
       </div>
       <form className="mt-2">
         <label
@@ -38,9 +38,9 @@ const Header = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
               />
             </svg>
@@ -60,9 +60,17 @@ const Header = () => {
           </button>
         </div>
       </form>
-      <ul className="flex space-x-5 mt-4">
-        <li>로그인</li>
-        <li>마이페이지</li>
+      <ul className="flex space-x-5 mt-4 cursor-pointer">
+        {user ?
+          <li onClick={handleSignOut}>로그아웃</li>
+          : 
+          <Link to="/login">
+            <li>로그인</li> 
+          </Link>
+        }
+        <Link to="/mypage">
+          <li>마이페이지</li>
+        </Link>
       </ul>
     </div>
   );

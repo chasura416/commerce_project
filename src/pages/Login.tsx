@@ -17,11 +17,14 @@ import {
    CardTitle,
  } from "@/components/ui/card"
  
+import Header from "@/layout/Header";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const user = auth.currentUser;
+  const navigate = useNavigate();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -67,6 +70,7 @@ const Login = () => {
         password
       )
       console.log("user with signIn", userCredential.user)
+      navigate("/");
     } catch (error) {
       const errorCode = error.code
       const errorMessage = error.message
@@ -82,6 +86,7 @@ const Login = () => {
 
   return (
     <div className="w-800">
+      <Header />
       <form>
         <Card>
           <CardHeader className="justify-center">
@@ -115,7 +120,11 @@ const Login = () => {
           <CardFooter className="justify-center">
             <div className="space-x-5">
             <button onClick={signUp}>회원가입</button>
-            <button onClick={signIn}>로그인</button>
+
+            <Link to = "/">
+              <button onClick={signIn}>로그인</button>
+            </Link>
+
             <button onClick={logOut}>로그아웃</button>
             </div>
           </CardFooter>
