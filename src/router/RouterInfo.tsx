@@ -4,7 +4,7 @@ import SignUp from "@/pages/SignUp";
 import Cart from "@/pages/Cart";
 import ProductDetail from "@/pages/ProductDetail";
 import MyPage from "@/pages/MyPage";
-import Seller from "@/pages/Seller";
+import Seller from "@/pages/SellerPage";
 
 type RouterItem = {
   path: string;
