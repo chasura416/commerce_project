@@ -4,7 +4,7 @@ import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
 import TodoItem from "./TodoItem";
-import { db } from "@/firebase";
+import { db, storage, auth } from "@/firebase";
 import Header from "@/layout/Header";
 import { FileInput } from "lucide-react";
 

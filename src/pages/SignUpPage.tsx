@@ -144,7 +144,7 @@ const SignUpPage = () => {
             </div>
             {passwordErr && <p className="text-red-500">{passwordMessage}</p>}
             {passwordErr === false && <p className="text-blue-500">{passwordMessage}</p>}
-            <div>
+            {/* <div>
               <label>비밀번호 확인 : </label>
               <input
                 className="border pl-2"
@@ -155,7 +155,7 @@ const SignUpPage = () => {
                 onChange={onChange}
                 required
               />
-            </div>
+            </div> */}
           </CardContent>
           <CardFooter className="justify-center">
             <div className="space-x-5">
@@ -172,44 +172,6 @@ const SignUpPage = () => {
               </Button>
             </div>
           </CardFooter>
-        </Card>
-      </form>
-      <form>
-      <h2>로그인 페이지</h2>
-        <Card>
-        <CardHeader className="justify-center">
-            <CardTitle>회원가입</CardTitle>
-            <CardDescription>회원가입 하씨오</CardDescription>
-          </CardHeader>
-        <div>
-          <label>이메일 : </label>
-          <input type="email" value={email} name="email" onChange={onChange} required></input>
-        </div>
-        <div>
-          <label>비밀번호 : </label>
-          <input
-            type="password"
-            value={password}
-            name="password"
-            onChange={onChange}
-            required
-          ></input>
-        </div>
-        <div className="flex gap-3">
-          <Link to="/">
-            <button onClick={signUp}>회원가입</button>
-          </Link>
-          <Button variant="outline">Button</Button>
-          <button
-            onClick={() => {
-              navigate("/");
-            }}
-            >
-            취소
-          </button>
-          {/* <button onClick={signIn}>로그인</button>
-        <button onClick={logOut}>로그아웃</button> */}
-        </div>
         </Card>
       </form>
     </div>
