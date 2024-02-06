@@ -100,8 +100,8 @@ const ProductUpload = () => {
     <div>
       <Header />
       <h2>판매 글 작성</h2>
-      <form>
-        <div>
+      <form className="p-10">
+        <div className="flex flex-col border p-10 h-full">
           <img src={selectedFile} />
           <input className="border" type="file" onChange={handleFileSelect} />
           <label>제목 : </label>
@@ -113,11 +113,11 @@ const ProductUpload = () => {
             onChange={onChange}
             required
           ></input>
-          <button className="border" onClick={addProduct}>
-            추가
-          </button>
           <label>내용 : </label>
-          <textarea className="border" />
+          <textarea className="border min-h-52" />
+          <button className="border" onClick={addProduct}>
+            작성하기
+          </button>
         </div>
       </form>
     </div>
