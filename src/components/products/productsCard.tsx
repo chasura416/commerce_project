@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const productsCard = () => {
+const ProductsCard = () => {
   return (
     <div>
       <Card>
@@ -23,7 +23,7 @@ const productsCard = () => {
         </CardFooter>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default productsCard
+export default ProductsCard;

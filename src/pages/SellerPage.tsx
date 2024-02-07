@@ -1,5 +1,6 @@
 import Header from "@/layout/Header"
 import { db,storage, auth } from "@/firebase"
+import CartItem from "@/components/seller/CartItem"
 
 // 상품은 프로덕트카드에 따로 빼서 컴포넌트화 할 것.
 const SellerPage = () => {
@@ -15,50 +16,10 @@ const SellerPage = () => {
         <li>상품 목록</li>
       </ul>
     </nav>
-    <div className="mt-10">
-      <div className="flex p-10">
-        <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer"/>
-        <div className="flex-grow-1 p-4">
-          <div className="text-lg">상품 제목</div>
-          <div className="text-sm text-gray-500">2024년 2월 7일</div>
-          <div className="text-base">2000원</div>
-          <div className="">좋아요 버튼</div>
-        </div>
-      </div>
-    </div>
-    <div className="mt-10">
-      <div className="flex p-10">
-        <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer"/>
-        <div className="flex-grow-1 p-4">
-          <div className="text-lg">상품 제목</div>
-          <div className="text-sm  text-gray-500">2024년 2월 7일</div>
-          <div className="text-base">2000원</div>
-          <div className="">좋아요 버튼</div>
-        </div>
-      </div>
-    </div>
-    <div className="mt-10">
-      <div className="flex p-10">
-        <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer"/>
-        <div className="flex-grow-1 p-4">
-          <div className="text-lg">상품 제목</div>
-          <div className="text-sm  text-gray-500">2024년 2월 7일</div>
-          <div className="text-base">2000원</div>
-          <div className="">좋아요 버튼</div>
-        </div>
-      </div>
-    </div>
-    <div className="mt-10">
-      <div className="flex p-10">
-        <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer"/>
-        <div className="flex-grow-1 p-4">
-          <div className="text-lg">상품 제목</div>
-          <div className="text-sm  text-gray-500">2024년 2월 7일</div>
-          <div className="text-base">2000원</div>
-          <div className="">좋아요 버튼</div>
-        </div>
-      </div>
-    </div>
+    <CartItem />
+    <CartItem />
+    <CartItem />
+    <CartItem />
     </>
   )
 }
