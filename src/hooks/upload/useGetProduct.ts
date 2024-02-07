@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
 
-import { addDoc, collection, getDocs, query } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
 import { db, storage, auth } from "@/firebase";
-// import { timeStamp } from "console";
 
-const useFileUpload = () => {
+interface products {
+  id: string;
+  like: boolean;
+  price: number;
+  title: string;
+  date: Timestamp;
+}
+
+
+const useGetProduct = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [text, setText] = useState("");
-
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<products>([]);
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -26,38 +33,7 @@ const useFileUpload = () => {
     console.log(downloadURL);
   };
 
-  const deleteImage = async () => {
-    const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
 
-    await deleteObject(imageRef)
-      .then(() => {
-        console.log("success");
-      })
-      .catch((error) => {
-        console.log("failed");
-      });
-  };
-  
-  const selectImg = (e) => {
-    const reader = new FileReader();
-    const theFile = e.current.files[0];
-    reader.readAsDataURL(theFile);
-    reader.onload = (finishedEvent) => {
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
-      setSelectedFile(result);
-    }
-  }
-  const onChange = (event) => {
-    const {
-      target: { name, value },
-    } = event;
-    if (name === "text") {
-      setText(value);
-    }
-  };
-  
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "Products"));
@@ -70,24 +46,23 @@ const useFileUpload = () => {
       });
 
       setProducts(initialProducts);
-      console.log(initialProducts)
     };
 
+    
     fetchData();
   }, []);
-
-
+  console.log(products)
+  
   const addProduct = async (event) => {
     event.preventDefault();
     const newProducts = { 
       title: text,
-      // date: timeStamp,
+      date: Timestamp,
       price: Number, 
       like: false 
     };
 
     const collectionRef = collection(db, "Products");
-    console.log(collectionRef)
     const { id } = await addDoc(collectionRef, newProducts);
 
     setProducts((prev) => {
@@ -96,8 +71,7 @@ const useFileUpload = () => {
     setText("");
   };
 
-  return {selectedFile, text, products, handleFileSelect, handleUpload, deleteImage, selectImg, onChange, addProduct }
+  return{addProduct, products}
+}
 
-};
-
-export default useFileUpload;
+export default useGetProduct

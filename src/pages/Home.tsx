@@ -24,7 +24,6 @@ const Home = () => {
       </div>
       <div>상품목록</div>
       <ProductsCard />
-      <SellerPage />
     </div>
   );
 };
