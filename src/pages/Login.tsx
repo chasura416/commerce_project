@@ -85,7 +85,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-800">
+    <>
       <Header />
       <form>
         <Card>
@@ -132,7 +132,7 @@ const Login = () => {
           </CardFooter>
         </Card>
       </form>
-    </div>
+    </>
   );
 };
 
