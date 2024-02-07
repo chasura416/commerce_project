@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "@/apis/AuthContext";
+import { AuthContext } from "@/context/auth/AuthContext";
 
 const Header = () => {
   const { user, logOut, loading } = useContext(AuthContext);
-  console.log(user)
+  console.log(user);
   const handleSignOut = () => {
-    logOut()
+    logOut();
     // .then(() => {
     //   console.log("User logged out successfully");
     //   })
@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <div className="flex justify-between m-5">
       <div>
-        <Link to= "/">
+        <Link to="/">
           <img src="/src/assets/pslogo.png" alt="logo" width={64} height={1} />
         </Link>
       </div>
@@ -61,13 +61,13 @@ const Header = () => {
         </div>
       </form>
       <ul className="flex space-x-5 mt-4 cursor-pointer">
-        {user ?
+        {user ? (
           <li onClick={handleSignOut}>로그아웃</li>
-          : 
+        ) : (
           <Link to="/login">
-            <li>로그인</li> 
+            <li>로그인</li>
           </Link>
-        }
+        )}
         <Link to="/cart">
           <li>장바구니</li>
         </Link>

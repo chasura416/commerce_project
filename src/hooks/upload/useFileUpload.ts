@@ -4,10 +4,9 @@ import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
 import { db, storage, auth } from "@/firebase";
-import Header from "@/layout/Header";
 // import { timeStamp } from "console";
 
-const ProductUpload = () => {
+const useFileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [text, setText] = useState("");
 
@@ -97,33 +96,8 @@ const ProductUpload = () => {
     setText("");
   };
 
+  return {selectedFile, text, handleFileSelect,handleUpload, deleteImage, selectImg, onChange, addProduct, products }
 
-  return (
-    <div>
-      <Header />
-      <h2>판매 글 작성</h2>
-      <form className="p-10">
-        <div className="flex flex-col border p-10 h-full">
-          <img src={selectedFile} />
-          <input className="border" type="file" onChange={handleFileSelect} />
-          <label>제목 : </label>
-          <input
-            className="border"
-            type="text"
-            value={text}
-            name="text"
-            onChange={onChange}
-            required
-          ></input>
-          <label>내용 : </label>
-          <textarea className="border min-h-52" />
-          <button className="border" onClick={addProduct}>
-            작성하기
-          </button>
-        </div>
-      </form>
-    </div>
-  );
 };
 
-export default ProductUpload;
+export default useFileUpload;
