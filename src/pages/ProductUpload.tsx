@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 
-import { addDoc, collection, getDocs, query } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
 import { db, storage, auth } from "@/firebase";
 import Header from "@/layout/Header";
-// import { timeStamp } from "console";
 
 const ProductUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -82,7 +81,7 @@ const ProductUpload = () => {
     event.preventDefault();
     const newProducts = { 
       title: text,
-      // date: timeStamp,
+      date: Timestamp,
       price: Number, 
       like: false 
     };

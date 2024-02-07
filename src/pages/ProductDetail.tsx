@@ -10,7 +10,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const q = query(collection(db, "Products"));
+      const q = query(collection(db, `Products`));
       const querySnapshot = await getDocs(q);
 
       const initialProducts = [];
@@ -26,9 +26,7 @@ const ProductDetail = () => {
     fetchData();
   }, []);
 
-
-
-  console.log(products)
+  console.log(products[2])
 
   return (
     <>
