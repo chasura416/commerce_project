@@ -1,13 +1,40 @@
 import Header from "@/layout/Header"
 import { Button } from "@/components/ui/button"
+
+import { useState, useEffect } from "react"
+import { getDocs, collection, query } from "firebase/firestore"
 import { db, storage, auth } from "@/firebase"
 
 const ProductDetail = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const q = query(collection(db, "Products"));
+      const querySnapshot = await getDocs(q);
+
+      const initialProducts = [];
+
+      querySnapshot.forEach((doc) => {
+        initialProducts.push({ id: doc.id, ...doc.data() });
+      });
+
+      setProducts(initialProducts);
+      console.log(initialProducts)
+    };
+
+    fetchData();
+  }, []);
+
+
+
+  console.log(products)
+
   return (
     <>
       <Header />
       <div className="border">
-        <div>글 타이틀 (상품제목으로)</div>
+        <div>상품 글 디테일 (상품제목으로)</div>
         <div className="mt-3 ">
           <div className="flex justify-between p-10">
             <div className="flex">

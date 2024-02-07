@@ -71,6 +71,7 @@ const ProductUpload = () => {
       });
 
       setProducts(initialProducts);
+      console.log(initialProducts)
     };
 
     fetchData();
@@ -81,12 +82,13 @@ const ProductUpload = () => {
     event.preventDefault();
     const newProducts = { 
       title: text,
-      date: timeStamp,
-      price: text, 
+      // date: timeStamp,
+      price: Number, 
       like: false 
     };
 
     const collectionRef = collection(db, "Products");
+    console.log(collectionRef)
     const { id } = await addDoc(collectionRef, newProducts);
 
     setProducts((prev) => {

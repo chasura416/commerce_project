@@ -31,8 +31,9 @@ const Todo = () => {
       querySnapshot.forEach((doc) => {
         initialTodos.push({ id: doc.id, ...doc.data() })
       })
-  
       setTodos(initialTodos);
+      console.log(initialTodos)
+      console.log(querySnapshot)
     }
   
     fetchData();
@@ -44,13 +45,15 @@ const Todo = () => {
     
     const collectionRef = collection(db, "todos");
     const { id } = await addDoc(collectionRef, newTodo);
-
+    
     setTodos((prev) => {
       return [...todos, {...newTodo, id } ];
     })
     setText("");
-
+    
   }
+  const collectionRef = collection(db, "todos");
+  console.log(collectionRef.firestore)
 
 
   return (

@@ -84,7 +84,7 @@ const Home = () => {
       <SellerPage />
 
 
-      {/* <Login />
+      <Login />
       <br />
       <hr />
       <Todo />
@@ -119,7 +119,7 @@ const Home = () => {
             <AlertDialogAction>완료</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog> */}
+      </AlertDialog>
     </div>
   );
 };
