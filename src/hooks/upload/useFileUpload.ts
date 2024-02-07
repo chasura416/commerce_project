@@ -96,7 +96,7 @@ const useFileUpload = () => {
     setText("");
   };
 
-  return {selectedFile, text, handleFileSelect,handleUpload, deleteImage, selectImg, onChange, addProduct, products }
+  return {selectedFile, text, products, handleFileSelect, handleUpload, deleteImage, selectImg, onChange, addProduct }
 
 };
 
