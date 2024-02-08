@@ -18,6 +18,12 @@ const useGetProduct = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [text, setText] = useState("");
   const [products, setProducts] = useState<products>([]);
+  const [like, setLike] = useState<boolean>(false);
+
+
+  const handleLike = () => {
+    setLike(!like);
+  }
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -71,7 +77,7 @@ const useGetProduct = () => {
     setText("");
   };
 
-  return{addProduct, products}
+  return{addProduct, products, like, handleLike}
 }
 
 export default useGetProduct
