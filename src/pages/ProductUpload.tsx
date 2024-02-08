@@ -1,5 +1,6 @@
 import Header from "@/layout/Header";
 import useFileUpload from "@/hooks/upload/useFileUpload";
+import { Button } from "@/components/ui/button";
 
 const ProductUpload = () => {
   const {
@@ -33,9 +34,10 @@ const ProductUpload = () => {
           ></input>
           <label>내용 : </label>
           <textarea className="border min-h-52" />
-          <button className="border" onClick={addProduct}>
-            작성하기
-          </button>
+          <Button 
+            onClick={addProduct}>
+              작성하기
+          </Button>
         </div>
       </form>
     </div>

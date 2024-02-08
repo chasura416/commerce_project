@@ -10,8 +10,14 @@ import {
 import useGetProduct from "@/hooks/upload/useGetProduct";
 import dayjs from "dayjs";
 
+
 const ProductsCard = () => {
-  const { addProduct, products: products } = useGetProduct();
+  const { 
+    addProduct, 
+    products: products,
+    like,
+    handleLike, 
+  } = useGetProduct();
 
   // console.log(products.date.seconds);
 
@@ -48,7 +54,21 @@ const ProductsCard = () => {
               <div className="text-lg">{product?.title}</div>
               {/* <div className="text-sm text-gray-500">{dayjs(date).day(date).format("YYYY.MM.DD")}</div> */}
               <div className="text-base">{product?.price}원</div>
-              <div className="">좋아요 버튼</div>
+              <div className="">
+                {like ?
+                  <img
+                    onClick={handleLike} 
+                    className="cursor-pointer"
+                    src="src/assets/emptyHeart.png" alt="empty" width={25} 
+                  /> 
+                  :
+                  <img 
+                    onClick={handleLike}
+                    className="cursor-pointer"
+                    src="src/assets/fullHeart.png" alt="empty" width={25} 
+                  />
+                }
+              </div>
             </div>
           </div>
         </div>
