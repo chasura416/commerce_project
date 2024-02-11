@@ -21,8 +21,8 @@ const useFileUpload = () => {
 
 
   const fetchImages = async () => {
-    const photo = collection(getFirestore(firebaseApp), "photo");
-    const result  = await getDocs(query(photo, orderBy("timestamp", desc)));
+    const photo = collection(getFirestore(db), "photo");
+    const result  = await getDocs(query(photo, orderBy("timestamp", "desc")));
     const fetchData = result.docs.map((el) => el.data());
     setImages(fetchData);
   }
