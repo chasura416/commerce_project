@@ -20,16 +20,26 @@ const ProductUpload = () => {
     selectImg,
     onChange,
     addProduct,
+    UploadImgUrl,
+    selectFile,
   } = useFileUpload();
 
+  const onLoadFile = (event) => {
+    const files = event.target.files;
+   }
   return (
     <div>
       <Header />
       <h2>판매 글 작성</h2>
       <form className="p-10">
         <div className="flex flex-col border p-10 h-full">
-          <img src={selectedFile} alt="응 안떠"/>
-          <input className="border" type="file" onChange={handleFileSelect} />
+          {image ?
+            <img src={image} alt="떳단다"/>
+            :
+            <img src="" alt="아니란다"/>
+          }
+          <img src={image} alt="응 안떠"/>
+          <input className="border" type="file" onChange={selectFile} />
           <label>제목 : </label>
           <input
             className="border"
@@ -62,7 +72,7 @@ const ProductUpload = () => {
             className="border min-h-52" 
           />
           <Button 
-            onClick={handleUpload}>
+            onClick={UploadImgUrl}>
               작성하기
           </Button>
         </div>

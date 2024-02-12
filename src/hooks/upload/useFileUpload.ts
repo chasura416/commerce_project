@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-import { addDoc, collection, getDocs, getFirestore, orderBy, query, Timestamp } from "firebase/firestore";
+import { addDoc, collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
 import { db, storage, auth } from "@/firebase";
@@ -13,15 +13,16 @@ const useFileUpload = () => {
   
   const [products, setProducts] = useState([]);
   
+  // 다시 짠 이미지 업로드 로직 스테이트
   const fileInput = useRef(null);
-  const [imageUpload, setImageUpload] = useState("");
+  const [imageUpload, setImageUpload] = useState<any>("");
   const [image, setImage] = useState("");
   const [images, setImages] = useState([]);
   const [uploadStep, setUploadStep] = useState(1);
 
 
   const fetchImages = async () => {
-    const photo = collection(getFirestore(db), "photo");
+    const photo = collection(db, `${auth.currentUser?.uid}`);
     const result  = await getDocs(query(photo, orderBy("timestamp", "desc")));
     const fetchData = result.docs.map((el) => el.data());
     setImages(fetchData);
@@ -63,6 +64,9 @@ const useFileUpload = () => {
   }, [imageUpload]);
 
 
+
+
+  // ⬆︎ 이 위부터 새로 만든 로직 
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -172,7 +176,26 @@ const useFileUpload = () => {
     setText("");
   };
 
-  return {selectedFile, products, title, price, image, content, fileInput, imageUpload ,images, uploadStep, handleFileSelect, handleUpload, deleteImage, selectImg, onChange, addProduct }
+  return {
+    selectedFile, 
+    products, 
+    title, 
+    price, 
+    image, 
+    content, 
+    fileInput, 
+    imageUpload, 
+    images, 
+    uploadStep, 
+    handleFileSelect, 
+    handleUpload, 
+    deleteImage, 
+    selectImg, 
+    onChange, 
+    addProduct,
+    UploadImgUrl,
+    selectFile, 
+  }
 
 };
 
