@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 import Header from "@/layout/Header";
-import SellerPage from "./SellerPage";
 import ProductsCard from "@/components/products/ProductsCard";
 import HomeCarousel from "@/components/home/HomeCarousel";
 
