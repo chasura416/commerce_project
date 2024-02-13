@@ -19,9 +19,9 @@ const ProductsCard = () => {
     handleLike, 
   } = useGetProduct();
 
-  // console.log(products.date.seconds);
+  // console.log(products.createdAt.seconds);
 
-  // const date = (products.date.seconds + products.date.nanoseconds / 1000000000) * 1000
+  // const date = (products?.createdAt.seconds + products?.createdAt.nanoseconds / 1000000000) * 1000
   // const now = (139000000 + 1707261661 / 1000000000) * 1000
   // console.log(now)
 
@@ -52,12 +52,12 @@ const ProductsCard = () => {
             <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" />
             <div className="flex-grow-1 p-4">
               <div className="text-lg">{product?.title}</div>
-              {/* <div className="text-sm text-gray-500">{dayjs(date).day(date).format("YYYY.MM.DD")}</div> */}
+              <div className="text-sm text-gray-500">{dayjs((product?.createdAt.seconds + product?.createdAt.nanoseconds / 1000000000) * 1000).format("YYYY.MM.DD")}</div>
               <div className="text-base">{product?.price}원</div>
               <div className="">
                 {like ?
                   <img
-                    onClick={handleLike} 
+                    onClick={handleLike}
                     className="cursor-pointer"
                     src="src/assets/emptyHeart.png" alt="empty" width={25} 
                   /> 
