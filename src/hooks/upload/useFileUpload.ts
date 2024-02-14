@@ -5,6 +5,9 @@ import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage
 
 import { db, storage, auth } from "@/firebase";
 
+import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
+
 const useFileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [title, setTitle] = useState("");
@@ -12,6 +15,9 @@ const useFileUpload = () => {
   const [price, setPrice] = useState("");
   
   const [products, setProducts] = useState([]);
+
+  const date = dayjs().format("YYYY.MM.DD");
+  const navigate = useNavigate();
   
   // 다시 짠 이미지 업로드 로직 스테이트
   const fileInput = useRef(null);
@@ -20,11 +26,41 @@ const useFileUpload = () => {
   const [images, setImages] = useState([]);
   const [uploadStep, setUploadStep] = useState(1);
 
-  console.log("image", image)
-  console.log("images", images)
-  console.log("imageUpload", imageUpload)
-  console.log("uploadStep", uploadStep)
+  // console.log("image", image)
+  // console.log("images", images)
+  // console.log("imageUpload", imageUpload)
+  // console.log("uploadStep", uploadStep)
 
+
+
+
+  const addProduct = async (event) => {
+    event.preventDefault();
+    const newProducts = { 
+      title: title,
+      createdAt: date,
+      price: price,
+      content: content, 
+    };
+
+    const collectionRef = collection(db, "Products");
+    console.log(collectionRef)
+    const { id } = await addDoc(collectionRef, newProducts);
+
+    setProducts((prev) => {
+      return [...products, { ...newProducts, id }];
+    });
+    setTitle("");
+    setContent("");
+    setPrice("");
+    // navigate("/");
+  }
+
+
+
+
+
+  // 일단 여기는 이미지고 일단 제목 내용부터 위에서 다시 짠다.
   const fetchImages = async () => {
     const photo = collection(db, `${auth.currentUser?.uid}`);
     const result  = await getDocs(query(photo, orderBy("timestamp", "desc")));
@@ -32,13 +68,14 @@ const useFileUpload = () => {
     setImages(fetchData);
   }
 
+
   useEffect(() => {
     fetchImages();
   }, [])
 
 
   const UploadImgUrl = async () => {
-    await addDoc(collection(db, `${auth.currentUser?.uid}`), {
+    await addDoc(collection(storage, `${auth.currentUser?.uid}`), {
       imgUrl: image,
       timestamp: new Date(),
     });
@@ -117,15 +154,17 @@ const useFileUpload = () => {
       });
   };
   
+  const [attachment, setAttachment] = useState("");
+
   const selectImg = (e) => {
     const reader = new FileReader();
-    const theFile = e.current.files[0];
+    const theFile = fileInput.current.files[0];
     reader.readAsDataURL(theFile);
     reader.onload = (finishedEvent) => {
       const {
         currentTarget: { result },
       } = finishedEvent;
-      setSelectedFile(result);
+      setAttachment(result);
     }
   }
   const onChange = (event) => {
@@ -162,23 +201,23 @@ const useFileUpload = () => {
   }, []);
 
 
-  const addProduct = async (event) => {
-    event.preventDefault();
-    const newProducts = { 
-      title: String,
-      createdAt: Timestamp,
-      price: Number, 
-    };
+  // const addProduct = async (event) => {
+  //   event.preventDefault();
+  //   const newProducts = { 
+  //     title: String,
+  //     createdAt: Timestamp,
+  //     price: Number, 
+  //   };
 
-    const collectionRef = collection(db, "Products");
-    console.log(collectionRef)
-    const { id } = await addDoc(collectionRef, newProducts);
+  //   const collectionRef = collection(db, "Products");
+  //   console.log(collectionRef)
+  //   const { id } = await addDoc(collectionRef, newProducts);
 
-    setProducts((prev) => {
-      return [...products, { ...newProducts, id }];
-    });
-    setText("");
-  };
+  //   setProducts((prev) => {
+  //     return [...products, { ...newProducts, id }];
+  //   });
+  //   setText("");
+  // };
 
   return {
     selectedFile, 
@@ -198,7 +237,7 @@ const useFileUpload = () => {
     onChange, 
     addProduct,
     UploadImgUrl,
-    selectFile, 
+    selectFile,
   }
 
 };

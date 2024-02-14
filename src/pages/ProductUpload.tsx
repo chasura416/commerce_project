@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "@/layout/Header";
 import useFileUpload from "@/hooks/upload/useFileUpload";
 import { Button } from "@/components/ui/button";
@@ -26,10 +27,16 @@ const ProductUpload = () => {
 
   console.log("image", image)
 
+  const [attachment, setAttachment] = useState<any>("");
+
 
   const onLoadFile = (event) => {
-    const files = event.target.files;
+    // const files = event.target.files;
+    const files = event.target.files[0];
+    console.log(files)
+    setAttachment(files)
    }
+   console.log(onLoadFile)
   return (
     <div>
       <Header />
@@ -37,12 +44,12 @@ const ProductUpload = () => {
       <form className="p-10">
         <div className="flex flex-col border p-10 h-full">
           {image ?
-            <img src={images} alt="떳단다"/>
+            <img src={image} alt="떳단다"/>
             :
             <img src="" alt="아니란다"/>
           }
-          <img src={image} alt="응 안떠"/>
-          <input className="border" type="file" onChange={selectFile} />
+          <img src={attachment} alt="응 안떠"/>
+          <input className="border" type="file" onChange={onLoadFile} />
           <label>제목 : </label>
           <input
             className="border"
@@ -70,7 +77,7 @@ const ProductUpload = () => {
             required
           ></textarea>
           <Button 
-            onClick={UploadImgUrl}>
+            onClick={addProduct}>
               작성하기
           </Button>
         </div>
