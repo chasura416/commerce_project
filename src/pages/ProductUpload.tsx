@@ -24,6 +24,9 @@ const ProductUpload = () => {
     selectFile,
   } = useFileUpload();
 
+  console.log("image", image)
+
+
   const onLoadFile = (event) => {
     const files = event.target.files;
    }
@@ -34,7 +37,7 @@ const ProductUpload = () => {
       <form className="p-10">
         <div className="flex flex-col border p-10 h-full">
           {image ?
-            <img src={image} alt="떳단다"/>
+            <img src={images} alt="떳단다"/>
             :
             <img src="" alt="아니란다"/>
           }
@@ -59,18 +62,13 @@ const ProductUpload = () => {
             required
           ></input>
           <label>내용 : </label>
-          <input
-            className="border"
-            type="textarea"
+          <textarea
+            className="border min-h-52 p-2"
             value={content}
             name="content"
             onChange={onChange}
             required
-          ></input>
-          <label>내용 : </label>
-          <textarea 
-            className="border min-h-52" 
-          />
+          ></textarea>
           <Button 
             onClick={UploadImgUrl}>
               작성하기

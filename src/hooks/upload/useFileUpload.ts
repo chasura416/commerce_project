@@ -20,6 +20,10 @@ const useFileUpload = () => {
   const [images, setImages] = useState([]);
   const [uploadStep, setUploadStep] = useState(1);
 
+  console.log("image", image)
+  console.log("images", images)
+  console.log("imageUpload", imageUpload)
+  console.log("uploadStep", uploadStep)
 
   const fetchImages = async () => {
     const photo = collection(db, `${auth.currentUser?.uid}`);
