@@ -8,11 +8,13 @@ import { db, storage, auth } from "@/firebase";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
+import { Products } from "@/interface/Products";
+
 const useFileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(Number);
   
   const [products, setProducts] = useState([]);
 
@@ -36,9 +38,9 @@ const useFileUpload = () => {
 
   const addProduct = async (event) => {
     event.preventDefault();
-    const newProducts = { 
+    const newProducts:Products = { 
       title: title,
-      createdAt: date,
+      createdAt: new Date(),
       price: price,
       content: content, 
     };

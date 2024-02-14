@@ -62,7 +62,7 @@ const ProductUpload = () => {
           <label>가격 : </label>
           <input
             className="border"
-            type="text"
+            type="number"
             value={price}
             name="price"
             onChange={onChange}

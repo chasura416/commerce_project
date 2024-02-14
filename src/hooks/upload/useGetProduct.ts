@@ -5,19 +5,13 @@ import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage
 
 import { db, storage, auth } from "@/firebase";
 
-interface products {
-  id: string;
-  like: boolean;
-  price: number;
-  title: string;
-  date: Timestamp;
-}
+import { Products } from "@/interface/Products";
 
 
 const useGetProduct = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [text, setText] = useState("");
-  const [products, setProducts] = useState<products>([]);
+  const [products, setProducts] = useState<Products>([]);
   const [like, setLike] = useState<boolean>(false);
 
 
