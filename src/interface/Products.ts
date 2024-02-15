@@ -5,4 +5,5 @@ export interface Products {
   title: string;
   createdAt: Date;
   content: string;
+  imgUrl: string[];
 }

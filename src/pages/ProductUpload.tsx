@@ -2,6 +2,11 @@ import { useState } from "react";
 import Header from "@/layout/Header";
 import useFileUpload from "@/hooks/upload/useFileUpload";
 import { Button } from "@/components/ui/button";
+import { MdAddPhotoAlternate } from "react-icons/md";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
 
 const ProductUpload = () => {
   const {
@@ -23,6 +28,7 @@ const ProductUpload = () => {
     addProduct,
     UploadImgUrl,
     selectFile,
+    handleImageFile,
   } = useFileUpload();
 
   console.log("image", image)
@@ -36,53 +42,91 @@ const ProductUpload = () => {
     console.log(files)
     setAttachment(files)
    }
-   console.log(onLoadFile)
+  //  console.log(onLoadFile)
   return (
-    <div>
+    <>
       <Header />
-      <h2>판매 글 작성</h2>
       <form className="p-10">
-        <div className="flex flex-col border p-10 h-full">
-          {image ?
+      <h2>판매 글 작성</h2>
+        <div className="flex flex-col border p-10 h-full gap-2">
+          {/* {image ?
             <img src={image} alt="떳단다"/>
             :
             <img src="" alt="아니란다"/>
           }
-          <img src={attachment} alt="응 안떠"/>
-          <input className="border" type="file" onChange={onLoadFile} />
-          <label>제목 : </label>
-          <input
-            className="border"
+          <img src={imageUpload} alt="응 안떠"/>
+          {images?.map((item) => {
+            return (
+              <div>
+                <div>
+                  {}
+                  <img src={images} alt="이미지 미리보기" />
+                  <div
+                    className=""
+                  >
+                    델리트 버튼
+                  </div>
+                </div>
+              </div>
+            )
+          })} */}
+          <Label>이미지 추가</Label>
+          <div
+            className="border min-h-20 p-4 flex"
+          >
+            <Label 
+              className="cursor-pointer"
+              htmlFor="picture"
+            >
+              <MdAddPhotoAlternate size={40} />
+            </Label>
+            <Input 
+              id="picture"
+              type="file"
+              multiple
+              accept="image/*" 
+              name="image"
+              ref={fileInput}
+              onChange={selectFile}
+              style={{display: "none"}} 
+            />
+          </div>
+          <Label>제목 :</Label>
+          <Input
+            className="border pl-2"
             type="text"
             value={title}
             name="title"
             onChange={onChange}
+            placeholder="제목"
             required
-          ></input>
-          <label>가격 : </label>
-          <input
-            className="border"
+           />
+          <Label>가격 :</Label>
+          <Input
+            className="border pl-2"
             type="number"
             value={price}
             name="price"
             onChange={onChange}
+            placeholder="가격"
             required
-          ></input>
-          <label>내용 : </label>
-          <textarea
+          />
+          <Label>내용 : </Label>
+          <Textarea
             className="border min-h-52 p-2"
             value={content}
             name="content"
             onChange={onChange}
+            placeholder="상세 내용"
             required
-          ></textarea>
+          ></Textarea>
           <Button 
             onClick={addProduct}>
               작성하기
           </Button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

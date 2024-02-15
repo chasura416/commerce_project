@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
 
 import { addDoc, collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
@@ -23,38 +23,82 @@ const useFileUpload = () => {
   
   // 다시 짠 이미지 업로드 로직 스테이트
   const fileInput = useRef(null);
-  const [imageUpload, setImageUpload] = useState<any>("");
+  const [imageUpload, setImageUpload] = useState(null);
   const [image, setImage] = useState("");
   const [images, setImages] = useState([]);
   const [uploadStep, setUploadStep] = useState(1);
 
-  // console.log("image", image)
-  // console.log("images", images)
-  // console.log("imageUpload", imageUpload)
+  console.log("image", image)
+  console.log("images", images)
+  console.log("imageUpload", imageUpload)
   // console.log("uploadStep", uploadStep)
 
 
 
+  const handleImageFile = (event) => {
+    setImageUpload(event.target.files[0]);
+  };
+
+  // useEffect(()=>{
+  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload.name}`)
+  //   if (!imageUpload) return;
+  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  //     getDownloadURL(snapshot.ref).then((url) => {
+  //       setImage(url);
+  //       console.log(url);
+  //     })
+  //   })
+  // }, [imageUpload]);
+
 
   const addProduct = async (event) => {
     event.preventDefault();
+
+    const imageRef = ref(
+      storage,
+      `${auth.currentUser?.uid}/${imageUpload.name}`
+    );
+    if (imageUpload === null) return;
+    // await uploadBytes(imageRef, imageUpload);
+    const uploadTask = await uploadBytes(imageRef, imageUpload);
+    
+    // uploadTask.then()
+    uploadTask.then( (snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImages((prev) => {
+          [
+            ...prev,
+            { url: url, id: `${auth.currentUser?.uid}/${imageUpload.name}` }
+          ];
+        });
+      })
+    })
+
+
+    const downloadURL = await getDownloadURL(imageRef);
+    console.log(downloadURL);
+
     const newProducts:Products = { 
       title: title,
       createdAt: new Date(),
       price: price,
       content: content, 
+      imgUrl: images,
     };
 
     const collectionRef = collection(db, "Products");
     console.log(collectionRef)
     const { id } = await addDoc(collectionRef, newProducts);
-
+    console.log(id)
     setProducts((prev) => {
       return [...products, { ...newProducts, id }];
     });
+    console.log(products)
     setTitle("");
     setContent("");
     setPrice("");
+    // setImageUpload("");
+    // setImage("");
     // navigate("/");
   }
 
@@ -71,13 +115,32 @@ const useFileUpload = () => {
   }
 
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const q = query(collection(db, "Products"));
+  //     const querySnapshot = await getDocs(q);
+
+  //     const initialProducts = [];
+
+  //     querySnapshot.forEach((doc) => {
+  //       initialProducts.push({ id: doc.id, ...doc.data() });
+  //     });
+
+  //     setProducts(initialProducts);
+  //     console.log(initialProducts)
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+
   useEffect(() => {
     fetchImages();
   }, [])
 
 
   const UploadImgUrl = async () => {
-    await addDoc(collection(storage, `${auth.currentUser?.uid}`), {
+    await addDoc(collection(db, `${auth.currentUser?.uid}`), {
       imgUrl: image,
       timestamp: new Date(),
     });
@@ -88,23 +151,24 @@ const useFileUpload = () => {
   }
 
 
-  const selectFile = (file) => {
+  const selectFile = (e) => {
+    const file = e.target.files[0];
     console.log(file);
     setImageUpload(file);
     setUploadStep(2);
   }
 
 
-  useEffect(()=>{
-    const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload.name}`)
-    if (!imageUpload) return;
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImage(url);
-        console.log(url);
-      })
-    })
-  }, [imageUpload]);
+  // useEffect(()=>{
+  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload.name}`)
+  //   if (!imageUpload) return;
+  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  //     getDownloadURL(snapshot.ref).then((url) => {
+  //       setImage(url);
+  //       console.log(url);
+  //     })
+  //   })
+  // }, [imageUpload]);
 
 
 
@@ -240,6 +304,7 @@ const useFileUpload = () => {
     addProduct,
     UploadImgUrl,
     selectFile,
+    handleImageFile,
   }
 
 };
