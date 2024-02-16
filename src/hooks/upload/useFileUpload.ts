@@ -59,20 +59,20 @@ const useFileUpload = () => {
       `${auth.currentUser?.uid}/${imageUpload.name}`
     );
     if (imageUpload === null) return;
-    // await uploadBytes(imageRef, imageUpload);
-    const uploadTask = await uploadBytes(imageRef, imageUpload);
+    await uploadBytes(imageRef, imageUpload);
+    // const uploadTask = await uploadBytes(imageRef, imageUpload);
     
-    // uploadTask.then()
-    uploadTask.then( (snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImages((prev) => {
-          [
-            ...prev,
-            { url: url, id: `${auth.currentUser?.uid}/${imageUpload.name}` }
-          ];
-        });
-      })
-    })
+    // // uploadTask.then()
+    // uploadTask.then( (snapshot) => {
+    //   getDownloadURL(snapshot.ref).then((url) => {
+    //     setImages((prev) => {
+    //       [
+    //         ...prev,
+    //         { url: url, id: `${auth.currentUser?.uid}/${imageUpload.name}` }
+    //       ];
+    //     });
+    //   })
+    // })
 
 
     const downloadURL = await getDownloadURL(imageRef);

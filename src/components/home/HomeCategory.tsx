@@ -1,7 +1,7 @@
 const HomeCategory = () => {
   return (
-    <div>
-      <ul>
+    <div className="border p-5">
+      <ul className="cursor-pointer">
         <li>전체 카테고리 보기</li>
         <li>플레이스테이션5</li>
         <li>플레이스테이션4</li>
