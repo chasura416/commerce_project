@@ -6,9 +6,11 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
  } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
+import { userInfo } from "os";
 
 const useLogin = () => {
   const [email, setEmail] = useState("");
@@ -44,10 +46,15 @@ const useLogin = () => {
         password
       );
       console.log("user", userCredential.user);
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser,{
+          displayName: userInfo.name,
+        })
+      }
     } catch(error: unknown) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("error with signUp", errorCode, errorMessage)
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("error with signUp", errorCode, errorMessage)
     }
   };
   const signIn = async (event: FormEvent) => {
