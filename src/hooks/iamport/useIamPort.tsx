@@ -1,4 +1,4 @@
-
+import { useEffect } from "react";
 
 export function Payment() {
   function onClickPayment() {
