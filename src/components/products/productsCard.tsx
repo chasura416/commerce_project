@@ -9,7 +9,8 @@ import {
 
 import useGetProduct from "@/hooks/upload/useGetProduct";
 import dayjs from "dayjs";
-
+import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
 const ProductsCard = () => {
   const { 
@@ -18,6 +19,15 @@ const ProductsCard = () => {
     like,
     handleLike, 
   } = useGetProduct();
+
+  const navigate = useNavigate();
+
+  const ProductDetail = () => {
+    
+    
+    // 일단 예시로.
+    navigate("/upload");
+  }
 
   // console.log(products.createdAt.seconds);
 
@@ -69,6 +79,7 @@ const ProductsCard = () => {
                       src="src/assets/fullHeart.png" alt="empty" width={25} 
                     />
                   }
+                  <Button onClick={ProductDetail}>상세보기</Button>
                 </div>
               </div>
             </div>
