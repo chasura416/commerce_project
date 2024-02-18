@@ -1,61 +1,18 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import useGetProduct from "@/hooks/upload/useGetProduct";
 import dayjs from "dayjs";
 import { Button } from "../ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ProductsCard = () => {
   const { 
-    addProduct, 
     products: products,
     like,
     handleLike, 
   } = useGetProduct();
 
-  const navigate = useNavigate();
-
-  const ProductDetail = () => {
-    
-    
-    // 일단 예시로.
-    navigate("/upload");
-  }
-
-  // console.log(products.createdAt.seconds);
-
-  // const date = (products?.createdAt.seconds + products?.createdAt.nanoseconds / 1000000000) * 1000
-  // const now = (139000000 + 1707261661 / 1000000000) * 1000
-  // console.log(now)
-
-  const today = dayjs();
-  console.log(today.format());
-  console.log(dayjs().format("YYYY.MM.DD"));
-  // const date = new Date();
-  // console.log(date)
 
   return (
     <>
-      {/* <Card>
-        <CardHeader>
-          <CardTitle>{products[0]?.title}</CardTitle>
-          <CardDescription>asdf</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
-      </Card> */}
-
       <div className="flex flex-wrap justify-center max-w-7xl">
         {products?.map((product) => (
           <div className="flex mt-10">
@@ -79,7 +36,9 @@ const ProductsCard = () => {
                       src="src/assets/fullHeart.png" alt="empty" width={25} 
                     />
                   }
-                  <Button onClick={ProductDetail}>상세보기</Button>
+                  <Link to={`/productdetail/${product?.id}`}>
+                    <Button>상세보기</Button>
+                  </Link>
                 </div>
               </div>
             </div>

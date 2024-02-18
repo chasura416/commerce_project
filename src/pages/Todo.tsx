@@ -6,8 +6,8 @@ import { db } from "@/firebase"
 const Todo = () => {
   
   const [ todos, setTodos ] = useState([
-    { text: "할 일 1", isDone: false, id: 1 },
-    { text: "할 일 2", isDone: true, id: 2 },
+    // { text: "할 일 1", isDone: false, id: 1 },
+    // { text: "할 일 2", isDone: true, id: 2 },
   ]);
   
   const [ text, setText ] = useState("");
