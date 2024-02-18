@@ -6,6 +6,10 @@ import ProductsCard from "@/components/products/ProductsCard";
 import HomeCarousel from "@/components/home/HomeCarousel";
 import HomeCategory from "@/components/home/HomeCategory";
 
+import Todo from "./Todo";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+
 const Home = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -26,9 +30,14 @@ const Home = () => {
         </div>
       </div>
       <div>상품목록</div>
+      귀찮아서 만든 버튼
+      <Link to="/upload">
+        <Button>임시 글쓰기 버튼</Button>
+      </Link>
       <div className="flex flex-wrap justify-center">
         <ProductsCard />
-      </div>
+      B</div>
+      <Todo />
     </div>
   );
 };

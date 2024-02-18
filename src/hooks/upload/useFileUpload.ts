@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
 
-import { addDoc, collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
+import { addDoc, updateDoc, collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
 import { db, storage, auth } from "@/firebase";
@@ -16,7 +16,9 @@ const useFileUpload = () => {
   const [content, setContent] = useState("");
   const [price, setPrice] = useState(Number);
   
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    {title: "", price: 0, content: "", imgurl:"", id: 0}
+  ]);
 
   const date = dayjs().format("YYYY.MM.DD");
   const navigate = useNavigate();
@@ -77,19 +79,22 @@ const useFileUpload = () => {
 
     const downloadURL = await getDownloadURL(imageRef);
     console.log(downloadURL);
-
+    
     const newProducts:Products = { 
+      // id: id,
       title: title,
       createdAt: new Date(),
       price: price,
       content: content, 
       imgUrl: images,
     };
-
+    
     const collectionRef = collection(db, "Products");
     console.log(collectionRef)
     const { id } = await addDoc(collectionRef, newProducts);
     console.log(id)
+    // const productRef = doc(db, "Products", product.id)
+    // await updateDoc(productRef, )
     setProducts((prev) => {
       return [...products, { ...newProducts, id }];
     });
@@ -101,8 +106,6 @@ const useFileUpload = () => {
     // setImage("");
     // navigate("/");
   }
-
-
 
 
 

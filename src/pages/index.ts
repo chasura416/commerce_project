@@ -4,18 +4,18 @@ import MyPage from "./MyPage";
 import NotFound from "./NotFound";
 import ProductUpload from "./ProductUpload";
 import ProductDetail from "./ProductDetail";
-import Seller from "./SellerPage";
+import SellerPage from "./SellerPage";
 import SignUpPage from "./SignUpPage";
 import Cart from "./Cart";
 
 export {
   Home,
   Login,
+  SignUpPage,
   MyPage,
-  NotFound,
-  ProductDetail,
-  ProductUpload,
-  Seller,
-  SignUpPage as SignUp,
   Cart,
+  ProductUpload,
+  ProductDetail,
+  SellerPage,
+  NotFound,
 };

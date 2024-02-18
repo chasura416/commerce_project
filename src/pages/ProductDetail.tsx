@@ -8,11 +8,9 @@ import dayjs from "dayjs";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { products: products } = useGetProduct();
+  const { products: products, deleteProduct } = useGetProduct();
   const navigate = useNavigate();
   const data = products.filter((v) => v.id === (id));
-
-  console.log(data)
 
   return (
     <>
@@ -48,11 +46,18 @@ const ProductDetail = () => {
             <div>글 내용</div>
             <div className="border w-full p-4 mb-5">
               {data[0]?.content}
+              {data[0]?.id}
             </div>
-            <div className="flex justify-end gap-1">
-              <Button>뒤로가기</Button>
-              <Button>장바구니</Button>
-              <Button>주문하기</Button>
+            <div className="flex justify-between">
+              <div className="flex gap-1">
+                <Button>수정하기</Button>
+                <Button onClick={deleteProduct}>삭제하기</Button>
+              </div>
+              <div className="flex gap-1">
+                <Button>뒤로가기</Button>
+                <Button>장바구니</Button>
+                <Button>주문하기</Button>
+              </div>
             </div>
           </div>
         </div>
