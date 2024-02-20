@@ -2,6 +2,7 @@ import useGetProduct from "@/hooks/upload/useGetProduct";
 import dayjs from "dayjs";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { Products } from "@/interface/Products";
 
 const ProductsCard = () => {
   const { 
@@ -14,7 +15,7 @@ const ProductsCard = () => {
   return (
     <>
       <div className="flex flex-wrap justify-center max-w-7xl">
-        {products?.map((product) => (
+        {products?.map((product: Products) => (
           <div className="flex mt-10">
             <div className="flex p-10 max-w-95">
               <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" />

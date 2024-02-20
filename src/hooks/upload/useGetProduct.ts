@@ -53,6 +53,7 @@ const useGetProduct = () => {
   }, []);
   console.log(products)
 
+  console.log(auth)
 
 
   const addTodo = async (event) => {
