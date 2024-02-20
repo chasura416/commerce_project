@@ -8,12 +8,16 @@ import { db, storage, auth } from "@/firebase";
 import { Products } from "@/interface/Products";
 
 
+import { useNavigate } from "react-router-dom";
+
 const useGetProduct = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [text, setText] = useState("");
   const [products, setProducts] = useState([]);
   const [like, setLike] = useState<boolean>(false);
 
+
+  const navigate = useNavigate();
 
   const handleLike = () => {
     setLike(!like);
@@ -85,11 +89,20 @@ const useGetProduct = () => {
     })
   }
 
-  const deleteProduct = async (event) => {
-    const productRef = doc(db, "Products", product.id);
-    await deleteDoc(productRef);
+  const deleteProduct = async (data) => {
+    const productRef = doc(db, `Products/${data[0].id}`);
+    // const productRef = doc(db, "Products", `${product.id}`);
+    console.log(data)
+    await deleteDoc(productRef)
+      .then(()=> {
+        console.log("success")
+      })
+      .catch((error)=> {
+        console.log("failed")
+      })
     console.log(productRef)
 
+    navigate("/");
     // setProducts((prev) => {
     //   return prev.filter((element) => element.id !== product.id);
     // });

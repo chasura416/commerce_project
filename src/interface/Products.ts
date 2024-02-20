@@ -4,7 +4,8 @@ export interface TimeStamp {
 }
 
 export interface Products {
-  id: string;
+  uid: string;
+  pid: string;
   like?: boolean;
   price: number;
   title: string;

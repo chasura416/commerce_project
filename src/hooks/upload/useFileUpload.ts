@@ -88,22 +88,14 @@ const useFileUpload = () => {
     //   content: content, 
     //   imgUrl: images,
     // };
-    // const newProducts:Products = { 
-    //   id: id,
-    //   title: title,
-    //   createdAt: new Date(),
-    //   price: price,
-    //   content: content, 
-    //   imgUrl: images,
-    // };
-    // console.log(id)
+  
     
     const collectionRef = collection(db, "Products");
     console.log(collectionRef)
     // const { id } = await addDoc(collectionRef, newProducts);
     // console.log(id)
-    await addDoc(collectionRef, { 
-      id: `${auth.currentUser?.uid}`,
+    const docRef = await addDoc(collectionRef, { 
+      // id: `${auth.currentUser?.uid}`,
       title: title,
       createdAt: new Date(),
       price: price,
@@ -111,8 +103,9 @@ const useFileUpload = () => {
       imgUrl: images,
     });
     
-    // const productRef = doc(db, `Products/${auth.currentUser?.uid}`)
-    // await updateDoc(productRef, {id: docRef.id});
+    const productRef = doc(db, `Products/${docRef.id}`)
+    await updateDoc(productRef, {id: docRef.id});
+    console.log(productRef)
 
 
 
@@ -132,6 +125,7 @@ const useFileUpload = () => {
     // setImage("");
     navigate("/");
   }
+
 
 
 

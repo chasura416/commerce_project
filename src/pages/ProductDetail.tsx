@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button"
 import { useParams, useNavigate } from "react-router-dom"
 import useGetProduct from "@/hooks/upload/useGetProduct"
 import dayjs from "dayjs";
+import { Products } from "@/interface/Products"
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { products: products, deleteProduct } = useGetProduct();
   const navigate = useNavigate();
-  const data = products.filter((v) => v.id === (id));
+  const data: Products = products.filter((v) => v.id === (id));
 
   return (
     <>
@@ -51,7 +52,11 @@ const ProductDetail = () => {
             <div className="flex justify-between">
               <div className="flex gap-1">
                 <Button>수정하기</Button>
-                <Button onClick={deleteProduct}>삭제하기</Button>
+                <Button onClick={() => {
+                  deleteProduct(data)
+                }}>
+                  삭제하기
+                </Button>
               </div>
               <div className="flex gap-1">
                 <Button>뒤로가기</Button>
