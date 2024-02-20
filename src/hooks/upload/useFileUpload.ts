@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
 
-import { addDoc, updateDoc, collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
+import { addDoc, doc, updateDoc, collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
 import { db, storage, auth } from "@/firebase";
@@ -80,23 +80,48 @@ const useFileUpload = () => {
     const downloadURL = await getDownloadURL(imageRef);
     console.log(downloadURL);
     
-    const newProducts:Products = { 
-      // id: id,
+    // const newProducts:Products = { 
+    //   // id: id,
+    //   title: title,
+    //   createdAt: new Date(),
+    //   price: price,
+    //   content: content, 
+    //   imgUrl: images,
+    // };
+    // const newProducts:Products = { 
+    //   id: id,
+    //   title: title,
+    //   createdAt: new Date(),
+    //   price: price,
+    //   content: content, 
+    //   imgUrl: images,
+    // };
+    // console.log(id)
+    
+    const collectionRef = collection(db, "Products");
+    console.log(collectionRef)
+    // const { id } = await addDoc(collectionRef, newProducts);
+    // console.log(id)
+    const docRef = await addDoc(collectionRef, { 
       title: title,
       createdAt: new Date(),
       price: price,
       content: content, 
       imgUrl: images,
-    };
+    });
     
-    const collectionRef = collection(db, "Products");
-    console.log(collectionRef)
-    const { id } = await addDoc(collectionRef, newProducts);
-    console.log(id)
+    const productRef = doc(db, "Products")
+    await updateDoc(productRef, {id: docRef.id});
+
+
+
     // const productRef = doc(db, "Products", product.id)
     // await updateDoc(productRef, )
+    
+    
+    
     setProducts((prev) => {
-      return [...products, { ...newProducts, id }];
+      return [...products, { ...productRef }];
     });
     console.log(products)
     setTitle("");

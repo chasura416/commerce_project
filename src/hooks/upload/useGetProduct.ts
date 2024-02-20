@@ -89,9 +89,9 @@ const useGetProduct = () => {
     await deleteDoc(productRef);
     console.log(productRef)
 
-    setProducts((prev) => {
-      return prev.filter((element) => element.id !== product.id);
-    });
+    // setProducts((prev) => {
+    //   return prev.filter((element) => element.id !== product.id);
+    // });
   }
 
 

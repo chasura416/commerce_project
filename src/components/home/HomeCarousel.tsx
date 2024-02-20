@@ -10,6 +10,7 @@ import {
 const HomeCarousel = () => {
   const images = [
     "",
+    "src/assets/main.png",
     "src/assets/mainImage01.webp",
     "src/assets/mainImage02.jpeg",
     "src/assets/mainImage01.jpeg",
@@ -24,7 +25,7 @@ const HomeCarousel = () => {
   return (
     <Carousel className="w-full max-w-2xl">
       <CarouselContent>
-        {Array.from({ length: 9 }).map((_, index) => (
+        {Array.from({ length: 10 }).map((_, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
               <Card>
