@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
 import { Products } from "@/interface/Products";
+import useGetProduct from "./useGetProduct";
 
 const useFileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,9 +17,12 @@ const useFileUpload = () => {
   const [content, setContent] = useState("");
   const [price, setPrice] = useState(Number);
   
-  const [products, setProducts] = useState([
-    {title: "", price: 0, content: "", imgurl:"", id: 0}
-  ]);
+  const { products } = useGetProduct();
+
+
+  // const [products, setProducts] = useState([
+  //   {title: "", price: 0, content: "", imgurl:"", id: 0}
+  // ]);
 
   const date = dayjs().format("YYYY.MM.DD");
   const navigate = useNavigate();

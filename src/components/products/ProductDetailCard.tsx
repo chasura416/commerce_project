@@ -9,7 +9,7 @@ import { Products } from "@/interface/Products";
 
 const ProductDetailCard = () => {
   const { id } = useParams();
-  const { products: products, deleteProduct } = useGetProduct();
+  const { products, deleteProduct } = useGetProduct();
   const data: Products = products.filter((v) => v.id === id);
 
   return (

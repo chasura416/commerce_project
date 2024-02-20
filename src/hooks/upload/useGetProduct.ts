@@ -7,8 +7,9 @@ import { db, storage, auth } from "@/firebase";
 
 import { Products } from "@/interface/Products";
 
-
 import { useNavigate } from "react-router-dom";
+
+import { FirebaseError } from "firebase/app";
 
 const useGetProduct = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -59,77 +60,24 @@ const useGetProduct = () => {
 
   console.log(auth)
 
-
-  const addTodo = async (event) => {
-    event.preventDefault();
-    const newTodo = { text: text, isDone: false };
-    
-    const collectionRef = collection(db, "todos");
-    const { id } = await addDoc(collectionRef, newTodo);
-    
-    setTodos((prev) => {
-      return [...todos, {...newTodo, id } ];
-    })
-    setText("");
-    
-  }
-
-  const updateTodo = async (event) => {
-    const productRef = doc(db, "Products", product.id);
-    await updateDoc(productRef, {...todo, isDone: !todo.isDone });
-
-    setTodos((prev) => {
-      return prev.map((element) => {
-        if (element.id === product.id) {
-          return {...element, isDone: !element.isDone };
-        } else {
-          return element;
-        }
-      })
-    })
-  }
-
+  // data는 productDetail에서 drilling 해준 값
   const deleteProduct = async (data) => {
     const productRef = doc(db, `Products/${data[0].id}`);
-    // const productRef = doc(db, "Products", `${product.id}`);
-    console.log(data)
-    await deleteDoc(productRef)
-      .then(()=> {
-        console.log("success")
-      })
-      .catch((error)=> {
-        console.log("failed")
-      })
-    console.log(productRef)
-
-    navigate("/");
-    // setProducts((prev) => {
-    //   return prev.filter((element) => element.id !== product.id);
-    // });
+    const ok = confirm("진짜로 삭제해요??");
+    if (ok) {
+      try {
+        await deleteDoc(productRef);
+        console.log("success");
+        navigate("/");
+      } 
+      catch (error) {
+        console.log(error);
+      }
+    }
   }
 
 
-
-  
-  const addProduct = async (event) => {
-    event.preventDefault();
-    const newProducts = { 
-      title: text,
-      date: Timestamp,
-      price: Number, 
-      like: false 
-    };
-
-    const collectionRef = collection(db, "Products");
-    const { id } = await addDoc(collectionRef, newProducts);
-
-    setProducts((prev) => {
-      return [...products, { ...newProducts, id }];
-    });
-    setText("");
-  };
-
-  return{addProduct, products, like, handleLike, deleteProduct}
+  return{products, like, handleLike, deleteProduct}
 }
 
 export default useGetProduct
