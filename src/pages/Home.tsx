@@ -6,7 +6,6 @@ import ProductsCard from "@/components/products/ProductsCard";
 import HomeCarousel from "@/components/home/HomeCarousel";
 import HomeCategory from "@/components/home/HomeCategory";
 
-import Todo from "./Todo";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -36,8 +35,7 @@ const Home = () => {
       </Link>
       <div className="flex flex-wrap justify-center">
         <ProductsCard />
-      B</div>
-      <Todo />
+      </div>
     </div>
   );
 };
