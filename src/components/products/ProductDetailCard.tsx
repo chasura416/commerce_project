@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
 
 import useGetProduct from "@/hooks/upload/useGetProduct";
+import useFileUpload from "@/hooks/upload/useFileUpload";
 import dayjs from "dayjs";
 
 import { Products } from "@/interface/Products";
@@ -10,6 +11,7 @@ import { Products } from "@/interface/Products";
 const ProductDetailCard = () => {
   const { id } = useParams();
   const { products, deleteProduct } = useGetProduct();
+  const { image } = useFileUpload();
   const data: Products = products.filter((v) => v.id === id);
 
   return (
@@ -21,6 +23,13 @@ const ProductDetailCard = () => {
             <div className="flex justify-between p-10">
               <div className="flex">
                 <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" />
+                <img 
+                  src = {image}
+                  className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" />
+
+                {/* <div className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer">
+                  {data[0]?.imgUrl}
+                </ div> */}
                 <div className="flex-grow-1 p-4">
                   <div className="text-lg">{data[0]?.title}</div>
                   <div className="text-sm text-gray-500">

@@ -1,14 +1,16 @@
 import Header from "@/layout/Header";
 import UploadCard from "@/components/upload/UploadCard";
+import GlobalLayout from "@/layout/GlobalLayout";
 
 const ProductUpload = () => {
   return (
     <>
-      <Header />
-      <div className="max-w-[900px] m-auto">
-        <UploadCard />
-      </div>
-
+      <GlobalLayout>
+        <Header />
+        <div className="max-w-[900px] m-auto">
+          <UploadCard />
+        </div>
+      </GlobalLayout>
     </>
   );
 };

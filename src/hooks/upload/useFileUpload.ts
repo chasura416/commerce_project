@@ -83,7 +83,7 @@ const useFileUpload = () => {
 
     const downloadURL = await getDownloadURL(imageRef);
     console.log(downloadURL);
-
+    setImage(downloadURL);
     
     // 업로드 글 firebase database로 add. 이미지는 따로임.
     const collectionRef = collection(db, "Products");
@@ -94,7 +94,7 @@ const useFileUpload = () => {
       createdAt: new Date(),
       price: price,
       content: content, 
-      imgUrl: images,
+      imgUrl: image,
     });
     
     const productRef = doc(db, `Products/${docRef.id}`)

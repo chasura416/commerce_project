@@ -5,8 +5,8 @@ import GlobalLayout from "@/layout/GlobalLayout"
 const Cart = () => {
   return (
     <>
-      <Header />
       <GlobalLayout>
+        <Header />
         <CartCard />
       </GlobalLayout>
     </>
