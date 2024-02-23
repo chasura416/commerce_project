@@ -83,50 +83,24 @@ const useFileUpload = () => {
 
     const downloadURL = await getDownloadURL(imageRef);
     console.log(downloadURL);
+    setImage(downloadURL);
     
-    // const newProducts:Products = { 
-    //   // id: id,
-    //   title: title,
-    //   createdAt: new Date(),
-    //   price: price,
-    //   content: content, 
-    //   imgUrl: images,
-    // };
-  
-    
+    // 업로드 글 firebase database로 add. 이미지는 따로임.
     const collectionRef = collection(db, "Products");
     console.log(collectionRef)
-    // const { id } = await addDoc(collectionRef, newProducts);
-    // console.log(id)
+
     const docRef = await addDoc(collectionRef, { 
-      // id: `${auth.currentUser?.uid}`,
       title: title,
       createdAt: new Date(),
       price: price,
       content: content, 
-      imgUrl: images,
+      imgUrl: image,
     });
     
     const productRef = doc(db, `Products/${docRef.id}`)
     await updateDoc(productRef, {id: docRef.id});
     console.log(productRef)
 
-
-
-    // const productRef = doc(db, "Products", product.id)
-    // await updateDoc(productRef, )
-    
-    
-    
-    // setProducts((prev) => {
-    //   return [...products, { ...productRef }];
-    // });
-    // console.log(products)
-    // setTitle("");
-    // setContent("");
-    // setPrice("");
-    // setImageUpload("");
-    // setImage("");
     navigate("/");
   }
 
@@ -202,50 +176,53 @@ const useFileUpload = () => {
 
   // ⬆︎ 이 위부터 새로 만든 로직 
 
-  const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
 
-  const handleUpload = async (event) => {
-    // ref 함수를 이용해서 Storage 내부 저장할 위치를 지정하고, uploadBytes 함수를 이용해서 파일을 저장합니다.
-    const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
-    await uploadBytes(imageRef, selectedFile);
+  // 필요없는 부분이니까 이미지까지 제대로 되면 지울 것.
 
-    // 파일 URL 가져오기
-    const downloadURL = await getDownloadURL(imageRef);
-    console.log(downloadURL);
+  // const handleFileSelect = (event) => {
+  //   setSelectedFile(event.target.files[0]);
+  // };
 
-    //내용 업로드 되야함 
-    event.preventDefault();
-    const newProducts = { 
-      title: String,
-      createdAt: Timestamp,
-      price: Number, 
-    };
+  // const handleUpload = async (event) => {
+  //   // ref 함수를 이용해서 Storage 내부 저장할 위치를 지정하고, uploadBytes 함수를 이용해서 파일을 저장합니다.
+  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
+  //   await uploadBytes(imageRef, selectedFile);
 
-    const collectionRef = collection(db, "Products");
-    console.log(collectionRef)
-    const { id } = await addDoc(collectionRef, newProducts);
+  //   // 파일 URL 가져오기
+  //   const downloadURL = await getDownloadURL(imageRef);
+  //   console.log(downloadURL);
 
-    setProducts((prev) => {
-      return [...products, { ...newProducts, id }];
-    });
-    setTitle("");
-    setPrice("");
-    setContent("");
-  };
+  //   //내용 업로드 되야함 
+  //   event.preventDefault();
+  //   const newProducts = { 
+  //     title: String,
+  //     createdAt: Timestamp,
+  //     price: Number, 
+  //   };
 
-  const deleteImage = async () => {
-    const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
+  //   const collectionRef = collection(db, "Products");
+  //   console.log(collectionRef)
+  //   const { id } = await addDoc(collectionRef, newProducts);
 
-    await deleteObject(imageRef)
-      .then(() => {
-        console.log("success");
-      })
-      .catch((error) => {
-        console.log("failed");
-      });
-  };
+  //   setProducts((prev) => {
+  //     return [...products, { ...newProducts, id }];
+  //   });
+  //   setTitle("");
+  //   setPrice("");
+  //   setContent("");
+  // };
+
+  // const deleteImage = async () => {
+  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
+
+  //   await deleteObject(imageRef)
+  //     .then(() => {
+  //       console.log("success");
+  //     })
+  //     .catch((error) => {
+  //       console.log("failed");
+  //     });
+  // };
   
   const [attachment, setAttachment] = useState("");
 
@@ -323,9 +300,6 @@ const useFileUpload = () => {
     imageUpload, 
     images, 
     uploadStep, 
-    handleFileSelect, 
-    handleUpload, 
-    deleteImage, 
     selectImg, 
     onChange, 
     addProduct,

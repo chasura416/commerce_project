@@ -14,13 +14,16 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between m-5">
+    <div className="flex justify-between m-5 mt-8">
       <div>
         <Link to="/">
-          <img src="/src/assets/pslogo.png" alt="logo" width={64} height={1} />
+          <img
+            className="cursor-pointer" 
+            src="/src/assets/pslogo.png" alt="logo" width={64} height={1} />
+          <p>ps market</p>
         </Link>
       </div>
-      <form className="mt-2">
+      <form className="mt-2 ml-32">
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

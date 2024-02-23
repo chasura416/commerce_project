@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { addDoc, deleteDoc, doc, updateDoc, collection, getDocs, query, Timestamp } from "firebase/firestore";
+import { addDoc, deleteDoc, doc, updateDoc, collection, getDocs, query } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 
 import { db, storage, auth } from "@/firebase";
@@ -13,30 +13,30 @@ import { FirebaseError } from "firebase/app";
 
 const useGetProduct = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [text, setText] = useState("");
   const [products, setProducts] = useState([]);
   const [like, setLike] = useState<boolean>(false);
-
-
   const navigate = useNavigate();
 
   const handleLike = () => {
     setLike(!like);
   }
 
-  const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
 
-  const handleUpload = async () => {
-    // ref 함수를 이용해서 Storage 내부 저장할 위치를 지정하고, uploadBytes 함수를 이용해서 파일을 저장합니다.
-    const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
-    await uploadBytes(imageRef, selectedFile);
+  // 이미지 업로드 어디로 뺄지 고민
 
-    // 파일 URL 가져오기
-    const downloadURL = await getDownloadURL(imageRef);
-    console.log(downloadURL);
-  };
+  // const handleFileSelect = (event) => {
+  //   setSelectedFile(event.target.files[0]);
+  // };
+
+  // const handleUpload = async () => {
+  //   // ref 함수를 이용해서 Storage 내부 저장할 위치를 지정하고, uploadBytes 함수를 이용해서 파일을 저장합니다.
+  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
+  //   await uploadBytes(imageRef, selectedFile);
+
+  //   // 파일 URL 가져오기
+  //   const downloadURL = await getDownloadURL(imageRef);
+  //   console.log(downloadURL);
+  // };
 
 
   useEffect(() => {
