@@ -1,13 +1,8 @@
-import Header from "@/layout/Header"
 import { Button } from "@/components/ui/button"
-import { db, storage, auth } from "@/firebase"
 
-import CartCard from "@/components/cart/CartCard"
-
-const Cart = () => {
+const CartCard = () => {
   return (
     <>
-      <Header />
       <div className="border">
         <div className="mt-3 ">
           <div className="flex justify-between p-10">
@@ -32,9 +27,8 @@ const Cart = () => {
         <div>총 가격: 얼마</div>
         <Button>주문하기</Button>
       </div>
-      <CartCard />
     </>
   )
 }
 
-export default Cart
+export default CartCard
