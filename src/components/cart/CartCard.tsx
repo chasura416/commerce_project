@@ -10,6 +10,8 @@ import Modal from "../modal/Modal"
 
 import { useState } from "react"
 
+import OrderModal from "./OrderModal"
+
 const CartCard = () => {
   const { id } = useParams;
   const { products } = useGetProduct;
@@ -63,14 +65,6 @@ const CartCard = () => {
             </div>
           </div>
       </div>
-      <modal.Modal>
-        asdf
-      </modal.Modal>
-      <Modal>
-        <Modal.Body>
-          asdfsadf
-        </Modal.Body>
-      </Modal>
 
       <Modal.Body>
         
@@ -94,7 +88,18 @@ const CartCard = () => {
         </div>
       </div>
 
+      {/* <Modal.Wrapper>
+        <Modal.Header>
+          모달 타이틀
+        </Modal.Header>
+        <Modal.Body>
+          일단 실험
+        </Modal.Body>
+      </Modal.Wrapper> */}
 
+
+
+        <OrderModal />
 
 
       <button
