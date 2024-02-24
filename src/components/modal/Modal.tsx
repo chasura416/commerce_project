@@ -1,9 +1,7 @@
+import { Body, Close, Footer, Header } from ".";
 
-
-const Modal = () => {
-  return (
-    <div>Modal</div>
-  )
+const Modal = {
+  Body, Close, Footer, Header,
 }
 
 export default Modal

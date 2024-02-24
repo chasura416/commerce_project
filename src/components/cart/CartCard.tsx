@@ -39,19 +39,19 @@ const CartCard = () => {
               <div>
                 <div className="flex justify-between">
                   <div>총 상품 가격:</div>
-                  <div>얼마얼마 원</div>
+                  <div>1000 원</div>
                 </div>
                 <div className="flex justify-between">
                   <div>총 할인 가격:</div>
-                  <div>얼마얼마 원</div>
+                  <div>- 0 원</div>
                 </div>
                 <div className="flex justify-between">
                   <div>총 배송비:</div>
-                  <div>얼마얼마 원</div>
+                  <div>2500 원</div>
                 </div>
               </div>
               <hr />
-              <div className="text-xl flex justify-end mt-2 mb-2">얼마얼마 원</div>
+              <div className="text-xl flex justify-end mt-2 mb-2">3500 원</div>
               <Button>구매하기</Button>
             </div>
           </div>
