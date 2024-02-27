@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <div className="max-w-[1280px] flex flex-col m-auto">
       <Header />
-      <div className="flex mt-10">
+      <div className="flex mt-10 ml-10">
         <div className="w-1/6">
           <div className="w-100 border-b">사이드 카테고리</div>
           <HomeCategory />

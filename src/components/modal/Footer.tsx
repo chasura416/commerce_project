@@ -1,4 +1,4 @@
-import {ModalFooter } from "./ModalType";
+import { ModalFooter } from "./ModalType";
 
 const Footer = ({ cancel, confirm, onClickCancel, onClickConfirm }: ModalFooter) => {
   return (

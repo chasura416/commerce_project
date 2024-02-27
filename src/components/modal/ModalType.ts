@@ -4,13 +4,16 @@ export interface ModalType {
 }
 
 
-export interface ModalHeader {
-  title: string;
+export interface ModalTitle {
+
+  children: React.ReactNode;
 }
+
 
 export interface ModalClose {
   onClickEffect?: () => void;
 }
+
 
 export interface ModalFooter {
   cancel: string;

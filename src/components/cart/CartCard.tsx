@@ -4,17 +4,13 @@ import { useParams } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 
 import useGetProduct from "@/hooks/upload/useGetProduct"
-import Modal from "../modal/Modal"
 import OrderModal from "./OrderModal"
-
-
-
 
 
 const CartCard = () => {
   const { id } = useParams;
   const { products } = useGetProduct;
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const ShowModalHandler = () => {
     setShowModal(!showModal);
