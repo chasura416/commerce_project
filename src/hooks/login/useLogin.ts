@@ -10,7 +10,7 @@ import {
  } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
-import { userInfo } from "os";
+// import { userInfo } from "os";
 
 const useLogin = () => {
   const [email, setEmail] = useState("");
@@ -81,7 +81,7 @@ const useLogin = () => {
     await signOut(auth);
   };
 
-  return {onChange,signUp,signIn,logOut }
+  return {onChange, signUp, signIn, logOut, email, password }
 };
 
 export default useLogin;

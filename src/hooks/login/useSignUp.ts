@@ -119,7 +119,7 @@ const useSignUp = () => {
   //   }
   // };
 
-  return {validateEmail, validatePass,onChange,handleSubmit,signUp, emailErr,passwordErr,emailMessage, passwordMessage, emailRegEx, passwordRegex }
+  return { navigate, validateEmail, validatePass, onChange, handleSubmit, signUp, email, password, emailErr, passwordErr, emailMessage, passwordMessage, emailRegEx, passwordRegex }
 
  
 };
