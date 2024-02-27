@@ -9,10 +9,9 @@ const Header = ({ children, onClickEffect }: ModalType) => {
           className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
           onClick={onClickEffect}
         >
-          {/* <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+          <span className="bg-transparent text-black  h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
-                    </span> */}
-          ×
+          </span>
         </button>
       </div>
     </>

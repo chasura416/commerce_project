@@ -8,8 +8,13 @@ export interface ModalHeader {
   title: string;
 }
 
+export interface ModalClose {
+  onClickEffect?: () => void;
+}
+
 export interface ModalFooter {
   cancel: string;
-  except: string;
-  onClickEffect?: () => void;
+  confirm: string;
+  onClickCancel?: () => void;
+  onClickConfirm?: () => void;
 }
