@@ -21,18 +21,19 @@ const Home = () => {
       <Header />
       <div className="flex mt-10 ml-10">
         <div className="w-1/6">
-          <div className="w-100 border-b">사이드 카테고리</div>
           <HomeCategory />
         </div>
         <div className="w-4/6 m-auto ml-48">
           <HomeCarousel />
         </div>
       </div>
-      <div>상품목록</div>
-      귀찮아서 만든 버튼
-      <Link to="/upload">
-        <Button>임시 글쓰기 버튼</Button>
-      </Link>
+      <div className="m-auto">
+        <div>상품목록</div>
+        귀찮아서 만든 버튼
+        <Link to="/upload">
+          <Button>임시 글쓰기 버튼</Button>
+        </Link>
+      </div>
       <div className="flex flex-wrap justify-center">
         <ProductsCard />
       </div>

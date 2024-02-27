@@ -16,7 +16,7 @@ const ProductDetailCard = () => {
 
   return (
     <>
-      <div className="flex flex-col m-10 p-3 justify-center w-5/6">
+      <div className="flex flex-col p-3 justify-center w-5/6">
         <div className="border">
           <div className="text-3xl pl-8 pt-5">{data[0]?.title}</div>
           <div className="mt-3">
