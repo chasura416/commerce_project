@@ -14,6 +14,7 @@ const CartCard = () => {
 
   const ShowModalHandler = () => {
     setShowModal(!showModal);
+    console.log(showModal)
   }
 
   return (

@@ -7,6 +7,7 @@ import ProductDetail from "./ProductDetail";
 import SellerPage from "./SellerPage";
 import SignUpPage from "./SignUpPage";
 import Cart from "./Cart";
+import CategoryList from "./CategoryList";
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   ProductDetail,
   SellerPage,
   NotFound,
+  CategoryList,
 };

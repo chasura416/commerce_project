@@ -2,12 +2,15 @@ import Modal from "../modal/Modal"
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
-const OrderModal = ({props}: any) => {
-  const {ShowModalHandler} = props;
+interface Props{
+  ShowModalHandler: () => void;
+}
+
+const OrderModal = ({ShowModalHandler} :Props) => {
 
   return (
     <>
-      <Modal.Wrapper>
+      <Modal.Wrapper onClickEffect={ShowModalHandler}>
         <Modal.Header onClickEffect={ShowModalHandler}>
           주문 / 결제
         </Modal.Header>
