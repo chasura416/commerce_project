@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "@/context/auth/AuthContext";
 
 const Header = () => {
-  const { user, logOut, loading } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   console.log(user);
   const handleSignOut = () => {
     logOut();

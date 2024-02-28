@@ -6,7 +6,7 @@ import { Products } from "@/interface/Products";
 
 const ProductsCard = () => {
   const { 
-    products: products,
+    products,
     like,
     handleLike, 
   } = useGetProduct();
@@ -18,11 +18,10 @@ const ProductsCard = () => {
         {products?.map((product: Products) => (
           <div className="flex mt-10">
             <div className="flex p-10 max-w-95">
-              {/* <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" />
-              <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" /> */}
               <img 
-                  src = {product?.imgUrl as string}
-                  className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" />
+                src = {product?.imgUrl as string}
+                className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" 
+              />
               <div className="flex-grow-1 p-4">
                 <div className="text-lg">{product?.title}</div>
                 <div className="text-sm text-gray-500">{dayjs((product?.createdAt.seconds + product?.createdAt.nanoseconds / 1000000000) * 1000).format("YYYY.MM.DD")}</div>
