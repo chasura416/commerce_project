@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import useLogin from "@/hooks/login/useLogin";
 
 const LoginCard = () => {
-  const {email, password, onChange, signIn, logOut} = useLogin();
+  const {email, password, onChange, signIn } = useLogin();
 
   return (
     <>

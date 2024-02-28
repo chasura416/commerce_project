@@ -6,10 +6,11 @@ export interface TimeStamp {
 export interface Products {
   uid: string;
   pid: string;
-  like?: boolean;
+  id: string;
+  like?: string[];
   price: number;
   title: string;
   createdAt: TimeStamp;
   content: string;
-  imgUrl: string[];
+  imgUrl: string[] | string;
 }

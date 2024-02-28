@@ -3,16 +3,12 @@ import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
 
 import useGetProduct from "@/hooks/upload/useGetProduct";
-import useFileUpload from "@/hooks/upload/useFileUpload";
 import dayjs from "dayjs";
-
-import { Products } from "@/interface/Products";
 
 const ProductDetailCard = () => {
   const { id } = useParams();
   const { products, deleteProduct } = useGetProduct();
-  const { image } = useFileUpload();
-  const data: Products = products.filter((v) => v.id === id);
+  const data = products.filter((v) => v.id === id);
 
   return (
     <>
@@ -22,9 +18,9 @@ const ProductDetailCard = () => {
           <div className="mt-3">
             <div className="flex justify-between p-10">
               <div className="flex">
-                <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" />
+                {/* <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" /> */}
                 <img 
-                  src = {image}
+                  src = {data[0]?.imgUrl as string}
                   className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" />
 
                 {/* <div className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer">
@@ -44,7 +40,9 @@ const ProductDetailCard = () => {
               <div className="flex flex-col pt-12 gap-1">
                 <div className="text-lg">가격</div>
                 <div>{data[0]?.price}원</div>
-                <Button>장바구니 추가</Button>
+                <Button onClick={()=> {
+
+                }}>장바구니 추가</Button>
                 <Button>바로 주문하기</Button>
               </div>
             </div>

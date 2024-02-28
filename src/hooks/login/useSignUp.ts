@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -6,17 +6,17 @@ import {
 
 import { auth } from "@/firebase";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const useSignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [passwordCheck, setPasswordCheck] = useState<string>("");
+  // const [passwordCheck, setPasswordCheck] = useState<string>("");
   const [emailErr, setEmailErr] = useState<boolean>(false);
   const [passwordErr, setPasswordErr] = useState<boolean>(false);
   const [emailMessage, setEmailMessage] = useState<string>("");
   const [passwordMessage, setpasswordMessage] = useState<string>("");
-  const [pwdCheckMessage, setpwdCheckMessage] = useState<string>("");
+  // const [pwdCheckMessage, setpwdCheckMessage] = useState<string>("");
   const navigate = useNavigate();
 
   
@@ -64,7 +64,7 @@ const useSignUp = () => {
     });
   }, []);
 
-  const onChange = (event: FormEvent) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
     } = event;
@@ -76,10 +76,10 @@ const useSignUp = () => {
       setPassword(value);
       validatePass();
     }
-    if (name === "passwordCheck") {
-      setPasswordCheck(value);
+    // if (name === "passwordCheck") {
+    //   setPasswordCheck(value);
       
-    }
+    // }
   };
 
   const signUp = (event: FormEvent) => {

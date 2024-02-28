@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button"
 
 import useGetProduct from "@/hooks/upload/useGetProduct"
 import OrderModal from "./OrderModal"
-
+import { Products } from "@/interface/Products"
 
 const CartCard = () => {
   const { id } = useParams;
-  const { products } = useGetProduct;
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { products } = useGetProduct();
 
   const ShowModalHandler = () => {
     setShowModal(!showModal);
