@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 
-import { addDoc, deleteDoc, doc, updateDoc, collection, getDocs, query } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
+import { deleteDoc, doc, collection, getDocs, query } from "firebase/firestore";
 
-import { db, storage, auth } from "@/firebase";
+import { db, auth } from "@/firebase";
 
 import { Products } from "@/interface/Products";
 
 import { useNavigate } from "react-router-dom";
 
-import { FirebaseError } from "firebase/app";
+// import { FirebaseError } from "firebase/app";
 
 const useGetProduct = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [products, setProducts] = useState([]);
+  // const [selectedFile, setSelectedFile] = useState(null);
+  const [products, setProducts] = useState<Products[]>([]);
   const [like, setLike] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -44,13 +43,18 @@ const useGetProduct = () => {
       const q = query(collection(db, "Products"));
       const querySnapshot = await getDocs(q);
 
-      const initialProducts = [];
+      // const initialProducts = [];
 
-      querySnapshot.forEach((doc) => {
-        initialProducts.push({ id: doc.id, ...doc.data() });
+      // querySnapshot.forEach((doc) => {
+      //   initialProducts.push({ id: doc.id, ...doc.data() });
+      // });
+
+      const product = querySnapshot.docs.map((doc) => {
+        const data = doc.data() as Products
+        return { ...data, id: doc.id } ;
       });
 
-      setProducts(initialProducts);
+      setProducts(product);
     };
 
     
@@ -61,7 +65,7 @@ const useGetProduct = () => {
   console.log(auth)
 
   // data는 productDetail에서 drilling 해준 값
-  const deleteProduct = async (data) => {
+  const deleteProduct = async (data: Products[]) => {
     const productRef = doc(db, `Products/${data[0].id}`);
     const ok = confirm("진짜로 삭제해요??");
     if (ok) {

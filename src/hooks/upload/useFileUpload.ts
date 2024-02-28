@@ -1,47 +1,35 @@
-import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
+import { useState, useRef, ChangeEvent, FormEvent } from "react";
 
-import { addDoc, doc, updateDoc, collection, getDocs, orderBy, query, Timestamp } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
+import { addDoc, doc, updateDoc, collection } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { db, storage, auth } from "@/firebase";
 
-import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
-import { Products } from "@/interface/Products";
+// import { Products } from "@/interface/Products";
 import useGetProduct from "./useGetProduct";
 
 const useFileUpload = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [price, setPrice] = useState(Number);
   
   const { products } = useGetProduct();
 
-
-  // const [products, setProducts] = useState([
-  //   {title: "", price: 0, content: "", imgurl:"", id: 0}
-  // ]);
-
-  const date = dayjs().format("YYYY.MM.DD");
   const navigate = useNavigate();
   
   // 다시 짠 이미지 업로드 로직 스테이트
   const fileInput = useRef(null);
-  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUpload, setImageUpload] = useState<File>();
   const [image, setImage] = useState("");
-  const [images, setImages] = useState([]);
-  const [uploadStep, setUploadStep] = useState(1);
-
-  console.log("image", image)
-  console.log("images", images)
-  console.log("imageUpload", imageUpload)
-  // console.log("uploadStep", uploadStep)
+  // const [images, setImages] = useState([]);
+  // const [uploadStep, setUploadStep] = useState(1);
 
 
-
-  const handleImageFile = (event) => {
+  const handleImageFile = (event: ChangeEvent<HTMLInputElement>) => {
+    if(!event.target.files) return
     setImageUpload(event.target.files[0]);
   };
 
@@ -57,15 +45,16 @@ const useFileUpload = () => {
   // }, [imageUpload]);
 
 
-  const addProduct = async (event) => {
+  const addProduct = async (event: FormEvent) => {
     event.preventDefault();
-
+    console.log("111111111")
     const imageRef = ref(
       storage,
-      `${auth.currentUser?.uid}/${imageUpload.name}`
-    );
-    if (imageUpload === null) return;
-    await uploadBytes(imageRef, imageUpload);
+      `${auth.currentUser?.uid}/${imageUpload?.name}`
+      );
+      if (imageUpload === undefined) return;
+      console.log("222222222")
+      await uploadBytes(imageRef, imageUpload);
     // const uploadTask = await uploadBytes(imageRef, imageUpload);
     
     // // uploadTask.then()
@@ -83,7 +72,7 @@ const useFileUpload = () => {
 
     const downloadURL = await getDownloadURL(imageRef);
     console.log(downloadURL);
-    setImage(downloadURL);
+    setImage(()=>downloadURL);
     
     // 업로드 글 firebase database로 add. 이미지는 따로임.
     const collectionRef = collection(db, "Products");
@@ -94,7 +83,7 @@ const useFileUpload = () => {
       createdAt: new Date(),
       price: price,
       content: content, 
-      imgUrl: image,
+      imgUrl: downloadURL,
     });
     
     const productRef = doc(db, `Products/${docRef.id}`)
@@ -108,12 +97,12 @@ const useFileUpload = () => {
 
 
   // 일단 여기는 이미지고 일단 제목 내용부터 위에서 다시 짠다.
-  const fetchImages = async () => {
-    const photo = collection(db, `${auth.currentUser?.uid}`);
-    const result  = await getDocs(query(photo, orderBy("timestamp", "desc")));
-    const fetchData = result.docs.map((el) => el.data());
-    setImages(fetchData);
-  }
+  // const fetchImages = async () => {
+  //   const photo = collection(db, `${auth.currentUser?.uid}`);
+  //   const result  = await getDocs(query(photo, orderBy("timestamp", "desc")));
+  //   const fetchData = result.docs.map((el) => el.data());
+  //   setImages(fetchData);
+  // }
 
 
   // useEffect(() => {
@@ -135,29 +124,29 @@ const useFileUpload = () => {
   // }, []);
 
 
-  useEffect(() => {
-    fetchImages();
-  }, [])
+  // useEffect(() => {
+  //   fetchImages();
+  // }, [])
 
 
-  const UploadImgUrl = async () => {
-    await addDoc(collection(db, `${auth.currentUser?.uid}`), {
-      imgUrl: image,
-      timestamp: new Date(),
-    });
-    fetchImages();
-    setImageUpload("");
-    setImage("");
-    setUploadStep(1);
-  }
+  // const UploadImgUrl = async () => {
+  //   await addDoc(collection(db, `${auth.currentUser?.uid}`), {
+  //     imgUrl: image,
+  //     timestamp: new Date(),
+  //   });
+  //   fetchImages();
+  //   setImageUpload("");
+  //   setImage("");
+  //   setUploadStep(1);
+  // }
 
 
-  const selectFile = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
-    setImageUpload(file);
-    setUploadStep(2);
-  }
+  // const selectFile = (e) => {
+  //   const file = e.target.files[0];
+  //   console.log(file);
+  //   setImageUpload(file);
+  //   setUploadStep(2);
+  // }
 
 
   // useEffect(()=>{
@@ -224,20 +213,22 @@ const useFileUpload = () => {
   //     });
   // };
   
-  const [attachment, setAttachment] = useState("");
+  // const [attachment, setAttachment] = useState("");
 
-  const selectImg = (e) => {
-    const reader = new FileReader();
-    const theFile = fileInput.current.files[0];
-    reader.readAsDataURL(theFile);
-    reader.onload = (finishedEvent) => {
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
-      setAttachment(result);
-    }
-  }
-  const onChange = (event) => {
+  // const selectImg = (e) => {
+  //   const reader = new FileReader();
+  //   const theFile = fileInput.current.files[0];
+  //   reader.readAsDataURL(theFile);
+  //   reader.onload = (finishedEvent) => {
+  //     const {
+  //       currentTarget: { result },
+  //     } = finishedEvent;
+  //     setAttachment(result);
+  //   }
+  // }
+
+
+  const onChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {
       target: { name, value },
     } = event;
@@ -245,52 +236,15 @@ const useFileUpload = () => {
       setTitle(value);
     }
     if (name === "price") {
-      setPrice(value);
+      setPrice(Number(value));
     }
     if (name === "content") {
       setContent(value);
     }
   };
   
-  useEffect(() => {
-    const fetchData = async () => {
-      const q = query(collection(db, "Products"));
-      const querySnapshot = await getDocs(q);
-
-      const initialProducts = [];
-
-      querySnapshot.forEach((doc) => {
-        initialProducts.push({ id: doc.id, ...doc.data() });
-      });
-
-      setProducts(initialProducts);
-      console.log(initialProducts)
-    };
-
-    fetchData();
-  }, []);
-
-
-  // const addProduct = async (event) => {
-  //   event.preventDefault();
-  //   const newProducts = { 
-  //     title: String,
-  //     createdAt: Timestamp,
-  //     price: Number, 
-  //   };
-
-  //   const collectionRef = collection(db, "Products");
-  //   console.log(collectionRef)
-  //   const { id } = await addDoc(collectionRef, newProducts);
-
-  //   setProducts((prev) => {
-  //     return [...products, { ...newProducts, id }];
-  //   });
-  //   setText("");
-  // };
 
   return {
-    selectedFile, 
     products, 
     title, 
     price, 
@@ -298,16 +252,10 @@ const useFileUpload = () => {
     content, 
     fileInput, 
     imageUpload, 
-    images, 
-    uploadStep, 
-    selectImg, 
     onChange, 
     addProduct,
-    UploadImgUrl,
-    selectFile,
     handleImageFile,
   }
-
 };
 
 export default useFileUpload;

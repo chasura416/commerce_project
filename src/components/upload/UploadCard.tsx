@@ -8,21 +8,12 @@ import { Textarea } from "@/components/ui/textarea";
 
 const UploadCard = () => {
   const {
-    selectedFile,
-    products,
     title,
     price,
-    image,
     content,
     fileInput,
-    imageUpload,
-    images,
-    uploadStep,
-    selectImg,
     onChange,
     addProduct,
-    UploadImgUrl,
-    selectFile,
     handleImageFile,
   } = useFileUpload();
 
@@ -69,7 +60,7 @@ const UploadCard = () => {
               accept="image/*" 
               name="image"
               ref={fileInput}
-              onChange={selectFile}
+              onChange={handleImageFile}
               style={{display: "none"}} 
             />
           </div>

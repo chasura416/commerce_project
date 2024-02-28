@@ -1,6 +1,6 @@
-import Header from "@/layout/Header"
-import CartCard from "@/components/cart/CartCard"
-import GlobalLayout from "@/layout/GlobalLayout"
+import Header from "@/layout/Header";
+import CartCard from "@/components/cart/CartCard";
+import GlobalLayout from "@/layout/GlobalLayout";
 
 const Cart = () => {
   return (
@@ -10,7 +10,7 @@ const Cart = () => {
         <CartCard />
       </GlobalLayout>
     </>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;

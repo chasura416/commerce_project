@@ -1,12 +1,21 @@
-import { Button } from "@/components/ui/button"
-
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 
+import { Button } from "@/components/ui/button"
+
 import useGetProduct from "@/hooks/upload/useGetProduct"
+import OrderModal from "./OrderModal"
+import { Products } from "@/interface/Products"
 
 const CartCard = () => {
   const { id } = useParams;
-  const { products } = useGetProduct;
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const { products } = useGetProduct();
+
+  const ShowModalHandler = () => {
+    setShowModal(!showModal);
+    console.log(showModal)
+  }
 
   return (
     <>
@@ -38,24 +47,31 @@ const CartCard = () => {
               <div className="text-xl">주문 예상 금액</div>
               <div>
                 <div className="flex justify-between">
-                  <div>총 상품 가격:</div>
-                  <div>얼마얼마 원</div>
+                  <div>총 상품 가격</div>
+                  <div>1000 원</div>
                 </div>
                 <div className="flex justify-between">
-                  <div>총 할인 가격:</div>
-                  <div>얼마얼마 원</div>
+                  <div className="text-red-500">총 할인 가격</div>
+                  <div className="text-red-500">- 0 원</div>
                 </div>
                 <div className="flex justify-between">
-                  <div>총 배송비:</div>
-                  <div>얼마얼마 원</div>
+                  <div>총 배송비</div>
+                  <div>2500 원</div>
                 </div>
               </div>
               <hr />
-              <div className="text-xl flex justify-end mt-2 mb-2">얼마얼마 원</div>
-              <Button>구매하기</Button>
+              <div className="text-xl flex justify-end mt-2 mb-2">3500 원</div>
+              <Button onClick={ShowModalHandler}>구매하기</Button>
             </div>
           </div>
       </div>
+      
+      {showModal ?
+        <OrderModal ShowModalHandler={ShowModalHandler}/>
+        :
+        null
+      }
+
     </>
   )
 }

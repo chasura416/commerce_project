@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Home, Login, SignUpPage, MyPage, Cart, ProductUpload, NotFound, SellerPage, ProductDetail } from "../pages";
+import { Home, Login, SignUpPage, MyPage, Cart, ProductUpload, NotFound, SellerPage, ProductDetail, CategoryList, } from "../pages";
 
 const Router = () => {
   return (
@@ -11,6 +11,7 @@ const Router = () => {
       <Route path="/cart" element={<Cart />} />
       <Route path="/upload" element={<ProductUpload />} />
       <Route path="/productdetail/:id" element={<ProductDetail />} />
+      <Route path="/category/:id" element={<CategoryList />} />
       <Route path="/sellerpage" element={<SellerPage />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
