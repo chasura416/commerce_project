@@ -5,7 +5,7 @@ const FLATFORM: Record<string, {title: string}> = {
   ps5: { title: 'PlayStation5' },
   ps4: { title: 'PlayStation4' },
   xbox: { title: 'XBOX ONE' },
-  switch: { title: 'Nintendo Switch' },
+  switch: { title: 'NINTENDO SWITCH' },
 };
 
 const CategoryHeader = () => {

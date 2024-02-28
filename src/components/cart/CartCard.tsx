@@ -18,25 +18,31 @@ const CartCard = () => {
     console.log(showModal);
   };
 
+  const checkBoxAllSelecter = () => {
+    console.log("check");
+  };
+
   const checkBoxHandler = () => {
-    console.log("check")
-  }
+    console.log("check");
+  };
 
   return (
     <>
       <div className="flex justify-center">
         <div className="w-3/6">
           <div className="border-b mb-10 pl-2 text-4xl font-semibold flex justify-center">CART</div>
+          <div className="flex">
+          <div className="flex justify-center items-center pl-3 mb-5">
+            <Checkbox id="terms" className="mr-4" onCheckedChange={checkBoxAllSelecter} />
+            <div className="text-xl font-bold">전체선택</div>
+          </div>
+          </div>
           <div className="border rounded-xl">
             <div className="mt-3">
               <div className="flex justify-between p-10">
                 <div className="flex items-center">
-                <Checkbox 
-                  id="terms"
-                  className="mr-4"
-                  onCheckedChange={checkBoxHandler} 
-                />
-      {/* <label
+                  <Checkbox id="terms" className="mr-4" onCheckedChange={checkBoxHandler} />
+                  {/* <label
         htmlFor="terms"
         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
@@ -59,7 +65,7 @@ const CartCard = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="w-3/12 ml-10">
           <div className="border rounded-xl flex flex-col p-5">
             <div className="border-b text-2xl font-semibold mb-3">주문 예상 금액</div>
