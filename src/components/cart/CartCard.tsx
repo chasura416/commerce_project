@@ -50,15 +50,15 @@ const CartCard = () => {
       </label> */}
                   <img className="w-28 h-28 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/100')] cursor-pointer" />
                   <div className="p-4">
-                    <div className="text-lg">상품 제목</div>
-                    <div className="text-sm text-gray-500">2024년 2월 7일</div>
+                    <div className="text-lg">상품이 없습니다</div>
+                    <div className="text-sm text-gray-500">상품을 담아주세요</div>
                     {/* <div className="text-base">2000원</div> */}
                   </div>
                 </div>
                 <div className="flex items-center">
                   <div className="flex items-center">
-                    <div className="text-lg mr-10 font-semibold">2000 원</div>
-                    <Button>삭제하기</Button>
+                    <div className="text-lg mr-10 font-semibold">0 원</div>
+                    <Button>삭제</Button>
                   </div>
                 </div>
               </div>
