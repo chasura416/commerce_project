@@ -28,7 +28,9 @@ const CartCard = () => {
 
   return (
     <>
-      <div className="flex justify-center">
+      <div
+        style={{minHeight: "calc(100vh - 321px)"}} 
+        className="flex justify-center">
         <div className="w-3/6">
           <div className="border-b mb-10 pl-2 text-4xl font-semibold flex justify-center">CART</div>
           <div className="flex">

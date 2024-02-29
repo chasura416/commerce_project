@@ -50,7 +50,7 @@ const MyPage = () => {
                         {/* 무작위로 지워지니까 특정 글 지워지도록 삭제버튼 새로 이부분만 다시 만들 것 */}
                         <Button 
                           onClick={()=>{
-                            deleteProduct(data)
+                            deleteProduct(product?.id)
                           }}
                         >
                           삭제하기

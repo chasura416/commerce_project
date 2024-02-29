@@ -14,7 +14,7 @@ const ProductsListCard = () => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center max-w-7xl">
+      <div className="grid grid-cols-2 max-w-7xl">
         {products?.map((product: Products) => (
           <div className="flex mt-10">
             <div className="flex p-10 max-w-95">
@@ -22,8 +22,8 @@ const ProductsListCard = () => {
                 src = {product?.imgUrl as string}
                 className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" 
               />
-              <div className="flex-grow-1 p-4 w-30">
-                <div className="text-lg text-ellipsis">{product?.title}</div>
+              <div className="flex-grow-1 p-4">
+                <div className="text-lg truncate max-w-[170px]">{product?.title}</div>
                 <div className="text-sm text-gray-500">{dayjs((product?.createdAt.seconds + product?.createdAt.nanoseconds / 1000000000) * 1000).format("YYYY.MM.DD")}</div>
                 <div className="text-base">{product?.price}원</div>
                 <div className="">
