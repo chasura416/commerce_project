@@ -84,6 +84,7 @@ const useFileUpload = () => {
       price: price,
       content: content, 
       imgUrl: downloadURL,
+      uid: auth.currentUser?.uid
     });
     
     const productRef = doc(db, `Products/${docRef.id}`)

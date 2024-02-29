@@ -1,44 +1,69 @@
 import Header from "@/layout/Header";
-import { Button } from "@/components/ui/button";
+import GlobalLayout from "@/layout/GlobalLayout";
 
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { auth } from "@/firebase";
+import { Products } from "@/interface/Products";
 import useGetProduct from "@/hooks/upload/useGetProduct";
 import dayjs from "dayjs";
 
+import { Button } from "@/components/ui/button";
+
 const MyPage = () => {
-  const { id } = useParams();
-  const { products: products } = useGetProduct();
-  const data = products.filter((v) => v.id === (id));
+  const { products, deleteProduct } = useGetProduct();
+  const data = products.filter((v) => v.uid === auth.currentUser?.uid);
 
   return (
     <>
-      <Header />
-      <div>
-        <div>내가 쓴 글 리스트 나와야함</div>
-        <hr />
-        <div className="flex justify-center">
-          <div className="flex flex-col m-10 p-3 justify-center w-4/6">
-            <div className="border">
-              <div className="mt-3">
-                <div className="flex justify-between p-10">
-                  <div className="flex">
-                    <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" />
-                    <div className="flex-grow-1 p-4">
-                      <div className="text-lg">글 제목</div>
-                      <div className="text-sm text-gray-500">2024.02.17</div>
-                      <div className="text-base">2000원</div>
+      <GlobalLayout>
+        <Header />
+        <div>
+          <div className="border-b mb-10 pl-2 text-2xl font-semibold">My Page</div>
+          <div className="flex justify-center">
+            <div className="flex flex-col m-10 p-3 justify-center w-4/6">
+            <div className="border-b mb-10 pl-2 text-2xl font-semibold">내가 쓴 글 목록</div>
+              {data.map((product: Products) => (
+                <div className="border rounded-lg">
+                  <div className="mt-3">
+                    <div className="flex justify-between p-10">
+                      <div className="flex">
+                        <Link to={`/productdetail/${product?.id}`}>
+                          <img
+                            src={product?.imgUrl as string}
+                            className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer"
+                          />
+                        </Link>
+                        <div className="flex-grow-1 p-4">
+                          <div className="text-lg">{product?.title}</div>
+                          <div className="text-sm text-gray-500">
+                            {dayjs(
+                              (product?.createdAt.seconds +
+                                product?.createdAt.nanoseconds / 1000000000) *
+                                1000
+                            ).format("YYYY.MM.DD")}
+                          </div>
+                          <div className="text-base">{product?.price}원</div>
+                        </div>
+                      </div>
+                      <div className="flex flex-col pt-12 gap-1">
+                        <Button>수정하기</Button>
+                        {/* 무작위로 지워지니까 특정 글 지워지도록 삭제버튼 새로 이부분만 다시 만들 것 */}
+                        <Button 
+                          onClick={()=>{
+                            deleteProduct(data)
+                          }}
+                        >
+                          삭제하기
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col pt-12 gap-1">
-                    <Button>수정하기</Button>
-                    <Button>삭제하기</Button>
-                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
-      </div>
+      </GlobalLayout>
     </>
   );
 };

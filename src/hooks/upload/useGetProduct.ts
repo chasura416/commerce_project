@@ -81,7 +81,7 @@ const useGetProduct = () => {
   }
 
 
-  return{products, like, handleLike, deleteProduct}
+  return{products, like, handleLike, deleteProduct, navigate}
 }
 
 export default useGetProduct

@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 const ProductDetailCard = () => {
   const { id } = useParams();
-  const { products, deleteProduct } = useGetProduct();
+  const { products, deleteProduct, navigate } = useGetProduct();
   const data = products.filter((v) => v.id === id);
 
   return (
@@ -65,7 +65,13 @@ const ProductDetailCard = () => {
               </Button>
             </div>
             <div className="flex gap-1">
-              <Button>뒤로가기</Button>
+              <Button 
+                onClick={()=>{
+                  navigate(-1);
+              }}
+              >
+                뒤로가기
+              </Button>
               <Button>장바구니</Button>
               <Button>주문하기</Button>
             </div>
