@@ -23,7 +23,7 @@ const ProductsListCard = () => {
                 className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" 
               />
               <div className="flex-grow-1 p-4">
-                <div className="text-lg truncate max-w-[170px]">{product?.title}</div>
+                <div className="text-lg truncate max-w-[100px]">{product?.title}</div>
                 <div className="text-sm text-gray-500">{dayjs((product?.createdAt.seconds + product?.createdAt.nanoseconds / 1000000000) * 1000).format("YYYY.MM.DD")}</div>
                 <div className="text-base">{product?.price}원</div>
                 <div className="">

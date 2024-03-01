@@ -56,10 +56,10 @@ const useGetProduct = () => {
 
       setProducts(product);
     };
-
     
     fetchData();
   }, []);
+
   console.log(products)
 
   console.log(auth)

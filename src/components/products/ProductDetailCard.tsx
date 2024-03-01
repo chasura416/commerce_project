@@ -58,7 +58,7 @@ const ProductDetailCard = () => {
               <Button>수정하기</Button>
               <Button
                 onClick={() => {
-                  deleteProduct(data);
+                  deleteProduct(data[0]?.id);
                 }}
               >
                 삭제하기

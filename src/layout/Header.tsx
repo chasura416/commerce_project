@@ -20,7 +20,7 @@ const Header = () => {
           <img
             className="cursor-pointer" 
             src="/src/assets/pslogo.png" alt="logo" width={64} height={1} />
-          <p>ps market</p>
+          <p className="font-semibold">ps market</p>
         </Link>
       </div>
       <form className="mt-2 ml-32">
