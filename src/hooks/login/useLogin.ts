@@ -68,7 +68,7 @@ const useLogin = () => {
       )
       console.log("user with signIn", userCredential.user)
       navigate("/");
-    } catch (error) {
+    } catch (error: unknown) {
       const errorCode = error.code
       const errorMessage = error.message
       console.log("error with signIn", errorCode, errorMessage)

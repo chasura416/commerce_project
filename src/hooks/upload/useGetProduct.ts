@@ -56,17 +56,17 @@ const useGetProduct = () => {
 
       setProducts(product);
     };
-
     
     fetchData();
   }, []);
+
   console.log(products)
 
   console.log(auth)
 
   // data는 productDetail에서 drilling 해준 값
-  const deleteProduct = async (data: Products[]) => {
-    const productRef = doc(db, `Products/${data[0].id}`);
+  const deleteProduct = async (id: string) => {
+    const productRef = doc(db, `Products/${id}`);
     const ok = confirm("진짜로 삭제해요??");
     if (ok) {
       try {
@@ -81,7 +81,7 @@ const useGetProduct = () => {
   }
 
 
-  return{products, like, handleLike, deleteProduct}
+  return{products, like, handleLike, deleteProduct, navigate}
 }
 
 export default useGetProduct

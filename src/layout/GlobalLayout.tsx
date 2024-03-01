@@ -7,7 +7,7 @@ interface layout {
 const GlobalLayout = ({children}: layout) => {
   return (
     <>
-      <div className="max-w-[1280px] m-auto">
+      <div className="max-w-[1280px] m-auto min-h-screen">
         {children}
       </div>
     </>

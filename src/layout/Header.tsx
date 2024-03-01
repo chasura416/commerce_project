@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "@/context/auth/AuthContext";
 
 const Header = () => {
-  const { user, logOut, loading } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   console.log(user);
   const handleSignOut = () => {
     logOut();
@@ -20,7 +20,7 @@ const Header = () => {
           <img
             className="cursor-pointer" 
             src="/src/assets/pslogo.png" alt="logo" width={64} height={1} />
-          <p>ps market</p>
+          <p className="font-semibold">ps market</p>
         </Link>
       </div>
       <form className="mt-2 ml-32">
