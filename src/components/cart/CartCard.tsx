@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "../ui/checkbox";
 
-import useGetProduct from "@/hooks/upload/useGetProduct";
+// import useGetProduct from "@/hooks/upload/useGetProduct";
 import OrderModal from "./OrderModal";
-import { Products } from "@/interface/Products";
+// import { Products } from "@/interface/Products";
 
 const CartCard = () => {
-  const { id } = useParams;
+  // const { id } = useParams;
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { products } = useGetProduct();
+  // const { products } = useGetProduct();
 
   const ShowModalHandler = () => {
     setShowModal(!showModal);

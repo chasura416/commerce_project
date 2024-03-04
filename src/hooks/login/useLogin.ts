@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { auth } from "@/firebase";
 
 import { 
@@ -24,7 +24,7 @@ const useLogin = () => {
     })
   }, [])
 
-  const onChange = (event: FormEvent) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
     } = event;
@@ -48,13 +48,11 @@ const useLogin = () => {
       console.log("user", userCredential.user);
       if (auth.currentUser) {
         await updateProfile(auth.currentUser,{
-          displayName: userInfo.name,
+          displayName: auth.currentUser.displayName,
         })
       }
     } catch(error: unknown) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("error with signUp", errorCode, errorMessage)
+        console.log("error with signUp")
     }
   };
   const signIn = async (event: FormEvent) => {
@@ -69,9 +67,7 @@ const useLogin = () => {
       console.log("user with signIn", userCredential.user)
       navigate("/");
     } catch (error: unknown) {
-      const errorCode = error.code
-      const errorMessage = error.message
-      console.log("error with signIn", errorCode, errorMessage)
+      console.log("error with signIn")
     }
   };
   const logOut = async (event: FormEvent) => {
