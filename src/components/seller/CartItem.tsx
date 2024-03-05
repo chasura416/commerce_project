@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import { db, storage, auth } from "@/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+// import { useState, useEffect } from "react";
+// import { db, storage, auth } from "@/firebase";
+// import { onAuthStateChanged } from "firebase/auth";
 
 const CartItem = () => {
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log("user", user);
-    });
-  }, []);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     console.log("user", user);
+  //   });
+  // }, []);
 
   return (
     <>

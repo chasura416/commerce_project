@@ -6,16 +6,16 @@ import {
 } from "firebase/auth";
 import { ReactNode, useState, createContext, useEffect } from "react"
 import { auth } from "@/firebase";
-import { User } from "firebase/auth";
+// import { User } from "firebase/auth";
 
 interface Props {
   children: ReactNode;
 }
 
-interface AuthContextProps {
-  user: User;
-  loading: boolean;
-}
+// interface AuthContextProps {
+//   user: User;
+//   loading: boolean;
+// }
 
 export const AuthContext = createContext({
   createUser: (_email: string, _password: string) => {},
@@ -29,7 +29,7 @@ import { useNavigate } from "react-router-dom";
 
 const AuthProvider = ({children}: Props) => {
   const [ user, setUser ] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true);
+  const [ loading, setLoading ] = useState(true);
   const navigate = useNavigate();
 
   const createUser = (email: string, password: string) => {

@@ -1,5 +1,5 @@
-import Header from "@/layout/Header"
-import { db,storage, auth } from "@/firebase"
+// import Header from "@/layout/Header"
+// import { db,storage, auth } from "@/firebase"
 import CartItem from "@/components/seller/CartItem"
 
 // 상품은 프로덕트카드에 따로 빼서 컴포넌트화 할 것.
