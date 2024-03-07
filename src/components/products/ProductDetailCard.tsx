@@ -3,11 +3,13 @@ import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
 
 import useGetProduct from "@/hooks/upload/useGetProduct";
+import useFileUpload from "@/hooks/upload/useFileUpload";
 import dayjs from "dayjs";
 
 const ProductDetailCard = () => {
   const { id } = useParams();
   const { products, deleteProduct, navigate } = useGetProduct();
+  const { cartProductHandle } = useFileUpload();
   const data = products.filter((v) => v.id === id);
 
   return (
@@ -39,9 +41,7 @@ const ProductDetailCard = () => {
               <div className="flex flex-col pt-12 gap-1">
                 <div className="text-lg">가격</div>
                 <div>{data[0]?.price}원</div>
-                <Button onClick={()=> {
-
-                }}>장바구니 추가</Button>
+                <Button onClick={cartProductHandle}>장바구니 추가</Button>
                 <Button>바로 주문하기</Button>
               </div>
             </div>

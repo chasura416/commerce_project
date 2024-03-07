@@ -15,7 +15,8 @@ const useFileUpload = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [price, setPrice] = useState(Number);
-  
+  const [addCart, setAddCart] = useState<boolean>(false);
+
   const { products } = useGetProduct();
 
   const navigate = useNavigate();
@@ -32,6 +33,10 @@ const useFileUpload = () => {
     if(!event.target.files) return
     setImageUpload(event.target.files[0]);
   };
+
+  const cartProductHandle = () => {
+    setAddCart(!addCart);
+  }
 
   // useEffect(()=>{
   //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload.name}`)
@@ -84,7 +89,8 @@ const useFileUpload = () => {
       price: price,
       content: content, 
       imgUrl: downloadURL,
-      uid: auth.currentUser?.uid
+      uid: auth.currentUser?.uid,
+      addCart: addCart,
     });
     
     const productRef = doc(db, `Products/${docRef.id}`)
@@ -252,7 +258,10 @@ const useFileUpload = () => {
     image, 
     content, 
     fileInput, 
-    imageUpload, 
+    imageUpload,
+    addCart,
+    setAddCart,
+    cartProductHandle, 
     onChange, 
     addProduct,
     handleImageFile,
