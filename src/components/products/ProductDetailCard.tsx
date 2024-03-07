@@ -18,14 +18,13 @@ const ProductDetailCard = () => {
           <div className="mt-3">
             <div className="flex justify-between p-10">
               <div className="flex">
-                {/* <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')] cursor-pointer" /> */}
-                <img 
+                { data[0]?.imgUrl ? 
+                  <img 
                   src = {data[0]?.imgUrl as string}
                   className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" />
-
-                {/* <div className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer">
-                  {data[0]?.imgUrl}
-                </ div> */}
+                  :
+                  <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')]" />
+                }
                 <div className="flex-grow-1 p-4">
                   <div className="text-lg">{data[0]?.title}</div>
                   <div className="text-sm text-gray-500">

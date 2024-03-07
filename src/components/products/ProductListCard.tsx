@@ -18,10 +18,12 @@ const ProductsListCard = () => {
         {products?.map((product: Products) => (
           <div className="flex mt-10">
             <div className="flex p-10 max-w-95">
-              <img 
-                src = {product?.imgUrl as string}
-                className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" 
-              />
+              <Link to={`/productdetail/${product?.id}`}>
+                <img 
+                  src = {product?.imgUrl as string}
+                  className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" 
+                />
+              </Link>
               <div className="flex-grow-1 p-4">
                 <div className="text-lg truncate max-w-[100px]">{product?.title}</div>
                 <div className="text-sm text-gray-500">{dayjs((product?.createdAt.seconds + product?.createdAt.nanoseconds / 1000000000) * 1000).format("YYYY.MM.DD")}</div>
