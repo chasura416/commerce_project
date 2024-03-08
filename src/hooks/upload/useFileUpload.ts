@@ -109,22 +109,16 @@ const useFileUpload = () => {
     const productRef = doc(db, `Products/${id}`)
     const snapshot = await getDoc(productRef)
     const data = snapshot.data()
+    try {
+      await updateDoc(productRef, {addCart: !data.addCart});
+    }
+    catch(error) {
+      console.log(error);
+    }
     if(data.addCart === false) {
-      try {
-        await updateDoc(productRef, {addCart: !data.addCart});
-        alert("장바구니로 이동시마스")
-      }
-      catch(error) {
-        console.log(error);
-      }
+      alert("장바구니로 이동시마스")
     }else {
-      try {
-        await updateDoc(productRef, {addCart: !data.addCart});
-        location.reload()
-      }
-      catch(error) {
-        console.log(error);
-      }
+      location.reload();
     }
   }
 
