@@ -1,7 +1,8 @@
 import { useState, useRef, ChangeEvent, FormEvent } from "react";
 
-import { addDoc, doc, updateDoc, collection } from "firebase/firestore";
+import { addDoc, doc, updateDoc, collection, getDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+
 
 import { db, storage, auth } from "@/firebase";
 
@@ -37,6 +38,9 @@ const useFileUpload = () => {
   const cartProductHandle = () => {
     setAddCart(!addCart);
   }
+
+
+
 
   // useEffect(()=>{
   //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload.name}`)
@@ -101,6 +105,28 @@ const useFileUpload = () => {
   }
 
 
+  const cartUpdate = async (id: string) => {
+    const productRef = doc(db, `Products/${id}`)
+    const snapshot = await getDoc(productRef)
+    const data = snapshot.data()
+    if(data.addCart === false) {
+      try {
+        await updateDoc(productRef, {addCart: !data.addCart});
+        alert("장바구니로 이동시마스")
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }else {
+      try {
+        await updateDoc(productRef, {addCart: !data.addCart});
+        location.reload()
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }
+  }
 
 
   // 일단 여기는 이미지고 일단 제목 내용부터 위에서 다시 짠다.
@@ -260,6 +286,7 @@ const useFileUpload = () => {
     fileInput, 
     imageUpload,
     addCart,
+    cartUpdate,
     setAddCart,
     cartProductHandle, 
     onChange, 

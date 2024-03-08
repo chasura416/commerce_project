@@ -13,8 +13,8 @@ import { Products } from "@/interface/Products";
 const CartCard = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { products } = useGetProduct();
-  const { cartProductHandle } = useFileUpload();
-  const data = products.filter((v) => v.addCart === false);
+  const { cartProductHandle, cartUpdate } = useFileUpload();
+  const data = products.filter((v) => v.addCart === true);
 
   console.log(data);
   const ShowModalHandler = () => {
@@ -71,7 +71,9 @@ const CartCard = () => {
                   <div className="flex items-center">
                     <div className="flex items-center">
                       <div className="text-lg mr-10 font-semibold">{product?.price} 원</div>
-                      <Button onClick={cartProductHandle}>삭제</Button>
+                      <Button onClick={()=>{
+                        cartUpdate(product?.id)
+                      }}>삭제</Button>
                     </div>
                   </div>
                 </div>
