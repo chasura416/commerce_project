@@ -116,7 +116,7 @@ const useFileUpload = () => {
       console.log(error);
     }
     if(data.addCart === false) {
-      alert("장바구니로 이동시마스")
+      alert("상품을 장바구니로 이동시마스")
     }else {
       location.reload();
     }
