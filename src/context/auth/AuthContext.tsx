@@ -1,35 +1,33 @@
 import {
+  User,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { ReactNode, useState, createContext, useEffect } from "react"
+import { ReactNode, useState, createContext, useEffect } from "react";
 import { auth } from "@/firebase";
+import { useNavigate } from "react-router-dom";
+
 // import { User } from "firebase/auth";
 
 interface Props {
   children: ReactNode;
 }
 
-// interface AuthContextProps {
-//   user: User;
-//   loading: boolean;
-// }
+interface AuthContextProps {
+  user: User | string | null;
+  createUser: (email: string, password: string) => void;
+  loginUser: (email: string, password: string) => void;
+  logOut: () => void;
+  loading: boolean;
+}
 
-export const AuthContext = createContext({
-  createUser: (_email: string, _password: string) => {},
-  user: localStorage.getItem("user"),
-  loginUser: (_email: string, _password: string) => {},
-  logOut: () => {},
-  loading: true,
-});
+export const AuthContext = createContext<AuthContextProps | null>(null);
 
-import { useNavigate } from "react-router-dom";
-
-const AuthProvider = ({children}: Props) => {
-  const [ user, setUser ] = useState<string | null>(null)
-  const [ loading, setLoading ] = useState(true);
+const AuthProvider = ({ children }: Props) => {
+  const [user, setUser] = useState<User | string | null>(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const createUser = (email: string, password: string) => {
@@ -39,7 +37,7 @@ const AuthProvider = ({children}: Props) => {
 
   const loginUser = (email: string, password: string) => {
     setLoading(true);
-    localStorage.setItem("user", "login")
+    localStorage.setItem("user", "login");
     signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -48,8 +46,7 @@ const AuthProvider = ({children}: Props) => {
     setUser(null);
     signOut(auth);
     navigate("/login"); // Redirect to the login page after logout
-    localStorage.removeItem("user")
-    
+    localStorage.removeItem("user");
   };
 
   useEffect(() => {
@@ -64,7 +61,7 @@ const AuthProvider = ({children}: Props) => {
   }, []);
 
   const authValue = {
-    createUser, 
+    createUser,
     user,
     loginUser,
     logOut,
@@ -72,6 +69,6 @@ const AuthProvider = ({children}: Props) => {
   };
 
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
-}
+};
 
 export default AuthProvider;

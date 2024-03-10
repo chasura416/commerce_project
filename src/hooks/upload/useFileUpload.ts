@@ -1,7 +1,8 @@
 import { useState, useRef, ChangeEvent, FormEvent } from "react";
 
-import { addDoc, doc, updateDoc, collection } from "firebase/firestore";
+import { addDoc, doc, updateDoc, collection, getDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+
 
 import { db, storage, auth } from "@/firebase";
 
@@ -15,7 +16,8 @@ const useFileUpload = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [price, setPrice] = useState(Number);
-  
+  const [addCart, setAddCart] = useState<boolean>(false);
+
   const { products } = useGetProduct();
 
   const navigate = useNavigate();
@@ -32,6 +34,13 @@ const useFileUpload = () => {
     if(!event.target.files) return
     setImageUpload(event.target.files[0]);
   };
+
+  const cartProductHandle = () => {
+    setAddCart(!addCart);
+  }
+
+
+
 
   // useEffect(()=>{
   //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload.name}`)
@@ -84,7 +93,8 @@ const useFileUpload = () => {
       price: price,
       content: content, 
       imgUrl: downloadURL,
-      uid: auth.currentUser?.uid
+      uid: auth.currentUser?.uid,
+      addCart: addCart,
     });
     
     const productRef = doc(db, `Products/${docRef.id}`)
@@ -95,6 +105,22 @@ const useFileUpload = () => {
   }
 
 
+  const cartUpdate = async (id: string) => {
+    const productRef = doc(db, `Products/${id}`)
+    const snapshot = await getDoc(productRef)
+    const data = snapshot.data()
+    try {
+      await updateDoc(productRef, {addCart: !data.addCart});
+    }
+    catch(error) {
+      console.log(error);
+    }
+    if(data.addCart === false) {
+      alert("상품을 장바구니로 이동시마스")
+    }else {
+      location.reload();
+    }
+  }
 
 
   // 일단 여기는 이미지고 일단 제목 내용부터 위에서 다시 짠다.
@@ -252,7 +278,11 @@ const useFileUpload = () => {
     image, 
     content, 
     fileInput, 
-    imageUpload, 
+    imageUpload,
+    addCart,
+    cartUpdate,
+    setAddCart,
+    cartProductHandle, 
     onChange, 
     addProduct,
     handleImageFile,

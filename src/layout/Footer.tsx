@@ -50,8 +50,6 @@ const Footer = () => {
           </span>
         </div>
       </footer>
-      {/* <div className="h-screen flex items-end">
-      </div> */}
     </>
   );
 };
