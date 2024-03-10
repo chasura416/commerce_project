@@ -18,8 +18,7 @@ const useGetProduct = () => {
 
   const handleLike = () => {
     setLike(!like);
-  }
-
+  };
 
   // 이미지 업로드 어디로 뺄지 고민
 
@@ -37,32 +36,25 @@ const useGetProduct = () => {
   //   console.log(downloadURL);
   // };
 
-
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "Products"));
       const querySnapshot = await getDocs(q);
 
-      // const initialProducts = [];
-
-      // querySnapshot.forEach((doc) => {
-      //   initialProducts.push({ id: doc.id, ...doc.data() });
-      // });
-
       const product = querySnapshot.docs.map((doc) => {
-        const data = doc.data() as Products
-        return { ...data, id: doc.id } ;
+        const data = doc.data() as Products;
+        return { ...data, id: doc.id };
       });
 
       setProducts(product);
     };
-    
+
     fetchData();
   }, []);
 
-  console.log(products)
+  console.log(products);
 
-  console.log(auth)
+  console.log(auth);
 
   // data는 productDetail에서 drilling 해준 값
   const deleteProduct = async (id: string) => {
@@ -73,15 +65,13 @@ const useGetProduct = () => {
         await deleteDoc(productRef);
         console.log("success");
         navigate("/");
-      } 
-      catch (error) {
+      } catch (error) {
         console.log(error);
       }
     }
-  }
+  };
 
+  return { products, like, handleLike, deleteProduct, navigate };
+};
 
-  return{products, like, handleLike, deleteProduct, navigate}
-}
-
-export default useGetProduct
+export default useGetProduct;
