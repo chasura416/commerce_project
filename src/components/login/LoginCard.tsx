@@ -12,6 +12,8 @@
 
 import { Link } from "react-router-dom";
 import useLogin from "@/hooks/login/useLogin";
+import LoginForm from "../../hooks/form/LoginForm"
+
 
 const LoginCard = () => {
   const {email, password, onChange, signIn } = useLogin();
@@ -61,6 +63,12 @@ const LoginCard = () => {
           </CardFooter>
         </Card>
       </form>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <LoginForm />
     </>
   );
 };

@@ -14,6 +14,8 @@ import useSignUp from "@/hooks/login/useSignUp";
 
 import { Link } from "react-router-dom";
 
+import SignUpForm from "@/hooks/form/SignUpForm";
+
 const SignUpCard = () => {
   const { 
     navigate, 
@@ -95,6 +97,7 @@ const SignUpCard = () => {
           </CardFooter>
         </Card>
       </form>
+      <SignUpForm />
     </>
   );
 };
