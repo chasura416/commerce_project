@@ -2,14 +2,13 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { auth } from "@/firebase";
 
 import { 
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
  } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
+import { User } from "@/interface/User";
 
 const useLogin = () => {
   const [email, setEmail] = useState("");
@@ -34,27 +33,8 @@ const useLogin = () => {
     }
   };
 
-  const signUp = async (event: FormEvent) => {
-    event.preventDefault();
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth, 
-        email, 
-        password
-      );
-      console.log("user", userCredential.user);
-      if (auth.currentUser) {
-        await updateProfile(auth.currentUser,{
-          displayName: auth.currentUser.displayName,
-        })
-      }
-    } catch(error: unknown) {
-        console.log("error with signUp")
-    }
-  };
-  const signIn = async (event: FormEvent) => {
-    event.preventDefault();
+  const signIn = async ({email, password}: User) => {
+    // event.preventDefault();
     console.log("click signIn")
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -68,6 +48,8 @@ const useLogin = () => {
       console.log("error with signIn")
     }
   };
+
+
   const logOut = async (event: FormEvent) => {
     event.preventDefault();
     console.log("click logOut")
@@ -75,7 +57,7 @@ const useLogin = () => {
     await signOut(auth);
   };
 
-  return {onChange, signUp, signIn, logOut, email, password }
+  return {onChange, signIn, logOut, navigate, email, password }
 };
 
 export default useLogin;

@@ -2,11 +2,14 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 
 import { auth } from "@/firebase";
 
 import { useNavigate } from "react-router-dom";
+
+import { User } from "../../interface/User";
 
 const useSignUp = () => {
   const [email, setEmail] = useState<string>("");
@@ -82,16 +85,14 @@ const useSignUp = () => {
     // }
   };
 
-  const signUp = (event: FormEvent) => {
-    event.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-        navigate("/");
-      })
-      .catch((error: unknown) => {
-        console.log(error);
-      });
+  const signUp = async ({ username, email, password }: User ) => {
+    // event.preventDefault();
+    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
+    if(!auth.currentUser) return
+    await updateProfile(auth.currentUser, { displayName: username });
+    navigate("/");
+    return user;
   };
 
 

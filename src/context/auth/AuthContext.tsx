@@ -9,8 +9,6 @@ import { ReactNode, useState, createContext, useEffect } from "react";
 import { auth } from "@/firebase";
 import { useNavigate } from "react-router-dom";
 
-// import { User } from "firebase/auth";
-
 interface Props {
   children: ReactNode;
 }
