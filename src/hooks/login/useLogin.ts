@@ -10,12 +10,10 @@ import {
  } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
-// import { userInfo } from "os";
 
 const useLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const user = auth.currentUser;
   const navigate = useNavigate();
 
   useEffect(() => {
