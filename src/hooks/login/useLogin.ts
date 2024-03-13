@@ -34,7 +34,6 @@ const useLogin = () => {
   };
 
   const signIn = async ({email, password}: User) => {
-    // event.preventDefault();
     console.log("click signIn")
     try {
       const userCredential = await signInWithEmailAndPassword(
