@@ -1,19 +1,16 @@
+
 export interface ModalType {
   children: React.ReactNode;
   onClickEffect?: () => void;
 }
 
-
 export interface ModalTitle {
-
   children: React.ReactNode;
 }
-
 
 export interface ModalClose {
   onClickEffect?: () => void;
 }
-
 
 export interface ModalFooter {
   cancel: string;
@@ -21,3 +18,4 @@ export interface ModalFooter {
   onClickCancel?: () => void;
   onClickConfirm?: () => void;
 }
+
