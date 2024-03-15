@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect } from "react";
 import { auth } from "@/firebase";
 
 import { 
@@ -11,8 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { User } from "@/interface/User";
 
 const useLogin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,17 +19,6 @@ const useLogin = () => {
     })
   }, [])
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { name, value },
-    } = event;
-    if (name === "email") {
-      setEmail(value);
-    }
-    if (name === "password") {
-      setPassword(value);
-    }
-  };
 
   const signIn = async ({email, password}: User) => {
     console.log("click signIn")
@@ -56,7 +43,7 @@ const useLogin = () => {
     await signOut(auth);
   };
 
-  return {onChange, signIn, logOut, navigate, email, password }
+  return { signIn, logOut, navigate }
 };
 
 export default useLogin;
