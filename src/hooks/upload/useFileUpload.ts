@@ -8,8 +8,8 @@ import { db, storage, auth } from "@/firebase";
 
 import { useNavigate } from "react-router-dom";
 
-// import { Products } from "@/interface/Products";
 import useGetProduct from "./useGetProduct";
+import { Products, ProductsUpload, ProductsUpload1 } from "@/interface/Products";
 
 const useFileUpload = () => {
   // const [selectedFile, setSelectedFile] = useState(null);
@@ -30,53 +30,39 @@ const useFileUpload = () => {
   // const [uploadStep, setUploadStep] = useState(1);
 
 
+
   const handleImageFile = (event: ChangeEvent<HTMLInputElement>) => {
     if(!event.target.files) return
+    // const imagefile = event.target.files[0]
+    // setImageUpload((prev)=>{
+    //   console.log(prev)
+    //   return imagefile
+    // });
     setImageUpload(event.target.files[0]);
+    // console.log(imageUpload)
   };
-
+  
+  
   const cartProductHandle = () => {
     setAddCart(!addCart);
   }
-
-
-
-
-  // useEffect(()=>{
-  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload.name}`)
-  //   if (!imageUpload) return;
-  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
-  //     getDownloadURL(snapshot.ref).then((url) => {
-  //       setImage(url);
-  //       console.log(url);
-  //     })
-  //   })
-  // }, [imageUpload]);
-
-
-  const addProduct = async (event: FormEvent) => {
-    event.preventDefault();
-    console.log("111111111")
+  
+  
+  const addProduct = async ({title, price, content, image}: ProductsUpload1) => {
+    // const imageRef = ref(
+    //   storage,
+    //   `${auth.currentUser?.uid}/${imageUpload?.name}`
+    //   );
+    //   console.log(imageUpload)
+    //   if (imageUpload === undefined) return;
+    //   await uploadBytes(imageRef, imageUpload);
     const imageRef = ref(
       storage,
-      `${auth.currentUser?.uid}/${imageUpload?.name}`
+      `${auth.currentUser?.uid}/${image?.name}`
       );
-      if (imageUpload === undefined) return;
-      console.log("222222222")
-      await uploadBytes(imageRef, imageUpload);
-    // const uploadTask = await uploadBytes(imageRef, imageUpload);
-    
-    // // uploadTask.then()
-    // uploadTask.then( (snapshot) => {
-    //   getDownloadURL(snapshot.ref).then((url) => {
-    //     setImages((prev) => {
-    //       [
-    //         ...prev,
-    //         { url: url, id: `${auth.currentUser?.uid}/${imageUpload.name}` }
-    //       ];
-    //     });
-    //   })
-    // })
+      console.log(image)
+      if (image === undefined) return;
+      await uploadBytes(imageRef, image);
 
 
     const downloadURL = await getDownloadURL(imageRef);
@@ -85,8 +71,6 @@ const useFileUpload = () => {
     
     // 업로드 글 firebase database로 add. 이미지는 따로임.
     const collectionRef = collection(db, "Products");
-    console.log(collectionRef)
-
     const docRef = await addDoc(collectionRef, { 
       title: title,
       createdAt: new Date(),
@@ -99,8 +83,6 @@ const useFileUpload = () => {
     
     const productRef = doc(db, `Products/${docRef.id}`)
     await updateDoc(productRef, {id: docRef.id});
-    console.log(productRef)
-
     navigate("/");
   }
 
@@ -109,6 +91,7 @@ const useFileUpload = () => {
     const productRef = doc(db, `Products/${id}`)
     const snapshot = await getDoc(productRef)
     const data = snapshot.data()
+    if (!data) return
     try {
       await updateDoc(productRef, {addCart: !data.addCart});
     }
@@ -123,122 +106,7 @@ const useFileUpload = () => {
   }
 
 
-  // 일단 여기는 이미지고 일단 제목 내용부터 위에서 다시 짠다.
-  // const fetchImages = async () => {
-  //   const photo = collection(db, `${auth.currentUser?.uid}`);
-  //   const result  = await getDocs(query(photo, orderBy("timestamp", "desc")));
-  //   const fetchData = result.docs.map((el) => el.data());
-  //   setImages(fetchData);
-  // }
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const q = query(collection(db, "Products"));
-  //     const querySnapshot = await getDocs(q);
-
-  //     const initialProducts = [];
-
-  //     querySnapshot.forEach((doc) => {
-  //       initialProducts.push({ id: doc.id, ...doc.data() });
-  //     });
-
-  //     setProducts(initialProducts);
-  //     console.log(initialProducts)
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-
-  // useEffect(() => {
-  //   fetchImages();
-  // }, [])
-
-
-  // const UploadImgUrl = async () => {
-  //   await addDoc(collection(db, `${auth.currentUser?.uid}`), {
-  //     imgUrl: image,
-  //     timestamp: new Date(),
-  //   });
-  //   fetchImages();
-  //   setImageUpload("");
-  //   setImage("");
-  //   setUploadStep(1);
-  // }
-
-
-  // const selectFile = (e) => {
-  //   const file = e.target.files[0];
-  //   console.log(file);
-  //   setImageUpload(file);
-  //   setUploadStep(2);
-  // }
-
-
-  // useEffect(()=>{
-  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload.name}`)
-  //   if (!imageUpload) return;
-  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
-  //     getDownloadURL(snapshot.ref).then((url) => {
-  //       setImage(url);
-  //       console.log(url);
-  //     })
-  //   })
-  // }, [imageUpload]);
-
-
-
-
-  // ⬆︎ 이 위부터 새로 만든 로직 
-
-
   // 필요없는 부분이니까 이미지까지 제대로 되면 지울 것.
-
-  // const handleFileSelect = (event) => {
-  //   setSelectedFile(event.target.files[0]);
-  // };
-
-  // const handleUpload = async (event) => {
-  //   // ref 함수를 이용해서 Storage 내부 저장할 위치를 지정하고, uploadBytes 함수를 이용해서 파일을 저장합니다.
-  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
-  //   await uploadBytes(imageRef, selectedFile);
-
-  //   // 파일 URL 가져오기
-  //   const downloadURL = await getDownloadURL(imageRef);
-  //   console.log(downloadURL);
-
-  //   //내용 업로드 되야함 
-  //   event.preventDefault();
-  //   const newProducts = { 
-  //     title: String,
-  //     createdAt: Timestamp,
-  //     price: Number, 
-  //   };
-
-  //   const collectionRef = collection(db, "Products");
-  //   console.log(collectionRef)
-  //   const { id } = await addDoc(collectionRef, newProducts);
-
-  //   setProducts((prev) => {
-  //     return [...products, { ...newProducts, id }];
-  //   });
-  //   setTitle("");
-  //   setPrice("");
-  //   setContent("");
-  // };
-
-  // const deleteImage = async () => {
-  //   const imageRef = ref(storage, `${auth.currentUser?.uid}/${selectedFile.name}`);
-
-  //   await deleteObject(imageRef)
-  //     .then(() => {
-  //       console.log("success");
-  //     })
-  //     .catch((error) => {
-  //       console.log("failed");
-  //     });
-  // };
   
   // const [attachment, setAttachment] = useState("");
 

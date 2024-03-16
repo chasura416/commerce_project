@@ -14,31 +14,36 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardTitle, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
+import { MdAddPhotoAlternate } from "react-icons/md";
+
+import { ChangeEvent, useState } from "react";
+
+// const MAX_FILE_SIZE = 1024 * 1024 * 5;
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
   title: z.string(),
-  price: z.number(),
+  price: z.coerce.number(),
   content: z.string(),
+  image: z
+    // .any()
+    .instanceof(File, { message: 'Please upload a file.'})
+    // .refine((files) => {
+    //   return files?.[0]?.size <= MAX_FILE_SIZE;
+    // }, `Max image size is 5MB.`)
+    // .refine(
+    //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0].type),
+    //   "Only .jpg, .jpeg, .png and .webp formats are supported."
+    // ),
 });
 
 const UploadForm = () => {
-  const {
-    products,
-    title,
-    price,
-    image,
-    content,
-    fileInput,
-    imageUpload,
-    addCart,
-    cartUpdate,
-    setAddCart,
-    cartProductHandle,
-    onChange,
-    addProduct,
-    handleImageFile,
-  } = useFileUpload();
+  const { fileInput, addProduct, handleImageFile } = useFileUpload();
+  const [state, setState] = useState<File>();
+  const [selectedImage, setSelectedImage] = useState< File | null >();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,13 +51,15 @@ const UploadForm = () => {
       title: "",
       price: 0,
       content: "",
+      image: undefined,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    addProduct(values);
+    await addProduct(values);
+    console.log(values, selectedImage);
   }
 
   return (
@@ -63,9 +70,57 @@ const UploadForm = () => {
           <CardDescription>많이 파세여</CardDescription>
         </CardHeader>
         <CardContent>
-
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} enctype="multipart/form-data"  className="space-y-8">
+              {/* <Label>이미지 추가</Label>
+              <div className="border min-h-20 p-4 flex">
+                <Label className="cursor-pointer" htmlFor="picture">
+                  <MdAddPhotoAlternate size={40} />
+                </Label>
+                <Input
+                  id="picture"
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  name="image"
+                  ref={fileInput}
+                  onChange={handleImageFile}
+                  style={{ display: "none" }}
+                />
+              </div> */}
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>이미지 등록</FormLabel>
+                    <div className="border rounded-md min-h-20 p-4 flex">
+                      <FormLabel className="cursor-pointer" htmlFor="picture">
+                        <MdAddPhotoAlternate size={40} />
+                      </FormLabel>
+                    </div>
+                    <FormControl>
+                      <Input
+                        id="picture"
+                        accept="image/*"
+                        type="file"
+                        multiple
+                        placeholder="image"
+                        style={{ display: "none" }}
+                        {...field}
+                        // ref={fileInput}
+                        // onChange={(e: ChangeEvent<HTMLInputElement>)=>{
+                        //   if (e.target.files) {
+                        //     setState(e.target.files[0])
+                        //   }
+                        // }}
+                        // onChange={handleImageFile}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="title"
@@ -86,7 +141,7 @@ const UploadForm = () => {
                   <FormItem>
                     <FormLabel>가격</FormLabel>
                     <FormControl>
-                      <Input placeholder="가격" {...field} />
+                      <Input type="number" placeholder="가격" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -97,9 +152,13 @@ const UploadForm = () => {
                 name="content"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>PASSWORD</FormLabel>
+                    <FormLabel>내용</FormLabel>
                     <FormControl>
-                      <Input placeholder="상세 내용" {...field} />
+                      <Textarea
+                        className="border min-h-52 p-2"
+                        placeholder="상세 내용"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
