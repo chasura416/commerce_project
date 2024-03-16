@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+import UploadForm from "@/hooks/form/UploadForm";
+
 
 const UploadCard = () => {
   const {
@@ -99,6 +101,7 @@ const UploadCard = () => {
           </Button>
         </div>
       </form>
+      <UploadForm />
     </>
   );
 };
