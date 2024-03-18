@@ -23,7 +23,7 @@ const ProductDetailCard = () => {
                 { data[0]?.imgUrl ? 
                   <img 
                   src = {data[0]?.imgUrl as string}
-                  className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" />
+                  className="w-48 h-48 rounded-xl bg-cover bg-center object-cover cursor-pointer" />
                   :
                   <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')]" />
                 }

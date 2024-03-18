@@ -11,8 +11,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log("user", user);
+    onAuthStateChanged(auth, () => {
     });
   }, []);
 

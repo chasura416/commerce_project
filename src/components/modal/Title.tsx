@@ -3,7 +3,7 @@ import { useModalContext } from "./useModalContext";
 
 const Title = ({ children }: ModalTitle) => {
   const value = useModalContext();
-  console.log(value);
+  value;
   return (
     <>
       <div className="pb-2 border-b border-solid border-blueGray-200">

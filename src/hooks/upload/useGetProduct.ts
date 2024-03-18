@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { deleteDoc, doc, collection, getDocs, query } from "firebase/firestore";
 
-import { db, auth } from "@/firebase";
+import { db } from "@/firebase";
 
 import { Products } from "@/interface/Products";
 
@@ -52,9 +52,7 @@ const useGetProduct = () => {
     fetchData();
   }, []);
 
-  console.log(products);
-
-  console.log(auth);
+  // console.log(products);
 
   // data는 productDetail에서 drilling 해준 값
   const deleteProduct = async (id: string) => {

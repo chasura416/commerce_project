@@ -13,4 +13,15 @@ export interface Products {
   createdAt: TimeStamp;
   content: string;
   imgUrl: string[] | string;
+  addCart: boolean;
 }
+
+export interface ProductsUpload {
+  price: number;
+  title: string;
+  content: string;
+  image?: File;
+}
+
+
+export type ProductsUpload1 = Pick<Products, "title" | "price" | "content">
