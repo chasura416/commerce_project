@@ -15,7 +15,7 @@ export interface Products {
   imgUrl: string[] | string;
 }
 
-export interface ProductsUpload1 {
+export interface ProductsUpload {
   price: number;
   title: string;
   content: string;
@@ -23,4 +23,4 @@ export interface ProductsUpload1 {
 }
 
 
-export type ProductsUpload = Pick<Products, "title" | "price" | "content">
+export type ProductsUpload1 = Pick<Products, "title" | "price" | "content">

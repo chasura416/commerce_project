@@ -8,7 +8,9 @@ const formSchema = z.object({
   email: z.string().email({
     message: "email형식이 아닙니다",
   }),
-  password: z.string(),
+  password: z.string().min(1, {
+    message: "비밀번호를 입력하세요",
+  }),
 });
 
 const useLoginForm = () => {
@@ -23,8 +25,6 @@ const useLoginForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     signIn(values);
   }
 

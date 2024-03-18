@@ -49,11 +49,7 @@ const useSignUpForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    
     signUp(values);
-    console.log(values);
   }
 
   return {form, onSubmit};
