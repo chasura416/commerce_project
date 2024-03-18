@@ -21,7 +21,7 @@ const ProductsCard = () => {
               <Link to={`/productdetail/${product?.id}`}>
                 <img 
                   src = {product?.imgUrl as string}
-                  className="w-48 h-48 rounded-xl bg-cover bg-center cursor-pointer" 
+                  className="w-48 h-48 rounded-xl bg-cover bg-center object-cover cursor-pointer" 
                 />
               </Link>
               <div className="flex-grow-1 p-4">
