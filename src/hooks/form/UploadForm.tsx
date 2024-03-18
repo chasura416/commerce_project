@@ -19,9 +19,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardTitle, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
 import { MdAddPhotoAlternate } from "react-icons/md";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
-// const MAX_FILE_SIZE = 1024 * 1024 * 5;
+const MAX_FILE_SIZE = 1024 * 1024 * 5;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
@@ -30,14 +30,17 @@ const formSchema = z.object({
   content: z.string(),
   image: z
     // .any()
-    .instanceof(File, { message: 'Please upload a file.'})
-    // .refine((files) => {
-    //   return files?.[0]?.size <= MAX_FILE_SIZE;
-    // }, `Max image size is 5MB.`)
-    // .refine(
-    //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0].type),
-    //   "Only .jpg, .jpeg, .png and .webp formats are supported."
-    // ),
+    // .instanceof(File, { message: 'Please upload a file.'})
+    .custom<FileList>()
+    .refine((fileList)=> fileList.length === 1, 'Expect file')
+    .transform((file) => file[0] as File)
+    .refine((files) => {
+      return files?.size <= MAX_FILE_SIZE;
+    }, `Max image size is 5MB.`)
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.type),
+      "Only .jpg, .jpeg, .png and .webp formats are supported."
+    ),
 });
 
 const UploadForm = () => {
@@ -71,7 +74,7 @@ const UploadForm = () => {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} enctype="multipart/form-data"  className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data"  className="space-y-8">
               {/* <Label>이미지 추가</Label>
               <div className="border min-h-20 p-4 flex">
                 <Label className="cursor-pointer" htmlFor="picture">
@@ -109,12 +112,11 @@ const UploadForm = () => {
                         style={{ display: "none" }}
                         {...field}
                         // ref={fileInput}
-                        // onChange={(e: ChangeEvent<HTMLInputElement>)=>{
-                        //   if (e.target.files) {
-                        //     setState(e.target.files[0])
-                        //   }
-                        // }}
                         // onChange={handleImageFile}
+                        onChange={(event: ChangeEvent<HTMLInputElement>)=>{
+                          if(!event.target.files) return
+                          setSelectedImage(event?.target.files[0])
+                        }}
                       />
                     </FormControl>
                     <FormMessage />

@@ -38,8 +38,8 @@ const useFileUpload = () => {
     //   console.log(prev)
     //   return imagefile
     // });
-    setImageUpload(event.target.files[0]);
-    // console.log(imageUpload)
+    setImageUpload(event.target?.files[0]);
+    console.log(imageUpload)
   };
   
   
@@ -48,21 +48,21 @@ const useFileUpload = () => {
   }
   
   
-  const addProduct = async ({title, price, content, image}: ProductsUpload1) => {
-    // const imageRef = ref(
-    //   storage,
-    //   `${auth.currentUser?.uid}/${imageUpload?.name}`
-    //   );
-    //   console.log(imageUpload)
-    //   if (imageUpload === undefined) return;
-    //   await uploadBytes(imageRef, imageUpload);
+  const addProduct = async ({title, price, content}: ProductsUpload1) => {
     const imageRef = ref(
       storage,
-      `${auth.currentUser?.uid}/${image?.name}`
+      `${auth.currentUser?.uid}/${imageUpload?.name}`
       );
-      console.log(image)
-      if (image === undefined) return;
-      await uploadBytes(imageRef, image);
+      console.log(imageUpload)
+      if (imageUpload === undefined) return;
+      await uploadBytes(imageRef, imageUpload);
+    // const imageRef = ref(
+    //   storage,
+    //   `${auth.currentUser?.uid}/${image?.name}`
+    //   );
+    //   console.log(image)
+    //   if (image === undefined) return;
+    //   await uploadBytes(imageRef, image);
 
 
     const downloadURL = await getDownloadURL(imageRef);
