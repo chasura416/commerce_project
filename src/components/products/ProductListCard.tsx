@@ -16,7 +16,7 @@ const ProductsListCard = () => {
     <>
       <div className="grid grid-cols-2 max-w-7xl">
         {products?.map((product: Products) => (
-          <div className="flex mt-10">
+          <div key={product?.id} className="flex mt-10">
             <div className="flex p-10 max-w-95">
               <Link to={`/productdetail/${product?.id}`}>
                 <img 

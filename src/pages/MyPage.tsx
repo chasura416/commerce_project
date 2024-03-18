@@ -23,7 +23,7 @@ const MyPage = () => {
             <div className="flex flex-col m-10 p-3 justify-center w-4/6">
             <div className="border-b mb-10 pl-2 text-2xl font-semibold">내가 쓴 글 목록</div>
               {data.map((product: Products) => (
-                <div className="border rounded-lg">
+                <div key={product?.id} className="border rounded-lg">
                   <div className="mt-3">
                     <div className="flex justify-between p-10">
                       <div className="flex">

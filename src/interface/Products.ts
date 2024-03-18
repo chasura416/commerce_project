@@ -13,6 +13,7 @@ export interface Products {
   createdAt: TimeStamp;
   content: string;
   imgUrl: string[] | string;
+  addCart: boolean;
 }
 
 export interface ProductsUpload {

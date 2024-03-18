@@ -8,18 +8,15 @@ import useFileUpload from "@/hooks/upload/useFileUpload";
 import dayjs from "dayjs";
 import OrderModal from "./OrderModal";
 import { Products } from "@/interface/Products";
-// import { Products } from "@/interface/Products";
 
 const CartCard = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { products } = useGetProduct();
-  const { cartProductHandle, cartUpdate } = useFileUpload();
+  const { cartUpdate } = useFileUpload();
   const data = products.filter((v) => v.addCart === true);
 
-  console.log(data);
   const ShowModalHandler = () => {
     setShowModal(!showModal);
-    console.log(showModal);
   };
 
   const checkBoxAllSelecter = () => {
@@ -42,7 +39,7 @@ const CartCard = () => {
             </div>
           </div>
           {data.map((product: Products) => (
-            <div className="border rounded-xl">
+            <div key={product?.id} className="border rounded-xl">
               <div className="mt-3">
                 <div className="flex justify-between p-10">
                   <div className="flex items-center">
@@ -50,7 +47,7 @@ const CartCard = () => {
                     {product?.imgUrl ? (
                       <img
                         src={product?.imgUrl as string}
-                        className="w-28 h-28 rounded-xl bg-cover bg-center cursor-pointer"
+                        className="w-28 h-28 rounded-xl bg-cover bg-center object-contain cursor-pointer"
                       />
                     ) : (
                       <img className="w-28 h-28 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/100')] cursor-pointer" />
