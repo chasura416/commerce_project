@@ -15,7 +15,7 @@ const Header = () => {
         <Link to="/">
           <img
             className="cursor-pointer" 
-            src="/src/assets/pslogo.png" alt="logo" width={64} height={1} />
+            src="/pslogo.png" alt="logo" width={64} height={1} />
           <p className="font-semibold">ps market</p>
         </Link>
       </div>
