@@ -15,8 +15,7 @@ const useSignUp = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log("user", user);
+    onAuthStateChanged(auth, () => {
     });
   }, []);
 

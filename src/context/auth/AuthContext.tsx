@@ -13,7 +13,7 @@ interface Props {
   children: ReactNode;
 }
 
-interface AuthContextProps {
+export interface AuthContextProps {
   user: User | string | null;
   createUser: (email: string, password: string) => void;
   loginUser: (email: string, password: string) => void;
@@ -21,7 +21,13 @@ interface AuthContextProps {
   loading: boolean;
 }
 
-export const AuthContext = createContext<AuthContextProps | null>(null);
+export const AuthContext = createContext<AuthContextProps>({
+  user: "", 
+  createUser: () => {},
+  loginUser: () => {},
+  logOut: () => {},
+  loading: false,
+});
 
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | string | null>(null);

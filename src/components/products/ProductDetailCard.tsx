@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 const ProductDetailCard = () => {
   const { id } = useParams();
   const { products, deleteProduct, navigate } = useGetProduct();
-  const { cartProductHandle, cartUpdate } = useFileUpload();
+  const { cartUpdate } = useFileUpload();
   const data = products.filter((v) => v.id === id);
 
   return (

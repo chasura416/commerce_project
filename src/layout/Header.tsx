@@ -4,12 +4,9 @@ import { AuthContext } from "@/context/auth/AuthContext";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+  
   const handleSignOut = () => {
     logOut();
-    // .then(() => {
-    //   console.log("User logged out successfully");
-    //   })
-    //   .catch((error: unknown) => console.error(error));
   };
 
   return (

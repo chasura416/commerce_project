@@ -52,8 +52,6 @@ const useGetProduct = () => {
     fetchData();
   }, []);
 
-  // console.log(products);
-
   // data는 productDetail에서 drilling 해준 값
   const deleteProduct = async (id: string) => {
     const productRef = doc(db, `Products/${id}`);
