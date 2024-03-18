@@ -19,7 +19,7 @@ export interface ProductsUpload1 {
   price: number;
   title: string;
   content: string;
-  image?: Blob | ArrayBuffer | Uint8Array;
+  image?: File;
 }
 
 
