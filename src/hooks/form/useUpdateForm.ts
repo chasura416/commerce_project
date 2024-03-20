@@ -2,7 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useParams } from "react-router-dom";
+
 import useFileUpload from "../upload/useFileUpload";
+import useGetProduct from "../upload/useGetProduct";
 
 // const MAX_FILE_SIZE = 1024 * 1024 * 5;
 // const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -27,20 +30,23 @@ const formSchema = z.object({
 });
 
 const useUpdateForm = () => {
-  const {  addProduct, handleImageFile } = useFileUpload();
+  const { updateProduct, handleImageFile } = useFileUpload();
+  const { id } = useParams();
+  const { products } = useGetProduct();
+  const data = products.filter((v) => v.id === id);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    // defaultValues: {
-    //   title: "",
-    //   price: 0,
-    //   content: "",
-    //   image: undefined,
-    // },
+    defaultValues: {
+      title: data[0].title,
+      price: data[0].price,
+      content: data[0].content,
+      image: data[0].imgUrl,
+    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-      await addProduct(values);
+      await updateProduct(values);
   }
 
   return { form, onSubmit, handleImageFile };

@@ -97,12 +97,12 @@ const ProductEditCard = () => {
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>판매 글 작성</CardTitle>
-          <CardDescription>많이 파세여</CardDescription>
+          <CardTitle>판매 글 수정</CardTitle>
+          <CardDescription>수정 하세여</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data"  className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data" className="space-y-8">
 
               <FormField
                 control={form.control}
@@ -176,7 +176,25 @@ const ProductEditCard = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit">작성하기</Button>
+              <div className="flex justify-around">
+                <Button type="submit">수정</Button>
+                <Button 
+                  type="button"
+                  onClick={()=>{
+                    deleteProduct(data[0]?.id)
+                  }}
+                >
+                  삭제
+                </Button>
+                <Button 
+                  type="button"
+                  onClick={()=>{
+                    navigate("-1")
+                  }}
+                >
+                  취소
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>

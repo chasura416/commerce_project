@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import useGetProduct from "@/hooks/upload/useGetProduct";
 import useFileUpload from "@/hooks/upload/useFileUpload";
 import dayjs from "dayjs";
+import { ProductEdit } from "@/pages";
 
 const ProductDetailCard = () => {
   const { id } = useParams();
@@ -59,13 +60,9 @@ const ProductDetailCard = () => {
           <div className="border w-full p-4 mb-5">{data[0]?.content}</div>
           <div className="flex justify-between">
             <div className="flex gap-1">
-              <Button 
-                onClick={() => {
-                  navigate("/productedit")
-                }}
-              >
-                수정하기
-              </Button>
+              <Button onClick={()=>{
+                navigate(`/productedit/${data[0]?.id}`)
+              }}>수정하기</Button>
               <Button
                 onClick={() => {
                   deleteProduct(data[0]?.id);
