@@ -20,13 +20,14 @@ const ProductDetailCard = () => {
           <div className="mt-3">
             <div className="flex justify-between p-10">
               <div className="flex">
-                { data[0]?.imgUrl ? 
-                  <img 
-                  src = {data[0]?.imgUrl as string}
-                  className="w-48 h-48 rounded-xl bg-cover bg-center object-cover cursor-pointer" />
-                  :
+                {data[0]?.imgUrl ? (
+                  <img
+                    src={data[0]?.imgUrl as string}
+                    className="w-48 h-48 rounded-xl bg-cover bg-center object-cover cursor-pointer"
+                  />
+                ) : (
                   <img className="w-48 h-48 rounded-xl bg-cover bg-center bg-[url('https://via.placeholder.com/350')]" />
-                }
+                )}
                 <div className="flex-grow-1 p-4">
                   <div className="text-lg">{data[0]?.title}</div>
                   <div className="text-sm text-gray-500">
@@ -41,9 +42,13 @@ const ProductDetailCard = () => {
               <div className="flex flex-col pt-12 gap-1">
                 <div className="text-lg">가격</div>
                 <div>{data[0]?.price}원</div>
-                <Button onClick={()=>{
-                  cartUpdate(data[0]?.id)
-                }}>장바구니 추가</Button>
+                <Button
+                  onClick={() => {
+                    cartUpdate(data[0]?.id);
+                  }}
+                >
+                  장바구니 추가
+                </Button>
                 <Button>바로 주문하기</Button>
               </div>
             </div>
@@ -51,12 +56,16 @@ const ProductDetailCard = () => {
         </div>
         <div className="mt-5">
           <div>글 내용</div>
-          <div className="border w-full p-4 mb-5">
-            {data[0]?.content}
-          </div>
+          <div className="border w-full p-4 mb-5">{data[0]?.content}</div>
           <div className="flex justify-between">
             <div className="flex gap-1">
-              <Button>수정하기</Button>
+              <Button 
+                onClick={() => {
+                  navigate("/productedit")
+                }}
+              >
+                수정하기
+              </Button>
               <Button
                 onClick={() => {
                   deleteProduct(data[0]?.id);
@@ -66,10 +75,10 @@ const ProductDetailCard = () => {
               </Button>
             </div>
             <div className="flex gap-1">
-              <Button 
-                onClick={()=>{
+              <Button
+                onClick={() => {
                   navigate(-1);
-              }}
+                }}
               >
                 뒤로가기
               </Button>
