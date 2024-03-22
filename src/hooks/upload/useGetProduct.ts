@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { deleteDoc, doc, collection, getDocs, query } from "firebase/firestore";
+import { deleteDoc, doc, collection, getDocs, getDoc, query } from "firebase/firestore";
 
 import { db } from "@/firebase";
 
@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 const useGetProduct = () => {
   // const [selectedFile, setSelectedFile] = useState(null);
-  const [products, setProducts] = useState<Products[]>([]);
+  const [products, setProducts] = useState<Products[] | undefined>([]);
+  const [product, setProduct] = useState<Products[] | undefined>([]);
   const [like, setLike] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -52,6 +53,21 @@ const useGetProduct = () => {
     fetchData();
   }, []);
 
+  const getData = async (id: string) => {
+    const ProductDoc = await getDoc(doc(db, `Products/${id}`));
+    const ProductData = ProductDoc.data();
+
+    console.log(ProductData)
+    // setProduct(ProductData)
+  };
+// useEffect(()=>{
+
+//   getData();
+// }, []);
+
+
+
+
   // data는 productDetail에서 drilling 해준 값
   const deleteProduct = async (id: string) => {
     const productRef = doc(db, `Products/${id}`);
@@ -67,7 +83,7 @@ const useGetProduct = () => {
     }
   };
 
-  return { products, like, handleLike, deleteProduct, navigate };
+  return { products, like, handleLike, deleteProduct, navigate, getData };
 };
 
 export default useGetProduct;

@@ -81,12 +81,12 @@ const useFileUpload = () => {
     const downloadURL = await getDownloadURL(imageRef);
     try {
       await updateDoc(productRef, {
-        title: data.title,
-        price: data.price,
-        content: data.content,
-        image: data.imgUrl,
+        title: title,
+        price: price,
+        content: content,
+        imgUrl: downloadURL,
       });
-      navigate("/productdetail/:id");
+      navigate(`/productdetail/${id}`);
     }
     catch(error) {
       console.log(error);

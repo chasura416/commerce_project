@@ -1,14 +1,16 @@
+import GlobalLayout from "@/layout/GlobalLayout"
 import Header from "@/layout/Header"
 import ProductEditCard from "@/components/products/ProductEditCard"
-import GlobalLayout from "@/layout/GlobalLayout"
+import ProductEditCardTwo from "@/components/products/ProductEditCardTwo"
 
 const ProductEdit = () => {
   return (
     <>
       <GlobalLayout>
         <Header />
-        <div className="flex m-10 mr-2">
-          <ProductEditCard />
+        <div className="m-auto w-[600px]">
+          {/* <ProductEditCard /> */}
+          <ProductEditCardTwo />
         </div>
       </GlobalLayout>
     </>

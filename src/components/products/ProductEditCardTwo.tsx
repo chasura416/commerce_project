@@ -1,3 +1,7 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,69 +17,69 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { MdAddPhotoAlternate } from "react-icons/md";
 
-import { useNavigate } from "react-router-dom";
-
-// import useUpdateForm from "@/hooks/form/useUpdateForm";
-import { useEffect } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import useGetProduct from "@/hooks/upload/useGetProduct";
 import useFileUpload from "@/hooks/upload/useFileUpload";
+import { useNavigate } from "react-router-dom";
 
-const ProductEditCard = () => {
-  // const { formSchema, onSubmit, handleImageFile } = useUpdateForm();
-  const navigate = useNavigate();
+// const MAX_FILE_SIZE = 1024 * 1024 * 5;
+// const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
+const formSchema = z.object({
+  title: z.string(),
+  price: z.coerce.number(),
+  content: z.string(),
+  image: z
+    .any()
+    // .instanceof(File, { message: 'Please upload a file.'})
+    // .custom<FileList>()
+    // .refine((fileList)=> fileList.length === 1, 'Expect file')
+    // .transform((file) => file[0] as File)
+    // .refine((files) => {
+    //   return files?.size <= MAX_FILE_SIZE;
+    // }, `Max image size is 5MB.`)
+    // .refine(
+    //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.type),
+    //   "Only .jpg, .jpeg, .png and .webp formats are supported."
+    // ),
+});
+
+const ProductEditCardTwo = () => {
+  const { updateProduct ,handleImageFile } = useFileUpload();
+  const { products, getData, deleteProduct } = useGetProduct();
   const { id } = useParams();
-  const { products } = useGetProduct();
   const data = products.filter((v) => v.id === id);
-  // const { updateProduct, handleImageFile } = useFileUpload();
-
-  
-  const formSchema = z.object({
-    title: z.string(),
-    price: z.coerce.number(),
-    content: z.string(),
-    image: z
-      .any()
-      // .instanceof(File, { message: 'Please upload a file.'})
-      // .custom<FileList>()
-      // .refine((fileList)=> fileList.length === 1, 'Expect file')
-      // .transform((file) => file[0] as File)
-      // .refine((files) => {
-      //   return files?.size <= MAX_FILE_SIZE;
-      // }, `Max image size is 5MB.`)
-      // .refine(
-      //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.type),
-      //   "Only .jpg, .jpeg, .png and .webp formats are supported."
-      // ),
-  });
+  const navigate = useNavigate();
+  // console.log(data)
+  // console.log(getData(id))
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      price: 0,
-      content: "",
+      title: data[0]?.title,
+      price: data[0]?.price,
+      content: data[0]?.content,
       image: undefined,
     },
   });
 
-  useEffect(()=>{
-    if(data){
-      form.setValue("title", data[0]?.title)
-      form.setValue("price", data[0]?.price)
-      form.setValue("content", data[0]?.content)
-    }
-    console.log(data)
-  },[data, form])
-  console.log("hi")
+
+  // setValue만 하면 무한 렌더링이 나면서 수정값 입력이 불가능해진다.
+  // useEffect(()=>{
+  //   if(data){
+  //     form.setValue("title", data[0]?.title)
+  //     form.setValue("price", data[0]?.price)
+  //     form.setValue("content", data[0]?.content)
+  //   }
+  //   console.log(data)
+  // },[data, form])
+
+
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // await updateProduct(data[0].id,values);
-}
+      await updateProduct(data[0].id, values);
+  }
 
   return (
     <>
@@ -86,7 +90,8 @@ const ProductEditCard = () => {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data" className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data"  className="space-y-8">
+
               <FormField
                 control={form.control}
                 name="image"
@@ -160,22 +165,22 @@ const ProductEditCard = () => {
                 )}
               />
               <div className="flex justify-around">
-                <Button type="submit">수정</Button>
-                {/* <Button 
+                <Button type="submit">수정하기</Button>
+                <Button 
                   type="button"
                   onClick={()=>{
                     deleteProduct(data[0]?.id)
                   }}
                 >
-                  삭제
-                </Button> */}
+                  삭제하기
+                </Button>
                 <Button 
                   type="button"
                   onClick={()=>{
                     navigate(-1)
                   }}
                 >
-                  취소
+                  취소하기
                 </Button>
               </div>
             </form>
@@ -186,4 +191,4 @@ const ProductEditCard = () => {
   );
 };
 
-export default ProductEditCard;
+export default ProductEditCardTwo;

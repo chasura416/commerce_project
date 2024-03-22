@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import useGetProduct from "@/hooks/upload/useGetProduct";
 import useFileUpload from "@/hooks/upload/useFileUpload";
 import dayjs from "dayjs";
-import { ProductEdit } from "@/pages";
 
 const ProductDetailCard = () => {
   const { id } = useParams();
