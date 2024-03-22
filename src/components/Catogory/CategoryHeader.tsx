@@ -19,4 +19,4 @@ const CategoryHeader = () => {
   )
 }
 
-export default CategoryHeader
+export default CategoryHeader;

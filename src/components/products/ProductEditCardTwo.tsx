@@ -1,3 +1,7 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -7,40 +11,87 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Card, CardTitle, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 import { MdAddPhotoAlternate } from "react-icons/md";
 
-import useUploadForm from "./useUploadForm";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import useGetProduct from "@/hooks/upload/useGetProduct";
+import useFileUpload from "@/hooks/upload/useFileUpload";
 import { useNavigate } from "react-router-dom";
 
-const UploadForm = () => {
-  const { form, onSubmit, handleImageFile } = useUploadForm();
+// const MAX_FILE_SIZE = 1024 * 1024 * 5;
+// const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+
+const formSchema = z.object({
+  title: z.string(),
+  price: z.coerce.number(),
+  content: z.string(),
+  image: z
+    .any()
+    // .instanceof(File, { message: 'Please upload a file.'})
+    // .custom<FileList>()
+    // .refine((fileList)=> fileList.length === 1, 'Expect file')
+    // .transform((file) => file[0] as File)
+    // .refine((files) => {
+    //   return files?.size <= MAX_FILE_SIZE;
+    // }, `Max image size is 5MB.`)
+    // .refine(
+    //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.type),
+    //   "Only .jpg, .jpeg, .png and .webp formats are supported."
+    // ),
+});
+
+const ProductEditCardTwo = () => {
+  const { updateProduct ,handleImageFile } = useFileUpload();
+  const { products, getData, deleteProduct } = useGetProduct();
+  const { id } = useParams();
+  const data = products.filter((v) => v.id === id);
   const navigate = useNavigate();
+  // console.log(data)
+  // console.log(getData(id))
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: data[0]?.title,
+      price: data[0]?.price,
+      content: data[0]?.content,
+      image: undefined,
+    },
+  });
+
+
+  // setValue만 하면 무한 렌더링이 나면서 수정값 입력이 불가능해진다.
+  // useEffect(()=>{
+  //   if(data){
+  //     form.setValue("title", data[0]?.title)
+  //     form.setValue("price", data[0]?.price)
+  //     form.setValue("content", data[0]?.content)
+  //   }
+  //   console.log(data)
+  // },[data, form])
+
+
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+      await updateProduct(data[0].id, values);
+  }
 
   return (
     <>
       <Card>
         <CardHeader>
-          <CardTitle>판매 글 작성</CardTitle>
-          <CardDescription>많이 파세여</CardDescription>
+          <CardTitle>판매 글 수정</CardTitle>
+          <CardDescription>수정 하세여</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              encType="multipart/form-data"
-              className="space-y-8"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data"  className="space-y-8">
+
               <FormField
                 control={form.control}
                 name="image"
@@ -61,8 +112,8 @@ const UploadForm = () => {
                         placeholder="image"
                         style={{ display: "none" }}
                         {...field}
-                        onChange={(event) => {
-                          handleImageFile(event);
+                        onChange={(event)=> {
+                          handleImageFile(event)
                         }}
                       />
                     </FormControl>
@@ -72,36 +123,14 @@ const UploadForm = () => {
               />
               <FormField
                 control={form.control}
-                name="category"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>카테고리</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                        <SelectTrigger className="w-[180px]">
-                          <SelectValue placeholder="콘솔 종류" />
-                        </SelectTrigger>
-                    </FormControl>
-                        <SelectContent>
-                          <SelectItem value="ps5">ps5</SelectItem>
-                          <SelectItem value="ps4">ps4</SelectItem>
-                          <SelectItem value="xbox">xbox</SelectItem>
-                          <SelectItem value="switch">switch</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
                 name="title"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>제목</FormLabel>
                     <FormControl>
-                      <Input placeholder="제목" {...field} />
+                      <Input 
+                        value={field.value}
+                        placeholder="제목" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -138,14 +167,22 @@ const UploadForm = () => {
                 )}
               />
               <div className="flex justify-around">
-                <Button type="submit">작성하기</Button>
-                <Button
+                <Button type="submit">수정하기</Button>
+                <Button 
                   type="button"
-                  onClick={() => {
-                    navigate(-1);
+                  onClick={()=>{
+                    deleteProduct(data[0]?.id)
                   }}
                 >
-                  뒤로가기
+                  삭제하기
+                </Button>
+                <Button 
+                  type="button"
+                  onClick={()=>{
+                    navigate(-1)
+                  }}
+                >
+                  취소하기
                 </Button>
               </div>
             </form>
@@ -156,4 +193,4 @@ const UploadForm = () => {
   );
 };
 
-export default UploadForm;
+export default ProductEditCardTwo;

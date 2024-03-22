@@ -7,6 +7,7 @@ import { db, storage, auth } from "@/firebase";
 
 import useGetProduct from "./useGetProduct";
 import { ProductsUpload } from "@/interface/Products";
+import { title } from "process";
 
 const useFileUpload = () => {
   const [addCart, setAddCart] = useState<boolean>(false);
@@ -29,7 +30,7 @@ const useFileUpload = () => {
     setAddCart(!addCart);
   };
   
-  const addProduct = async ({title,price,content}: ProductsUpload) => {
+  const addProduct = async ({title,price,content,category}: ProductsUpload) => {
     if(!imageUpload) return;
     const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload?.name}`);
     await uploadBytes(imageRef, imageUpload);
@@ -37,6 +38,7 @@ const useFileUpload = () => {
 
     const collectionRef = collection(db, "Products");
     const docRef = await addDoc(collectionRef, {
+      category: category,
       title: title,
       createdAt: new Date(),
       price: price,
@@ -69,6 +71,29 @@ const useFileUpload = () => {
     }
   }
 
+  const updateProduct = async (id: string, {title, price, content}: ProductsUpload) => {
+    const productRef = doc(db, `Products/${id}`)
+    const snapshot = await getDoc(productRef)
+    const data = snapshot.data()
+    if (!data) return
+    if(!imageUpload) return;
+    const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload?.name}`);
+    await uploadBytes(imageRef, imageUpload);
+    const downloadURL = await getDownloadURL(imageRef);
+    try {
+      await updateDoc(productRef, {
+        title: title,
+        price: price,
+        content: content,
+        imgUrl: downloadURL,
+      });
+      navigate(`/productdetail/${id}`);
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+
 
   // 필요없는 부분이니까 이미지까지 제대로 되면 지울 것.
   
@@ -97,6 +122,7 @@ const useFileUpload = () => {
     cartProductHandle, 
     addProduct,
     handleImageFile,
+    updateProduct,
   }
 };
 

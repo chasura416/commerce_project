@@ -4,10 +4,11 @@ import { z } from "zod";
 
 import useFileUpload from "../upload/useFileUpload";
 
-const MAX_FILE_SIZE = 1024 * 1024 * 5;
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+// const MAX_FILE_SIZE = 1024 * 1024 * 5;
+// const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
+  category: z.string(),
   title: z.string(),
   price: z.coerce.number(),
   content: z.string(),

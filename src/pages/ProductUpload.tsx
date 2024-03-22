@@ -7,7 +7,7 @@ const ProductUpload = () => {
     <>
       <GlobalLayout>
         <Header />
-        <div className="max-w-[900px] m-auto">
+        <div className="max-w-[600px] m-auto">
           <UploadCard />
         </div>
       </GlobalLayout>

@@ -14,21 +14,18 @@ const useLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log("user", user);
+    onAuthStateChanged(auth, () => {
     })
   }, [])
 
 
   const signIn = async ({email, password}: User) => {
-    console.log("click signIn")
     try {
-      const userCredential = await signInWithEmailAndPassword(
+       await signInWithEmailAndPassword(
         auth,
         email,
         password
       )
-      console.log("user with signIn", userCredential.user)
       navigate("/");
     } catch (error: unknown) {
       console.log("error with signIn")
@@ -38,7 +35,6 @@ const useLogin = () => {
 
   const logOut = async (event: FormEvent) => {
     event.preventDefault();
-    console.log("click logOut")
 
     await signOut(auth);
   };
