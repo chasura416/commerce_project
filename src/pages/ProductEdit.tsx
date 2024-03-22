@@ -8,7 +8,7 @@ const ProductEdit = () => {
     <>
       <GlobalLayout>
         <Header />
-        <div className="m-auto w-[600px]">
+        <div className="m-auto max-w-[600px]">
           {/* <ProductEditCard /> */}
           <ProductEditCardTwo />
         </div>

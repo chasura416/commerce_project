@@ -30,7 +30,7 @@ const useFileUpload = () => {
     setAddCart(!addCart);
   };
   
-  const addProduct = async ({title,price,content}: ProductsUpload) => {
+  const addProduct = async ({title,price,content,category}: ProductsUpload) => {
     if(!imageUpload) return;
     const imageRef = ref(storage, `${auth.currentUser?.uid}/${imageUpload?.name}`);
     await uploadBytes(imageRef, imageUpload);
@@ -38,6 +38,7 @@ const useFileUpload = () => {
 
     const collectionRef = collection(db, "Products");
     const docRef = await addDoc(collectionRef, {
+      category: category,
       title: title,
       createdAt: new Date(),
       price: price,

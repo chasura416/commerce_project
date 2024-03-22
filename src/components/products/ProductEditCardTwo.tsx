@@ -128,7 +128,9 @@ const ProductEditCardTwo = () => {
                   <FormItem>
                     <FormLabel>제목</FormLabel>
                     <FormControl>
-                      <Input placeholder="제목" {...field} />
+                      <Input 
+                        value={field.value}
+                        placeholder="제목" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

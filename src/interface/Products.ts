@@ -14,9 +14,11 @@ export interface Products {
   content: string;
   imgUrl: string[] | string;
   addCart: boolean;
+  category: string;
 }
 
 export interface ProductsUpload {
+  category: string;
   price: number;
   title: string;
   content: string;

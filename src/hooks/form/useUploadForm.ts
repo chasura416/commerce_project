@@ -8,6 +8,7 @@ import useFileUpload from "../upload/useFileUpload";
 // const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
+  category: z.string(),
   title: z.string(),
   price: z.coerce.number(),
   content: z.string(),
