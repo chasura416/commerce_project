@@ -28,7 +28,7 @@ const formSchema = z.object({
 });
 
 const useUploadForm = () => {
-  const {  addProduct, handleImageFile } = useFileUpload();
+  const { addProduct, handleImageFile } = useFileUpload();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

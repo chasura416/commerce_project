@@ -7,7 +7,6 @@ import { db, storage, auth } from "@/firebase";
 
 import useGetProduct from "./useGetProduct";
 import { ProductsUpload } from "@/interface/Products";
-import { title } from "process";
 
 const useFileUpload = () => {
   const [addCart, setAddCart] = useState<boolean>(false);

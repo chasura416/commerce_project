@@ -1,6 +1,5 @@
 import GlobalLayout from "@/layout/GlobalLayout"
 import Header from "@/layout/Header"
-import ProductEditCard from "@/components/products/ProductEditCard"
 import ProductEditCardTwo from "@/components/products/ProductEditCardTwo"
 import useGetProduct from "@/hooks/upload/useGetProduct"
 import { useParams } from "react-router-dom"
@@ -15,7 +14,6 @@ const ProductEdit = () => {
       <GlobalLayout>
         <Header />
         <div className="m-auto max-w-[600px]">
-          {/* <ProductEditCard /> */}
           <ProductEditCardTwo data={data}/>
         </div>
       </GlobalLayout>
