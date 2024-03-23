@@ -45,21 +45,22 @@ const formSchema = z.object({
     // ),
 });
 
-const ProductEditCardTwo = () => {
+const ProductEditCardTwo = (props) => {
   const { updateProduct ,handleImageFile } = useFileUpload();
-  const { products, getData, deleteProduct } = useGetProduct();
-  const { id } = useParams();
-  const data = products.filter((v) => v.id === id);
+  const { getData, deleteProduct } = useGetProduct();
+  const { data } = props;
+  // const { id } = useParams();
+  // const [data] = products.filter((v) => v.id === id);
   const navigate = useNavigate();
-  // console.log(data)
+  console.log(data)
   // console.log(getData(id))
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: data[0]?.title,
-      price: data[0]?.price,
-      content: data[0]?.content,
+      title: data.title,
+      price: data.price,
+      content: data.content,
       image: undefined,
     },
   });
@@ -129,7 +130,6 @@ const ProductEditCardTwo = () => {
                     <FormLabel>제목</FormLabel>
                     <FormControl>
                       <Input 
-                        value={field.value}
                         placeholder="제목" {...field} />
                     </FormControl>
                     <FormMessage />

@@ -60,12 +60,6 @@ const useGetProduct = () => {
     console.log(ProductData)
     // setProduct(ProductData)
   };
-// useEffect(()=>{
-
-//   getData();
-// }, []);
-
-
 
 
   // data는 productDetail에서 drilling 해준 값
