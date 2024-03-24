@@ -58,8 +58,6 @@ const ProductEditCardTwo = (Props) => {
   const { data } = Props;
   const navigate = useNavigate();
 
-  console.log(data)
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
