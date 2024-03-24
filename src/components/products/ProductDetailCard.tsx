@@ -10,6 +10,7 @@ const ProductDetailCard = () => {
   const { id } = useParams();
   const { products, deleteProduct, navigate } = useGetProduct();
   const { cartUpdate } = useFileUpload();
+  if(!products) return
   const data = products.filter((v) => v.id === id);
 
   return (
