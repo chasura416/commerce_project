@@ -1,66 +1,52 @@
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-// import { useParams } from "react-router-dom";
-
-// import useFileUpload from "../upload/useFileUpload";
-// import useGetProduct from "../upload/useGetProduct";
-// import { useEffect } from "react";
+import useFileUpload from "@/hooks/upload/useFileUpload";
 
 // const MAX_FILE_SIZE = 1024 * 1024 * 5;
 // const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
-// const formSchema = z.object({
-//   title: z.string(),
-//   price: z.coerce.number(),
-//   content: z.string(),
-//   image: z
-//     .any()
-//     // .instanceof(File, { message: 'Please upload a file.'})
-//     // .custom<FileList>()
-//     // .refine((fileList)=> fileList.length === 1, 'Expect file')
-//     // .transform((file) => file[0] as File)
-//     // .refine((files) => {
-//     //   return files?.size <= MAX_FILE_SIZE;
-//     // }, `Max image size is 5MB.`)
-//     // .refine(
-//     //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.type),
-//     //   "Only .jpg, .jpeg, .png and .webp formats are supported."
-//     // ),
-// });
+const formSchema = z.object({
+  category: z.string(),
+  title: z.string(),
+  price: z.coerce.number(),
+  content: z.string(),
+  image: z
+    .any()
+    // .instanceof(File, { message: 'Please upload a file.'})
+    // .custom<FileList>()
+    // .refine((fileList)=> fileList.length === 1, 'Expect file')
+    // .transform((file) => file[0] as File)
+    // .refine((files) => {
+    //   return files?.size <= MAX_FILE_SIZE;
+    // }, `Max image size is 5MB.`)
+    // .refine(
+    //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.type),
+    //   "Only .jpg, .jpeg, .png and .webp formats are supported."
+    // ),
+});
 
-// const useUpdateForm = () => {
-//   const { updateProduct, handleImageFile } = useFileUpload();
-  // const { id } = useParams();
-  // const { products } = useGetProduct();
-  // const data = products.filter((v) => v.id === id);
-  // const dataa = data[0];
+const useUpdateForm = (Props) => {
+  const { updateProduct } = useFileUpload();
+  const { data } = Props;
 
-  // const form = useForm<z.infer<typeof formSchema>>({
-  //   resolver: zodResolver(formSchema),
-  //   defaultValues: {
-  //     title: "",
-  //     price: 0,
-  //     content: "",
-  //     image: undefined,
-  //   },
-  // });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      category: data.category,
+      title: data.title,
+      price: data.price,
+      content: data.content,
+      image: undefined,
+    },
+  });
 
-  // useEffect(()=>{
-  //   if(data){
-  //     form.setValue("title", data[0]?.title)
-  //     form.setValue("price", data[0]?.price)
-  //     form.setValue("content", data[0]?.content)
-  //   }
-  // },[data, form])
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+      await updateProduct(data.id, values);
+  }
 
+  return { form, onSubmit };
+};
 
-//   async function onSubmit(values: z.infer<typeof formSchema>) {
-//       // await updateProduct(data[0].id,values);
-//   }
-
-//   return { onSubmit, handleImageFile };
-// };
-
-// export default useUpdateForm;
+export default useUpdateForm;

@@ -5,6 +5,7 @@ import Header from "@/layout/Header";
 import ProductsCard from "@/components/products/ProductsCard";
 import HomeCarousel from "@/components/home/HomeCarousel";
 import HomeCategory from "@/components/home/HomeCategory";
+import HomeDetailCategory from "@/components/home/HomeDetailCategory";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -33,6 +34,7 @@ const Home = () => {
           <Button>임시 글쓰기 버튼</Button>
         </Link>
       </div>
+        <HomeDetailCategory />
       <div className="flex flex-wrap justify-center">
         <ProductsCard />
       </div>

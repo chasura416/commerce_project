@@ -11,22 +11,29 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardTitle, CardContent, CardHeader, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 import { MdAddPhotoAlternate } from "react-icons/md";
 
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import useGetProduct from "@/hooks/upload/useGetProduct";
 import useFileUpload from "@/hooks/upload/useFileUpload";
 import { useNavigate } from "react-router-dom";
+import { Products } from "@/interface/Products";
 
 // const MAX_FILE_SIZE = 1024 * 1024 * 5;
 // const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const formSchema = z.object({
+  category: z.string(),
   title: z.string(),
   price: z.coerce.number(),
   content: z.string(),
@@ -45,40 +52,25 @@ const formSchema = z.object({
     // ),
 });
 
-const ProductEditCardTwo = () => {
+const ProductEditCardTwo = (Props) => {
   const { updateProduct ,handleImageFile } = useFileUpload();
-  const { products, getData, deleteProduct } = useGetProduct();
-  const { id } = useParams();
-  const data = products.filter((v) => v.id === id);
+  const { deleteProduct } = useGetProduct();
+  const { data } = Props;
   const navigate = useNavigate();
-  // console.log(data)
-  // console.log(getData(id))
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: data[0]?.title,
-      price: data[0]?.price,
-      content: data[0]?.content,
+      category: data.category,
+      title: data.title,
+      price: data.price,
+      content: data.content,
       image: undefined,
     },
   });
 
-
-  // setValue만 하면 무한 렌더링이 나면서 수정값 입력이 불가능해진다.
-  // useEffect(()=>{
-  //   if(data){
-  //     form.setValue("title", data[0]?.title)
-  //     form.setValue("price", data[0]?.price)
-  //     form.setValue("content", data[0]?.content)
-  //   }
-  //   console.log(data)
-  // },[data, form])
-
-
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-      await updateProduct(data[0].id, values);
+      await updateProduct(data.id, values);
   }
 
   return (
@@ -90,8 +82,7 @@ const ProductEditCardTwo = () => {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data"  className="space-y-8">
-
+            <form onSubmit={form.handleSubmit(onSubmit)} encType="multipart/form-data" className="space-y-8">
               <FormField
                 control={form.control}
                 name="image"
@@ -123,13 +114,36 @@ const ProductEditCardTwo = () => {
               />
               <FormField
                 control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>카테고리</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="콘솔 종류" />
+                        </SelectTrigger>
+                    </FormControl>
+                        <SelectContent>
+                          <SelectItem value="ps5">ps5</SelectItem>
+                          <SelectItem value="ps4">ps4</SelectItem>
+                          <SelectItem value="xbox">xbox</SelectItem>
+                          <SelectItem value="switch">switch</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name="title"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>제목</FormLabel>
                     <FormControl>
                       <Input 
-                        value={field.value}
                         placeholder="제목" {...field} />
                     </FormControl>
                     <FormMessage />

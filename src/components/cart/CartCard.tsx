@@ -13,6 +13,7 @@ const CartCard = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { products } = useGetProduct();
   const { cartUpdate } = useFileUpload();
+  if (!products) return
   const data = products.filter((v) => v.addCart === true);
 
   const ShowModalHandler = () => {
