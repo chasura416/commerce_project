@@ -1,5 +1,6 @@
 import { FLATFORMList } from "../Catogory/categoryFlatform";
-import ProductsListCard from "../products/ProductListCard";
+import ProductsCategoryCard from "../products/ProductCategoryCard";
+
 import { useNavigate } from "react-router-dom";
 
 const HomeDetailCategory = () => {
@@ -20,7 +21,7 @@ const HomeDetailCategory = () => {
               더 보기
             </div>
           </div>
-          <ProductsListCard />
+          <ProductsCategoryCard id={id}/>
         </section>
       ))}
     </>
