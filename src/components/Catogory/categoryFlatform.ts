@@ -7,9 +7,9 @@ export const FLATFORM: Record<string, {title: string}> = {
 }
 ;
 export const FLATFORMList = [
-  { title: 'Category All' },
-  { title: 'PlayStation5' },
-  { title: 'PlayStation4' },
-  { title: 'XBOX ONE' },
-  { title: 'NINTENDO SWITCH' },
+  { title: 'Category All', id: 'all' },
+  { title: 'PlayStation5', id: 'ps5' },
+  { title: 'PlayStation4', id: 'ps4' },
+  { title: 'XBOX ONE', id: 'xbox' },
+  { title: 'NINTENDO SWITCH', id: 'switch' },
 ];
