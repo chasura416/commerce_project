@@ -11,13 +11,13 @@ const ProductsCategoryCard = ({id}: {id: string}) => {
     handleLike, 
   } = useGetProduct();
   if(!products) return
-  const data = products.filter((v) => v.category === id)
+  const data = products.filter((v) => v.category === id).slice(0, 4)
     
   return (
     <>
       <div className="grid grid-cols-4 max-w-7xl">
          {id === "all" ? (
-          products?.map((product: Products) => (
+          products?.slice(0, 4).map((product: Products) => (
           <div key={product?.id} className="flex mt-10">
             <div className="flex flex-col p-10 max-w-95">
               <Link to={`/productdetail/${product?.id}`}>
