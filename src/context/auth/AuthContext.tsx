@@ -33,6 +33,7 @@ const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | string | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  console.log(user)
 
   const createUser = (email: string, password: string) => {
     setLoading(true);

@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Home, Login, SignUpPage, MyPage, Cart, ProductUpload, NotFound, SellerPage, ProductDetail, CategoryList, ProductEdit, } from "../pages";
+import PrivateRouter from "./PrivateRouter";
 
 const Router = () => {
   return (
@@ -7,13 +8,18 @@ const Router = () => {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/mypage" element={<MyPage />} />
-      <Route path="/cart" element={<Cart />} />
+      <Route path="/mypage" element={
+          <PrivateRouter>
+            <MyPage />
+          </PrivateRouter>
+        } 
+      />
       <Route path="/upload" element={<ProductUpload />} />
-      <Route path="/productdetail/:id" element={<ProductDetail />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="/productedit/:id" element={<ProductEdit />} />
-      <Route path="/category/:id" element={<CategoryList />} />
       <Route path="/sellerpage" element={<SellerPage />} />
+      <Route path="/productdetail/:id" element={<ProductDetail />} />
+      <Route path="/category/:id" element={<CategoryList />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );
