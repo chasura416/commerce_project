@@ -47,7 +47,7 @@ const AuthProvider = ({ children }: Props) => {
   };
 
   const logOut = () => {
-    setLoading(true);
+    setLoading(false);
     setUser(null);
     signOut(auth);
     navigate("/login"); // Redirect to the login page after logout
