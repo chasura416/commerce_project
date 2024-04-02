@@ -20,9 +20,7 @@ const Router = () => {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/upload" element={<ProductUpload />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/productedit/:id" element={<ProductEdit />} />
       <Route path="/sellerpage" element={<SellerPage />} />
       <Route path="/productdetail/:id" element={<ProductDetail />} />
       <Route path="/category/:id" element={<CategoryList />} />
@@ -31,6 +29,8 @@ const Router = () => {
       {/* Private Route */}
       <Route element={<PrivateRouter/>}>
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/upload" element={<ProductUpload />} />
+        <Route path="/productedit/:id" element={<ProductEdit />} />
       </Route>
     </Routes>
   );
