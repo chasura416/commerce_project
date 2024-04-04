@@ -13,6 +13,7 @@ import {
   ProductEdit,
 } from "../pages";
 import PrivateRouter from "./PrivateRouter";
+import SellerRouter from "./SellerRouter";
 
 const Router = () => {
   return (
@@ -29,8 +30,10 @@ const Router = () => {
       {/* Private Route */}
       <Route element={<PrivateRouter/>}>
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/upload" element={<ProductUpload />} />
-        <Route path="/productedit/:id" element={<ProductEdit />} />
+        <Route element={<SellerRouter/>}>
+          <Route path="/upload" element={<ProductUpload />} />
+          <Route path="/productedit/:id" element={<ProductEdit />} />
+        </Route>
       </Route>
     </Routes>
   );
