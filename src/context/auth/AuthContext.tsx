@@ -33,6 +33,7 @@ const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | string | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  console.log(user)
 
   const createUser = (email: string, password: string) => {
     setLoading(true);
@@ -46,7 +47,7 @@ const AuthProvider = ({ children }: Props) => {
   };
 
   const logOut = () => {
-    setLoading(true);
+    setLoading(false);
     setUser(null);
     signOut(auth);
     navigate("/login"); // Redirect to the login page after logout

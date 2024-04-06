@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 import Header from "@/layout/Header";
-import ProductsCard from "@/components/products/ProductsCard";
 import HomeCarousel from "@/components/home/HomeCarousel";
 import HomeCategory from "@/components/home/HomeCategory";
 import HomeDetailCategory from "@/components/home/HomeDetailCategory";
@@ -11,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+
   useEffect(() => {
     onAuthStateChanged(auth, () => {
     });
@@ -35,9 +35,6 @@ const Home = () => {
         </Link>
       </div>
         <HomeDetailCategory />
-      <div className="flex flex-wrap justify-center">
-        <ProductsCard />
-      </div>
     </div>
   );
 };

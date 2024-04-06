@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 
 const MyPageCard = () => {
   const { products, deleteProduct } = useGetProduct();
+  if(!products) return
   const data = products.filter((v) => v.uid === auth.currentUser?.uid);
 
   return (
@@ -30,6 +31,7 @@ const MyPageCard = () => {
                       </Link>
                       <div className="flex-grow-1 p-4">
                         <div className="text-lg">{product?.title}</div>
+                        <div className="text-base">{product?.price}원</div>
                         <div className="text-sm text-gray-500">
                           {dayjs(
                             (product?.createdAt.seconds +
@@ -37,7 +39,6 @@ const MyPageCard = () => {
                               1000
                           ).format("YYYY.MM.DD")}
                         </div>
-                        <div className="text-base">{product?.price}원</div>
                       </div>
                     </div>
                     <div className="flex flex-col pt-12 gap-1">
