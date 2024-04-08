@@ -5,6 +5,7 @@ import useGetProduct from "@/hooks/upload/useGetProduct";
 import dayjs from "dayjs";
 
 import { Button } from "@/components/ui/button";
+import MyPageList from "./MyPageList";
 
 const MyPageCard = () => {
   const { products, deleteProduct } = useGetProduct();
@@ -15,6 +16,7 @@ const MyPageCard = () => {
     <>
       <div>
         <div className="border-b mb-10 pl-2 text-2xl font-semibold">My Page</div>
+        <MyPageList />
         <div className="flex justify-center">
           <div className="flex flex-col m-10 p-3 justify-center w-4/6">
             <div className="border-b mb-10 pl-2 text-2xl font-semibold">내가 쓴 글 목록</div>
@@ -43,7 +45,6 @@ const MyPageCard = () => {
                     </div>
                     <div className="flex flex-col pt-12 gap-1">
                       <Button>수정하기</Button>
-                      {/* 무작위로 지워지니까 특정 글 지워지도록 삭제버튼 새로 이부분만 다시 만들 것 */}
                       <Button
                         onClick={() => {
                           deleteProduct(product?.id);
