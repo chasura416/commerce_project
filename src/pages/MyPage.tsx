@@ -8,7 +8,7 @@ const MyPage = () => {
     <>
       <GlobalLayout>
         <Header />
-       <MyPageCard />
+        <MyPageCard />
       </GlobalLayout>
     </>
   );
