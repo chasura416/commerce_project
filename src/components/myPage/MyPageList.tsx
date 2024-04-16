@@ -3,8 +3,11 @@
 const MyPageList = () => {
   return (
     <aside className="w-36 h-96 bg-red-200">
-      <div>내가 쓴 글 목록</div>
-      <div>내가 좋아요 한 글 목록</div>
+      <ul>
+        <ol>내가 쓴 글 목록</ol>
+        <ol>내가 좋아요 한 글 목록</ol>
+      </ul>
+      <div></div>
       <div></div>
     </aside>
   )
