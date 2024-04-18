@@ -16,9 +16,9 @@ const MyPageCard = () => {
     <>
       <div>
         <div className="border-b mb-10 pl-2 text-2xl font-semibold">My Page</div>
+        <div className="flex">
         <MyPageList />
-        <div className="flex justify-center">
-          <div className="flex flex-col m-10 p-3 justify-center w-4/6">
+          <div className="flex flex-col flex-1 p-14 justify-center w-4/6">
             <div className="border-b mb-10 pl-2 text-2xl font-semibold">내가 쓴 글 목록</div>
             {data.map((product: Products) => (
               <div key={product?.id} className="border rounded-lg">
