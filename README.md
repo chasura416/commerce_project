@@ -19,7 +19,7 @@ Ps-Market은 2024.01.24 ~ 2024.02.29 1차 개발되었습니다.
 > <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/github actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white">
 
 
-## 🛠️File Structure
+## 🛠️ File Structure
 
 ```
 src
@@ -48,7 +48,7 @@ src
 
 ```
 
-## 🛠️Architecture
+## 🛠️ Architecture
 ![스크린샷 2024-03-01 오후 4 29 58](https://github.com/chasura416/commerce_project/assets/49605210/342167a4-e30f-40da-90e8-cb325b0af959)
 
 
